@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from 'react';
 import Modal from './components/Modal';
 import Link from 'next/link';
 import { TriangleAlert, ArrowRight, ShoppingBag, User, Menu, Briefcase, DollarSign,  ShieldCheck, TreeDeciduous, X, Zap, Instagram, Facebook, Twitter, ShieldAlert, GraduationCap, Award, Leaf, CheckCircle2, Flame, Hammer, Star, MapPin, Thermometer, Clock, BookOpen, AlertTriangle, Phone, ShoppingCart, ChefHat } from 'lucide-react';
-import { url } from 'inspector';
 
 
 interface FeatureCardProps {
@@ -175,28 +174,28 @@ export default function LandingPage() {
   const featuresData = [
   {
     title: "Perfil de Sabor Único",
-    description: "El mezquite aporta notas ahumadas auténticas que elevan la calidad de tus cortes. Tus clientes notarán la diferencia.",
+    description: "El mezquite aporta notas ahumadas auténticas que elevan tus cortes",
     icon: ChefHat,
     colorClass: "text-[#FD6A02]", // Naranja
     borderColor: "group-hover:border-[#FD6A02]"
   },
   {
     title: "Rentabilidad por Costal",
-    description: "Alto poder calorífico significa menos producto por servicio. Rinde hasta un 30% más que carbones comerciales.",
+    description: "Rinde hasta 30% más que carbones comerciales",
     icon: DollarSign,
     colorClass: "text-[#FFD700]", // Oro (Dinero/Ahorro)
     borderColor: "group-hover:border-[#FFD700]"
   },
   {
     title: "Temperatura Constante",
-    description: "Brasa estable que permite un sellado perfecto y control total de los términos de cocción en parrilla abierta.",
+    description: "Brasa estable para control total de cocción",
     icon: Flame,
     colorClass: "text-[#D32F2F]", // Rojo
     borderColor: "group-hover:border-[#D32F2F]"
   },
   {
     title: "Seguridad Operativa",
-    description: "Proceso de carbonización controlado para minimizar chispas excesivas, protegiendo a tu personal y comensales.",
+    description: "Minimiza chispas, protegiendo personal y comensales",
     icon: ShieldCheck,
     colorClass: "text-white", // Blanco
     borderColor: "group-hover:border-white"
@@ -670,8 +669,8 @@ export default function LandingPage() {
 
             <div className="grid md:grid-cols-3 gap-8">
               {[
-                { icon: Zap, title: 'Enciende Rápido', desc: 'Prende a la primera, sin batallar', color: '#FD6A02', image: 'photo-1555939594-58d7cb561ad1' },
                 { icon: Award, title: 'Calidad Premium', desc: 'Trozos grandes, cero polvo', color: '#FFD700', image: 'photo-1529692236671-f1f6cf9683ba' },
+                { icon: Zap, title: 'Enciende Rápido', desc: 'Prende a la primera, sin batallar', color: '#FD6A02', image: 'photo-1555939594-58d7cb561ad1' },
                 { icon: Leaf, title: '100% Natural', desc: 'Sin químicos, sabor auténtico', color: '#D32F2F', image: 'photo-1558618666-fcd25c85cd64' },
               ].map((item, i) => {
                 const Icon = item.icon;
@@ -682,7 +681,7 @@ export default function LandingPage() {
                       className="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-700"
                       style={{ backgroundImage: `url('https://images.unsplash.com/${item.image}?q=80&w=800&auto=format&fit=crop')` }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30" />
+                    <div className="absolute inset-0 bg-linear-to-t from-black via-black/70 to-black/30" />
 
                     {/* Contenido */}
                     <div className="absolute inset-0 flex flex-col justify-end p-8">
@@ -695,6 +694,39 @@ export default function LandingPage() {
                   </div>
                 );
               })}
+            </div>
+          </div>
+        </section>
+
+        {/* BusinessSolutions */}
+        <section className="py-16 bg-[#0A0A0A] border-t border-white/5">
+          <div className="max-w-7xl mx-auto px-4 md:px-6">
+            <div className="grid md:grid-cols-2 gap-8">
+
+              {/* Opción A: Restaurantes */}
+              <div className="bg-[#111] p-8 rounded-2xl border border-white/10 hover:border-[#FD6A02]/50 transition-colors group">
+                <h3 className="text-2xl font-black text-white mb-4 flex items-center gap-2">
+                  <ChefHat className="text-[#FD6A02]" /> Para Restaurantes
+                </h3>
+                <ul className="space-y-3 text-gray-400">
+                  <li className="flex gap-2"><span className="text-[#FD6A02]">✓</span> Calidad estandarizada (siempre el mismo calor).</li>
+                  <li className="flex gap-2"><span className="text-[#FD6A02]">✓</span> Menos merma y polvo = Más ahorro.</li>
+                  <li className="flex gap-2"><span className="text-[#FD6A02]">✓</span> Facturación mensual.</li>
+                </ul>
+              </div>
+
+              {/* Opción B: Distribuidores/Tiendas */}
+              <div className="bg-[#111] p-8 rounded-2xl border border-white/10 hover:border-[#FFD700]/50 transition-colors group">
+                <h3 className="text-2xl font-black text-white mb-4 flex items-center gap-2">
+                  <ShoppingCart className="text-[#FFD700]" /> Para Distribuidores
+                </h3>
+                <ul className="space-y-3 text-gray-400">
+                  <li className="flex gap-2"><span className="text-[#FFD700]">✓</span> Empaque resistente y atractivo para anaquel.</li>
+                  <li className="flex gap-2"><span className="text-[#FFD700]">✓</span> Márgenes de ganancia competitivos.</li>
+                  <li className="flex gap-2"><span className="text-[#FFD700]">✓</span> Proceso de empaque 100% hecho a mano.</li>
+                </ul>
+              </div>
+
             </div>
           </div>
         </section>
@@ -774,36 +806,32 @@ export default function LandingPage() {
             </Link>
           </div>
         </section>
-
-        {/* BusinessSolutions */}
-        <section className="py-16 bg-[#0A0A0A] border-t border-white/5">
+        
+        <section className="py-20 bg-linear-to-b from-[#0A0A0A] to-[#0f0f0f] scroll-reveal">
           <div className="max-w-7xl mx-auto px-4 md:px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-6xl font-black mb-4">
+                ¿Por qué los <span className="text-[#FD6A02]">expertos</span> nos eligen?
+              </h2>
+              <p className="text-gray-400 text-xl">No es solo fuego, es el ingrediente secreto</p>
+            </div>
+
             <div className="grid md:grid-cols-2 gap-8">
-
-              {/* Opción A: Restaurantes */}
-              <div className="bg-[#111] p-8 rounded-2xl border border-white/10 hover:border-[#FD6A02]/50 transition-colors group">
-                <h3 className="text-2xl font-black text-white mb-4 flex items-center gap-2">
-                  <ChefHat className="text-[#FD6A02]" /> Para Restaurantes
-                </h3>
-                <ul className="space-y-3 text-gray-400">
-                  <li className="flex gap-2"><span className="text-[#FD6A02]">✓</span> Calidad estandarizada (siempre el mismo calor).</li>
-                  <li className="flex gap-2"><span className="text-[#FD6A02]">✓</span> Menos merma y polvo = Más ahorro.</li>
-                  <li className="flex gap-2"><span className="text-[#FD6A02]">✓</span> Facturación mensual.</li>
-                </ul>
-              </div>
-
-              {/* Opción B: Distribuidores/Tiendas */}
-              <div className="bg-[#111] p-8 rounded-2xl border border-white/10 hover:border-[#FFD700]/50 transition-colors group">
-                <h3 className="text-2xl font-black text-white mb-4 flex items-center gap-2">
-                  <ShoppingCart className="text-[#FFD700]" /> Para Distribuidores
-                </h3>
-                <ul className="space-y-3 text-gray-400">
-                  <li className="flex gap-2"><span className="text-[#FFD700]">✓</span> Empaque resistente y atractivo para anaquel.</li>
-                  <li className="flex gap-2"><span className="text-[#FFD700]">✓</span> Márgenes de ganancia competitivos.</li>
-                  <li className="flex gap-2"><span className="text-[#FFD700]">✓</span> Proceso de empaque 100% hecho a mano.</li>
-                </ul>
-              </div>
-
+              {[
+                { icon: ChefHat, title: 'Perfil de Sabor Único', desc: 'El mezquite aporta notas ahumadas auténticas que elevan tus cortes', color: '#FD6A02' },
+                { icon: DollarSign, title: 'Rentabilidad por Costal', desc: 'Rinde hasta 30% más que carbones comerciales', color: '#FFD700' },
+                { icon: Flame, title: 'Temperatura Constante', desc: 'Brasa estable para control total de cocción', color: '#D32F2F' },
+                { icon: ShieldCheck, title: 'Seguridad Operativa', desc: 'Minimiza chispas, protegiendo personal y comensales', color: 'white' },
+              ].map((feature, i) => {
+                const Icon = feature.icon;
+                return (
+                  <div key={i} className="group bg-white/5 border border-white/10 hover:border-white/30 p-8 rounded-2xl transition-all hover:-translate-y-1">
+                    <Icon className="w-12 h-12 mb-4 group-hover:scale-110 transition-transform" style={{ color: feature.color }} />
+                    <h3 className="text-2xl font-bold mb-3" style={{ color: feature.color }}>{feature.title}</h3>
+                    <p className="text-gray-400 leading-relaxed">{feature.desc}</p>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>
@@ -815,11 +843,11 @@ export default function LandingPage() {
 
             <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
               <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-5xl font-bold mb-4 text-white">
+                <h2 className="text-4xl md:text-6xl font-black mb-4">
                   ¿Por qué los <span className="text-[#FD6A02]">expertos</span> nos eligen?
                 </h2>
                 <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-                  No es solo fuego, es el ingrediente secreto de tus mejores asados.
+                  No es solo fuego, es el ingrediente secreto.
                 </p>
               </div>
 
@@ -987,7 +1015,50 @@ export default function LandingPage() {
               <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
-        </section>        
+        </section>      
+
+        <section className="relative py-32 overflow-hidden scroll-reveal">
+          <div 
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=2000&auto=format&fit=crop')` }}
+          />
+          <div className="absolute inset-0 bg-linear-to-t from-black via-black/80 to-black/60" />
+
+          <div className="max-w-4xl mx-auto px-4 md:px-6 text-center relative z-10">
+            <div className="inline-flex p-6 rounded-full bg-linear-to-br from-[#FD6A02] to-[#D32F2F] mb-8 shadow-[0_0_40px_rgba(253,106,2,0.6)] animate-pulse-slow">
+              <Flame className="w-20 h-20 text-white" />
+            </div>
+
+            <h2 className="text-5xl md:text-7xl font-black mb-6 uppercase leading-tight">
+              ¿Listo para llevar tu parrilla
+              <br />
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-[#FD6A02] to-[#FFD700]">
+                al siguiente nivel?
+              </span>
+            </h2>
+
+            <p className="text-2xl text-gray-300 mb-12 font-light">
+              No arriesgues tu operación con carbón de mala calidad. <br className="hidden md:block" />
+              <strong className="text-white">Asegura el abasto, rendimiento y sabor</strong> que tu negocio merece.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <button 
+              className="cursor-pointer group bg-[#FD6A02] hover:bg-[#e55a00] px-12 py-6 font-black text-2xl text-white transition-all duration-300 rounded-full shadow-[0_0_30px_rgba(253,106,2,0.5)] hover:shadow-[0_0_50px_rgba(253,106,2,0.7)] transform hover:-translate-y-1 inline-flex items-center justify-center gap-3 uppercase tracking-wider">
+                Solicitar Alta
+                <ArrowRight className="w-7 h-7 group-hover:translate-x-1 transition-transform" />
+              </button>
+              <button 
+              className="cursor-pointer group bg-transparent border-2 border-white/30 hover:border-[#FFD700] text-white hover:text-[#FFD700] px-12 py-6 font-bold text-2xl transition-all duration-300 rounded-full inline-flex items-center justific-center gap-3 backdrop-blur-sm ">
+                Ver Catálogo
+              </button>
+            </div>
+
+            <p className="text-gray-500 mt-10 text-sm uppercase tracking-widest">
+              Envíos a CDMX, Edo. Méx y Área Metropolitana • Calidad Garantizada
+            </p>
+          </div>
+        </section>  
 
         {/* Final CTA */}
         <section className="py-24 relative overflow-hidden scroll-reveal">
