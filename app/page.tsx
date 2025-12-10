@@ -981,14 +981,12 @@ export default function LandingPage() {
                 <li className="flex items-start gap-3 text-gray-400">
                   <MapPin className="w-5 h-5 text-[#FD6A02] mt-0.5" />
                   <span>
-                    Calle Primavera No. 11<br />
-                    Col. San Bartolo Centro<br />
-                    Naucalpan, Edo. de México
+                    Calle No. 11<br />
                   </span>
                 </li>
                 <li className="text-gray-400">
                   <span className="block text-white font-bold">Teléfonos:</span>
-                  (55) 5576 0890 / 5576 9704
+                  (55) xxxx xxxx / xxxx xxxx
                 </li>
               </ul>
             </div>
@@ -1000,7 +998,7 @@ export default function LandingPage() {
             {/* IZQUIERDA: Copyright + Créditos Dev */}
             <div className="text-center md:text-left space-y-1">
               <p className="text-gray-500 text-xs">
-                © 2025 Salvador González Tolentino. Todos los derechos reservados.
+                © 2025 Salvador . Todos los derechos reservados.
               </p>
 
               {/* TU FIRMA DE DESARROLLADOR */}
