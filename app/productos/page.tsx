@@ -206,7 +206,6 @@ export default function Products() {
                                     />
                                 ) : (
                                     <div className="text-gray-600 group-hover:text-[#FD6A02] transition-colors duration-300 transform group-hover:scale-110 relative z-10 scale-125">
-                                        {product.icon}
                                     </div>
                                 )}
                             </div>
