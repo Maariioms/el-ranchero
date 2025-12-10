@@ -6,7 +6,7 @@ import Link from 'next/link';
 import Navbar from './components/Navbar';
 import { TriangleAlert, ArrowRight, ShoppingBag, User, Menu, Briefcase, DollarSign,  ShieldCheck, Package, X, Zap, Instagram, Facebook, Twitter, ShieldAlert, Scale, FileCheck, Award, Leaf, CheckCircle2, Flame, Hammer, Star, MapPin, Thermometer, Clock, BookOpen, AlertTriangle, Phone, ShoppingCart, ChefHat } from 'lucide-react';
 
-
+{/* Feature Card Component Props 
 interface FeatureCardProps {
   icon: React.ElementType;
   title: string;
@@ -63,6 +63,7 @@ function FeatureCard({ icon: Icon, title, colorClass, description }: FeatureCard
     </div>
   );
 }
+  */}
 
 interface StepCardProps {
   number: string;
