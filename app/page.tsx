@@ -12,6 +12,7 @@ interface FeatureCardProps {
   title: string;
   colorClass: string;
   description: string;
+  borderColor: string;
 }
 
   const featuresData: FeatureCardProps[] = [
