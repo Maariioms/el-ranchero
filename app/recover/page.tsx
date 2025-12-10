@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState, FormEvent} from 'react';
 import Link from 'next/link';
 import { Mail, Lock, Eye, EyeOff, KeyRound, ArrowRight, Loader2, ArrowLeft, CheckCircle2, HelpCircle, AlertCircle } from 'lucide-react';
 
@@ -19,8 +19,8 @@ export default function RecoverPass() {
   const [successMsg, setSuccessMsg] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  // --- MOCK: SIMULAR ENVÍO DE CÓDIGO ---
-  const handleSendCode = async (e) => {
+  {/* --- MOCK: SIMULAR RESETEO DE CONTRASEÑA ---  */}
+  const handleSendCode = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
     setIsLoading(true);
@@ -41,8 +41,8 @@ export default function RecoverPass() {
     }, 1500);
   };
 
-  // --- MOCK: SIMULAR CAMBIO DE PASS ---
-  const handleResetPassword = async (e) => {
+  {/* --- MOCK: SIMULAR RESETEO DE CONTRASEÑA --- */}
+  const handleResetPassword = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
     setIsLoading(true);
