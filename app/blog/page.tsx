@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import Navbar from '../components/Navbar';
 import { Flame, Clock, User, ArrowRight, ShoppingBag, Briefcase, BookOpen, ChevronRight, Search, Menu } from 'lucide-react';
 
 export default function BlogPage() {
@@ -44,124 +45,9 @@ export default function BlogPage() {
       <div className="relative z-10">
 
         {/* --- HEADER COMPLETO --- */}
-        <header className="bg-[#0A0A0A]/95 border-b border-[#FD6A02]/20 sticky top-0 z-50 backdrop-blur-md shadow-lg shadow-black/50">
-          <div className="max-w-7xl mx-auto px-4 md:px-6">
-            <div className="flex justify-between items-center h-20">
+        <Navbar />
 
-              {/* 1. LOGO EL RANCHERO */}
-              <Link href="/" className="flex items-center gap-2 group">
-                {/* Contenedor del Icono con gradiente bg-linear-to-br from-[#FD6A02] to-[#D32F2F]*/}
-                <div className=" p-2 rounded-lg group-hover:shadow-[0_0_15px_rgba(253,106,2,0.6)] transition-all">
-                   <img 
-                     src="/logo.png" 
-                     alt="Logo El Ranchero" 
-                     className="w-8 h-8 object-contain" 
-                   />
-                </div>
-
-                <div className="flex flex-col">
-                  <span className="text-xl md:text-2xl font-black text-white uppercase tracking-wide leading-none group-hover:text-[#FD6A02] transition-colors">
-                    El Ranchero
-                  </span>
-                  <span className="text-[10px] text-[#FD6A02] font-bold tracking-[0.2em] uppercase">
-                    Carbón de Leña
-                  </span>
-                </div>
-              </Link>
-
-              {/* 2. MENÚ CENTRAL (Para todo el público) */}
-              <nav className="hidden md:flex items-center gap-8">
-                <Link href="/productos" className="text-sm font-bold text-gray-300 hover:text-[#FD6A02] transition-colors uppercase tracking-wide flex items-center gap-1">
-                  <ShoppingBag className="w-4 h-4 mb-0.5" />
-                  Productos
-                </Link>
-                <Link href="/blog" className="text-sm font-bold text-gray-300 hover:text-[#FD6A02] transition-colors uppercase tracking-wide flex items-center gap-1">
-                  <BookOpen className="w-4 h-4 mb-0.5" />
-                  Zona Parrillera
-                </Link>
-                <Link href="/historia" className="text-sm font-bold text-gray-300 hover:text-[#FD6A02] transition-colors uppercase tracking-wide flex items-center gap-1">
-                  <Flame className="w-4 h-4 mb-0.5" />
-                  Tradición
-                </Link>
-              </nav>
-
-              {/* 3. ACCIONES DERECHA (Área B2B / Negocios) */}
-              <div className="hidden md:flex items-center gap-6">
-
-                {/* Separador vertical sutil */}
-                <div className="h-8 w-1px bg-white/10"></div>
-
-                {/* Login: Solo para quienes ya tienen ID/Cuenta */}
-                <Link
-                  href="/login"
-                  className="group flex items-center gap-2 text-sm font-bold text-white hover:text-[#FFD700] transition-colors"
-                >
-                  <div className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-[#FFD700] group-hover:bg-[#FFD700]/10 transition-all">
-                    <User className="w-4 h-4" />
-                  </div>
-                  <div className="flex flex-col items-start leading-none">
-                    <span className="text-[10px] text-gray-500 uppercase font-normal mb-0.5">Ya soy socio</span>
-                    <span>Acceso Clientes</span>
-                  </div>
-                </Link>
-
-                {/* CTA: Para nuevos interesados (Lleva a formulario, no a registro) */}
-                <Link
-                  href="/interest"
-                  className="bg-[#FD6A02] hover:bg-[#e55a00] text-white px-5 py-2.5 rounded-full font-bold text-sm shadow-[0_0_15px_rgba(253,106,2,0.3)] hover:shadow-[0_0_25px_rgba(253,106,2,0.5)] transition-all transform hover:-translate-y-0.5 flex items-center gap-2"
-                >
-                  <Briefcase className="w-4 h-4" />
-                  Quiero ser Distribuidor / Socio
-                </Link>
-              </div>
-
-              {/* Botón Menú Móvil */}
-              <button 
-                className="md:hidden text-white hover:text-[#FD6A02] transition-colors p-2"
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              >
-                {isMobileMenuOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
-              </button>
-            </div>
-          </div>
-
-          {/* MENÚ MÓVIL (Desplegable) */}
-          {isMobileMenuOpen && (
-            <div className="md:hidden bg-[#0A0A0A] border-t border-white/10 animate-fade-in-down absolute w-full left-0 shadow-2xl">
-              <div className="px-4 py-6 space-y-2">
-
-                <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 px-2">Explora</p>
-                <Link href="/productos" className="block px-3 py-2 rounded-lg text-lg font-bold text-white hover:bg-white/5 hover:text-[#FD6A02]">
-                  Nuestros Productos
-                </Link>
-                <Link href="/blog" className="block px-3 py-2 rounded-lg text-lg font-bold text-white hover:bg-white/5 hover:text-[#FD6A02]">
-                  Zona Parrillera
-                </Link>
-                <Link href="/historia" className="block px-3 py-2 rounded-lg text-lg font-bold text-white hover:bg-white/5 hover:text-[#FD6A02]">
-                  Nuestra Historia
-                </Link>
-
-                <div className="h-px bg-white/10 my-4 mx-2"></div>
-
-                <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 px-2">Distribuidores</p>
-
-                <Link href="/login" className="flex items-center gap-3 px-3 py-3 rounded-lg text-gray-300 hover:bg-white/5 hover:text-white">
-                  <User className="w-5 h-5 text-[#FD6A02]" />
-                  <div>
-                    <span className="block font-bold">Ingresar al Sistema</span>
-                    <span className="text-xs text-gray-500">Gestión de pedidos y facturas</span>
-                  </div>
-                </Link>
-
-                <Link href="/contacto-distribuidor" className="flex items-center justify-center gap-2 w-full bg-[#FD6A02] text-white py-3 rounded-lg font-bold mt-4 shadow-lg shadow-[#FD6A02]/20 active:scale-95 transition-transform">
-                  <Briefcase className="w-4 h-4" />
-                  Solicitar Alta de Cliente
-                </Link>
-              </div>
-            </div>
-          )}
-        </header>
-        <main className="max-w-7xl mx-auto px-4 md:px-6 py-12">
+        <main className="max-w-7xl mx-auto px-4 md:px-6 py-12 pt-25">
           
           {/* HERO DEL BLOG */}
           <div className="text-center mb-16 relative">
