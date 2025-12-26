@@ -997,7 +997,7 @@ export default function LandingPage() {
             {/* IZQUIERDA: Copyright + Créditos Dev */}
             <div className="text-center md:text-left space-y-1">
               <p className="text-gray-500 text-xs">
-                © 2025 Salvador . Todos los derechos reservados.
+                © 2025 Fernando . Todos los derechos reservados.
               </p>
 
               {/* TU FIRMA DE DESARROLLADOR */}

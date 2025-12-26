@@ -188,7 +188,7 @@ export default function BlogPage() {
       <footer className="bg-[#050505] border-t border-white/10 py-12">
           <div className="max-w-7xl mx-auto px-4 text-center">
               <p className="text-gray-600 text-xs mb-4">
-                © 2025 Salvador González Tolentino. Todos los derechos reservados.
+                © 2025 Fernando González Tolentino. Todos los derechos reservados.
               </p>
               <div className="flex justify-center gap-6">
                   <Link href="/" className="text-gray-500 hover:text-[#FD6A02] text-sm">Inicio</Link>
