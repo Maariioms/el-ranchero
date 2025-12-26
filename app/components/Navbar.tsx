@@ -144,7 +144,7 @@ export default function Navbar() {
               Nuestros Aliados
             </Link>
             <Link 
-              href="/historia" 
+              href="/tradicion" 
               onClick={() => setIsMobileMenuOpen(false)}
               className="block px-3 py-3 rounded-lg text-lg font-bold text-white hover:bg-white/5 hover:text-[#FD6A02] transition-colors"
             >
