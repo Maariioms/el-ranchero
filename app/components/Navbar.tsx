@@ -170,7 +170,7 @@ export default function Navbar() {
             </Link>
 
             <Link 
-              href="/contacto-distribuidor" 
+              href="/interest" 
               onClick={() => setIsMobileMenuOpen(false)}
               className="flex items-center justify-center gap-2 w-full bg-[#FD6A02] text-white py-4 rounded-lg font-bold mt-6 shadow-lg shadow-[#FD6A02]/20 active:scale-95 transition-transform uppercase tracking-wide"
             >
