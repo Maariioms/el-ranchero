@@ -148,7 +148,7 @@ export default function HistoriaPage() {
 
                                     {/* 2. EL PUNTO CENTRAL (BOLITA) */}
                                     {/* En móvil se pega a la izquierda (left-5), en desktop se centra exacto */}
-                                    <div className="absolute left-3 md:left-1/2 top-0 md:top-1/2 w-4 h-4 rounded-full bg-[#FD6A02] shadow-[0_0_15px_rgba(253,106,2,1)] md:-translate-x-1/2 md:-translate-y-1/2 outline outline-4 outline-[#0A0A0A] z-20"></div>
+                                    <div className="absolute left-3 md:left-1/2 top-0 md:top-1/2 w-4 h-4 rounded-full bg-[#FD6A02] shadow-[0_0_15px_rgba(253,106,2,1)] md:-translate-x-1/2 md:-translate-y-1/2 outline-4 outline-[#0A0A0A] z-20"></div>
 
                                     {/* 3. EL ESPACIO VACÍO (Para equilibrar el grid) */}
                                     <div className="hidden md:block md:w-[45%]"></div>

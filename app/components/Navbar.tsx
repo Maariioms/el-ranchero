@@ -69,7 +69,7 @@ export default function Navbar() {
               }`}
             >
               <BookOpen className="w-4 h-4 mb-0.5" />
-              Zona Parrillera
+              Nuestros Aliados
             </Link>
             <Link 
               href="/tradicion" 

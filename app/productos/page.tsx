@@ -202,7 +202,7 @@ export default function Products() {
                                     <img 
                                         src={product.img} 
                                         alt={product.name}
-                                        className="w-auto h-auto max-h-[160px] max-w-[200px] object-contain drop-shadow-2xl group-hover:scale-105 transition-transform duration-500 relative z-10"
+                                        className="w-auto h-auto max-h-40 max-w-[200px] object-contain drop-shadow-2xl group-hover:scale-105 transition-transform duration-500 relative z-10"
                                     />
                                 ) : (
                                     <div className="text-gray-600 group-hover:text-[#FD6A02] transition-colors duration-300 transform group-hover:scale-110 relative z-10 scale-125">
