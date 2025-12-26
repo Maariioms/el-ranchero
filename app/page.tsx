@@ -231,24 +231,24 @@ export default function LandingPage() {
             <div className="max-w-3xl">
               {/* Badge */}
               <div className="mb-6 inline-block">
-                <span className="rounded-full bg-[#FD6A02]/20 px-4 py-2 text-sm font-bold text-[#FD6A02] ring-1 ring-inset ring-[#FD6A02]/30 uppercase tracking-widest backdrop-blur-sm">
+                <span className="rounded-full bg-[#FD6A02]/20 px-4 py-2 text-xs md:text-sm font-bold text-[#FD6A02] ring-1 ring-inset ring-[#FD6A02]/30 uppercase tracking-widest backdrop-blur-sm">
                    La mejor elección de carbón
                 </span>
               </div>
 
-              {/* Título principal */}
-              <h1 className="text-5xl md:text-7xl font-black mb-6 uppercase tracking-tight leading-none">
+              {/* Título: Ajustado para Móvil (text-4xl) */}
+              <h1 className="text-4xl sm:text-5xl md:text-7xl font-black mb-6 uppercase tracking-tight leading-none">
                 Carbón que
                 <br />
                 <span className="text-[#FD6A02] italic">sabe a tradición</span>
               </h1>
 
-              <p className="text-xl md:text-2xl text-gray-300 mb-8 font-light leading-relaxed">
+              <p className="text-lg md:text-2xl text-gray-300 mb-8 font-light leading-relaxed">
                 100% Mezquite y Ébano. Hecho a mano en <span className="text-[#FFD700] font-bold">Tamaulipas</span>, 
                 donde la carne asada es religión.
               </p>
 
-              {/* Stats rápidos */}
+              {/* Stats: Espacio reducido en móvil (gap-4) */}
               <div className="flex flex-wrap gap-8 text-sm">
                 <div>
                   <div className="text-3xl font-black text-[#FD6A02] mb-1">100%</div>
@@ -267,7 +267,7 @@ export default function LandingPage() {
           </div>
 
           {/* Imagen del producto flotante (derecha en desktop) */}
-          <div className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 w-[500px] h-[600px]">
+          <div className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 w-[500px] h-[600px] z-20 animate-fade-in">
             <div 
               className="w-full h-full bg-cover bg-center transform rotate-12 hover:rotate-6 transition-transform duration-700"
               style={{
@@ -465,7 +465,7 @@ export default function LandingPage() {
             </div>
 
             {/* Card grande estilo featured */}
-            <div className="group relative block w-full h-[500px] rounded-3xl overflow-hidden border border-white/10 shadow-2xl hover:shadow-[0_0_50px_rgba(253,106,2,0.3)] transition-all duration-500 cursor-pointer">
+            <div className="group relative block w-full h-auto min-h-[450px] md:h-[500px] rounded-3xl overflow-hidden border border-white/10 shadow-2xl hover:shadow-[0_0_50px_rgba(253,106,2,0.3)] transition-all duration-500 cursor-pointer">
               {/* Imagen de fondo */}
               <div className="absolute inset-0 bg-[#1a1a1a] group-hover:scale-105 transition-transform duration-700">
                 <div 
@@ -489,7 +489,7 @@ export default function LandingPage() {
                     </span>
 
                     {/* Título Principal */}
-                    <h3 className="text-4xl md:text-7xl font-black text-white mb-6 leading-none group-hover:text-[#FD6A02] transition-colors uppercase tracking-tight">
+                    <h3 className="text-3xl sm:text-5xl md:text-7xl font-black text-white mb-4 md:mb-6 leading-none group-hover:text-[#FD6A02] transition-colors uppercase tracking-tight">
                         Carbón El Ranchero
                         <br />
                         <span className="text-3xl md:text-6xl text-transparent bg-clip-text bg-linear-to-r from-[#FFD700] to-[#FD6A02]">
@@ -498,17 +498,16 @@ export default function LandingPage() {
                     </h3>
 
                     {/* Descripción con Actitud */}
-                    <p className="text-gray-300 text-lg md:text-2xl max-w-2xl mx-auto mb-8 font-medium leading-relaxed">
-                        Trozos grandes de mezquite puro. Enciende rápido, dura horas y le da ese sabor ahumado que hace la diferencia.
+                    <p className="text-gray-300 text-sm md:text-2xl max-w-2xl mx-auto mb-6 md:mb-8 font-medium leading-relaxed">
+                        Trozos grandes de mezquite puro. Enciende rápido, dura horas y le da ese sabor ahumado.
                         <span className="block mt-2 text-white font-bold opacity-90">
-                            Sin polvo. Sin químicos. <span className="text-[#FD6A02]">Sin mamadas.</span>
+                             Sin polvo. Sin químicos.
                         </span>
                     </p>
 
                 </div>
 
-
-                <div className="flex items-center gap-6 text-sm font-medium flex-wrap">
+                <div className="flex items-center justify-center gap-4 text-xs md:text-sm font-medium flex-wrap">
                   <div className="flex items-center gap-2 text-gray-400">
                     <Flame className="w-5 h-5 text-[#FD6A02]" />
                     Enciende en 10 minutos
