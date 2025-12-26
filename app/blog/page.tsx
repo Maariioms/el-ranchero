@@ -230,7 +230,7 @@ export default function AliadosPage() {
                     Únete a la familia de restaurantes que sirven calidad. Precios especiales por volumen y entrega garantizada.
                 </p>
                 <Link 
-                    href="/contacto-distribuidor"
+                    href="/interest"
                     className="relative z-10 inline-flex items-center gap-2 bg-[#FD6A02] text-white px-8 py-4 rounded-full font-bold hover:bg-[#e55a00] hover:scale-105 transition-all shadow-lg shadow-[#FD6A02]/20 uppercase tracking-wide"
                 >
                     <Briefcase className="w-5 h-5" />

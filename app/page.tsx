@@ -317,7 +317,7 @@ export default function LandingPage() {
               {/* Botones de Venta */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
                 <Link
-                  href="/contacto-distribuidor"
+                  href="/interest"
                   className="bg-[#FD6A02] hover:bg-[#e55a00] text-white px-8 py-4 font-bold text-lg transition-all duration-300 rounded-full shadow-[0_0_20px_rgba(253,106,2,0.4)] hover:shadow-[0_0_30px_rgba(253,106,2,0.6)] transform hover:scale-105 flex items-center gap-2 uppercase tracking-wide"
                 >
                   Cotizar Mayoreo
@@ -519,9 +519,6 @@ export default function LandingPage() {
                   <div className="flex items-center gap-2 text-gray-400">
                     <Star className="w-5 h-5 text-[#FFD700]" />
                     Calidad Premium
-                  </div>
-                  <div className="flex items-center gap-2 text-white group-hover:translate-x-2 transition-transform ml-auto">
-                    Ver Detalles <ArrowRight className="w-4 h-4" />
                   </div>
                 </div>
               </div>
@@ -788,7 +785,7 @@ export default function LandingPage() {
             {/* CTA */}
             <div className="text-center mt-12">
               <Link // Usamos Link si es navegación interna, o button si abre modal
-                href="/contacto-distribuidor"
+                href="/interest"
                 className="bg-[#FD6A02] text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-[#e55a00] transition-all shadow-[0_0_20px_rgba(253,106,2,0.4)] hover:shadow-[0_0_30px_rgba(253,106,2,0.6)] hover:-translate-y-1 inline-flex items-center gap-2 group uppercase tracking-wide"
               >
                 Solicitar cotización
@@ -830,7 +827,7 @@ export default function LandingPage() {
           {/* Botón de Acción Final */}
           <div className="text-center mt-16">
             <Link
-              href="/comprar"
+              href="/interest"
               className="group bg-[#FD6A02] hover:bg-[#e55a00] px-10 py-5 font-bold text-xl text-white transition-all duration-300 rounded-full shadow-[0_0_15px_rgba(253,106,2,0.4)] hover:shadow-[0_0_25px_rgba(253,106,2,0.6)] transform hover:scale-105 inline-flex items-center gap-3 uppercase tracking-wider"
             >
               Cotizar Mayoreo
@@ -866,11 +863,11 @@ export default function LandingPage() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <button 
+              <Link href={"/interest"}
               className="cursor-pointer group bg-[#FD6A02] hover:bg-[#e55a00] px-12 py-6 font-black text-2xl text-white transition-all duration-300 rounded-full shadow-[0_0_30px_rgba(253,106,2,0.5)] hover:shadow-[0_0_50px_rgba(253,106,2,0.7)] transform hover:-translate-y-1 inline-flex items-center justify-center gap-3 uppercase tracking-wider">
                 Solicitar Alta
                 <ArrowRight className="w-7 h-7 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </Link>
               <Link href={"/productos"} className="cursor-pointer group bg-transparent border-2 border-white/30 hover:border-[#FFD700] text-white hover:text-[#FFD700] px-12 py-6 font-bold text-2xl transition-all duration-300 rounded-full inline-flex items-center justific-center gap-3 backdrop-blur-sm ">
                 Ver Catálogo
               </Link>
@@ -949,16 +946,41 @@ export default function LandingPage() {
 
             {/* Columna 2: Productos */}
             <div>
-              <h4 className="font-bold text-white uppercase tracking-wider mb-6">Productos</h4>
+              <h4 className="font-bold text-white uppercase tracking-wider mb-6">
+                  Nuestros Productos
+              </h4>
               <ul className="space-y-3">
-                <li><a href="#" className="text-gray-400 hover:text-[#FD6A02] transition-colors">Carbón El Ranchero 3 kg </a></li>
-                <li><a href="#" className="text-gray-400 hover:text-[#FD6A02] transition-colors">Carbón El Ranchero 4 kg </a></li>
-                <li><a href="#" className="text-gray-400 hover:text-[#FD6A02] transition-colors">Costales de 20 - 35 kg (Revuelto - Mediano) </a></li>
-                <li><a href="#" className="text-gray-400 hover:text-[#FD6A02] transition-colors">Costales de 20 (Grande)</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-[#FD6A02] transition-colors">Costales de 30 kg (Extra-Grande)</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-[#FD6A02] transition-colors">Briquetas Sierra Madre</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-[#FD6A02] transition-colors">Briquetas Ta´ Con Madre</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-[#FD6A02] transition-colors">Iniciadores de Fuego</a></li>
+                {/* 1. RETAIL (Bolsas) */}
+                <li>
+                    <Link href="/productos" className="text-gray-400 hover:text-[#FD6A02] transition-colors flex items-center gap-2 group">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#FD6A02]/50 group-hover:bg-[#FD6A02] transition-colors"></span>
+                        Línea Retail (Para Casa)
+                    </Link>
+                </li>
+
+                {/* 2. MAYOREO (Costales) */}
+                <li>
+                    <Link href="/productos" className="text-gray-400 hover:text-[#FD6A02] transition-colors flex items-center gap-2 group">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#FD6A02]/50 group-hover:bg-[#FD6A02] transition-colors"></span>
+                        Línea Mayoreo (Restaurantes)
+                    </Link>
+                </li>
+
+                {/* 3. GOURMET (Briquetas) */}
+                <li>
+                    <Link href="/productos" className="text-gray-400 hover:text-[#FD6A02] transition-colors flex items-center gap-2 group">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#FD6A02]/50 group-hover:bg-[#FD6A02] transition-colors"></span>
+                        Especialidad Gourmet
+                    </Link>
+                </li>
+
+                {/* 4. ACCESORIOS */}
+                <li>
+                    <Link href="/productos" className="text-gray-400 hover:text-[#FD6A02] transition-colors flex items-center gap-2 group">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#FD6A02]/50 group-hover:bg-[#FD6A02] transition-colors"></span>
+                        Iniciadores y Accesorios
+                    </Link>
+                </li>
               </ul>
             </div>
 
@@ -966,10 +988,9 @@ export default function LandingPage() {
             <div>
               <h4 className="font-bold text-white uppercase tracking-wider mb-6">Empresa</h4>
               <ul className="space-y-3">
-                <li><a href="#" className="text-gray-400 hover:text-[#FD6A02] transition-colors">Nuestra Historia</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-[#FD6A02] transition-colors">Sé Distribuidor</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-[#FD6A02] transition-colors">Contacto Ventas</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-[#FD6A02] transition-colors">Blog Parrillero</a></li>
+                <li><a href="/tradicion" className="text-gray-400 hover:text-[#FD6A02] transition-colors">Nuestra Historia</a></li>
+                <li><a href="/interest" className="text-gray-400 hover:text-[#FD6A02] transition-colors">Sé Distribuidor</a></li>
+                <li><a href="/blog" className="text-gray-400 hover:text-[#FD6A02] transition-colors">Nuestros Aliados</a></li>
               </ul>
             </div>
 
