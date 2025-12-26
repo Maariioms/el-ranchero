@@ -249,7 +249,7 @@ export default function AliadosPage() {
               </p>
               <div className="flex justify-center gap-6">
                   <Link href="/" className="text-gray-500 hover:text-[#FD6A02] text-sm">Inicio</Link>
-                  <Link href="/contacto-distribuidor" className="text-gray-500 hover:text-[#FD6A02] text-sm">Contacto</Link>
+                  <Link href="/interest" className="text-gray-500 hover:text-[#FD6A02] text-sm">Contacto</Link>
               </div>
           </div>
       </footer>

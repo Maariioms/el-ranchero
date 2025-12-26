@@ -243,7 +243,7 @@ export default function Products() {
                                     <div className="mt-4 space-y-3 pt-2">
                                         {product.filterTag === 'mayoreo' ? (
                                             <Link 
-                                                href="/contacto-distribuidor" 
+                                                href="/interest" 
                                                 className="hover:-translate-y-1 w-full inline-flex justify-center items-center py-2.5 px-4 rounded-lg bg-[#FD6A02] text-xs font-bold text-white hover:bg-[#e55a00] transition-all shadow-lg hover:shadow-[#FD6A02]/40 uppercase tracking-wide"
                                             >
                                                 Cotizar Volumen
@@ -254,7 +254,7 @@ export default function Products() {
                                         ) : (
                                             <div className="space-y-3">
                                                 <Link 
-                                                    href="/contacto-distribuidor" 
+                                                    href="/interest" 
                                                     className="hover:-translate-y-1 w-full inline-flex justify-center items-center py-2.5 px-4 rounded-lg bg-[#FD6A02] text-xs font-bold text-white hover:bg-[#e55a00] transition-all shadow-lg hover:shadow-[#FD6A02]/40 uppercase tracking-wide"
                                                 >
                                                     Quiero Distribuir
@@ -298,7 +298,7 @@ export default function Products() {
                 </p>
 
                 <Link 
-                    href="/contacto-distribuidor"
+                    href="/interest"
                     className="inline-flex items-center justify-center px-10 py-4 text-lg font-bold rounded-full text-white bg-[#FD6A02] hover:bg-[#e55a00] shadow-[0_0_20px_rgba(253,106,2,0.4)] hover:shadow-[0_0_30px_rgba(253,106,2,0.6)] transition-all transform hover:-translate-y-1 gap-2 uppercase tracking-wide"
                 >
                     Contactar Ahora
@@ -315,7 +315,7 @@ export default function Products() {
                 </p>
                 <div className="flex justify-center gap-6">
                     <Link href="/" className="text-gray-500 hover:text-[#FD6A02] text-sm">Inicio</Link>
-                    <Link href="/contacto-distribuidor" className="text-gray-500 hover:text-[#FD6A02] text-sm">Contacto</Link>
+                    <Link href="/interest" className="text-gray-500 hover:text-[#FD6A02] text-sm">Contacto</Link>
                 </div>
             </div>
         </footer>
