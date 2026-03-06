@@ -267,8 +267,8 @@ export default function LandingPage() {
           </div>
 
           {/* Imagen del producto flotante (derecha en desktop) */}
-          <div className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 w-[500px] h-[600px] z-20 animate-fade-in">
-            <div 
+          <div className="hidden lg:block absolute right-[-60px] top-1/2 -translate-y-1/2 w-[360px] h-[440px] z-10 animate-fade-in">
+            <div
               className="w-full h-full bg-cover bg-center transform rotate-12 hover:rotate-6 transition-transform duration-700"
               style={{
                 backgroundImage: "url('/ranchero-fondo.jpg')",
