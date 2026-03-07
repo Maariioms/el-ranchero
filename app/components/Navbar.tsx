@@ -46,7 +46,7 @@ export default function Navbar() {
                 El Ranchero
               </span>
               <span className="text-[10px] text-[#FD6A02] font-bold tracking-[0.2em] uppercase">
-                Carbón de Leña
+                Carbón vegetal
               </span>
             </div>
           </Link>
