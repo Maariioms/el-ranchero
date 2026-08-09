@@ -5,7 +5,7 @@ import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { Flame, Package, ShoppingBag, MessageSquareText, Truck, MapPin, Star, Briefcase, X, Boxes } from 'lucide-react';
+import { ShoppingBag, MessageSquareText, Briefcase, X, Boxes } from 'lucide-react';
 
 type TipoProducto = 'carbon' | 'briqueta' | 'iniciador';
 
@@ -235,17 +235,22 @@ export default function Products() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
 
-              {filteredProducts.map((product) => (
-                  <div key={product.id} className="group w-full max-w-[340px] mx-auto">
+              {filteredProducts.map((product) => {
+                  const ctaLabel = product.filterTag === 'mayoreo' ? 'Cotizar volumen' : 'Quiero distribuir';
+                  const CtaIcon = product.filterTag === 'mayoreo' ? Boxes : Briefcase;
 
-                        <div className="bg-surface/90 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden hover:border-accent/50 transition-all duration-300 hover:shadow-[0_0_50px_rgba(0,0,0,0.8)] hover:shadow-accent/20 flex flex-col h-full">
+                  return (
+                  <Link
+                    key={product.id}
+                    href={`/interest?producto=${product.id}`}
+                    className="group w-full max-w-[340px] mx-auto block"
+                  >
+                        <div className="bg-surface/90 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden hover:border-accent/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,0,0,0.6)] flex flex-col h-full">
 
                             {/* IMAGEN */}
                             <div className="relative h-56 bg-surface/50 flex items-center justify-center p-6 shrink-0">
-                                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(253,106,2,0.08),transparent_70%)] opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
-
                                 {(product.popular || product.tag) && (
-                                    <span className="absolute top-4 left-0 z-20 inline-block bg-accent text-white text-[10px] font-black px-4 py-1.5 rounded-r-lg shadow-lg shadow-accent/20 uppercase tracking-widest">
+                                    <span className="absolute top-4 left-0 z-20 inline-block bg-accent text-white text-[10px] font-black px-4 py-1.5 rounded-r-lg uppercase tracking-widest">
                                         {product.tag || "Más Vendido"}
                                     </span>
                                 )}
@@ -254,7 +259,7 @@ export default function Products() {
                                     <img
                                         src={product.img}
                                         alt={product.name}
-                                        className="w-auto h-auto max-h-40 max-w-[200px] object-contain drop-shadow-2xl group-hover:scale-105 transition-transform duration-500 relative z-10"
+                                        className="w-auto h-auto max-h-40 max-w-[200px] object-contain group-hover:scale-105 transition-transform duration-500 relative z-10"
                                     />
                                 )}
                             </div>
@@ -285,66 +290,54 @@ export default function Products() {
                                     {product.description}
                                 </p>
 
-                                {/* BOTONES — al fondo de la tarjeta gracias a grow arriba */}
-                                <div className="mt-auto space-y-3">
-                                    {product.filterTag === 'mayoreo' ? (
-                                        <Link
-                                            href={`/interest?producto=${product.id}`}
-                                            className="w-full inline-flex justify-center items-center py-2.5 px-4 rounded-lg bg-accent text-xs font-bold text-white hover:bg-accent-hover hover:-translate-y-0.5 transition-all shadow-lg hover:shadow-accent/40 uppercase tracking-wide"
-                                        >
-                                            Cotizar Volumen
-                                            <Boxes className="ml-2 h-4 w-4" />
-                                        </Link>
-                                    ) : (
-                                        <div className="space-y-3">
-                                            <Link
-                                                href={`/interest?producto=${product.id}`}
-                                                className="w-full inline-flex justify-center items-center py-2.5 px-4 rounded-lg bg-accent text-xs font-bold text-white hover:bg-accent-hover hover:-translate-y-0.5 transition-all shadow-lg hover:shadow-accent/40 uppercase tracking-wide"
-                                            >
-                                                Quiero Distribuir
-                                                <Briefcase className="ml-2 h-4 w-4" />
-                                            </Link>
-
-                                            <button
-                                                onClick={() => alert("Próximamente: Lista de tiendas")}
-                                                className="w-full inline-flex justify-center items-center gap-1.5 text-[10px] text-gray-400 hover:text-white hover:-translate-y-0.5 transition-all cursor-pointer"
-                                            >
-                                                <MapPin className="h-3 w-3 text-accent mr-1" />
-                                                Ver puntos de venta
-                                            </button>
-                                        </div>
-                                    )}
+                                {/* Indicador de acción — discreto, la tarjeta entera es el CTA */}
+                                <div className="mt-auto pt-3 border-t border-white/5 flex items-center justify-between text-accent text-xs font-bold uppercase tracking-wide">
+                                    <span className="inline-flex items-center gap-1.5">
+                                        <CtaIcon className="w-3.5 h-3.5" />
+                                        {ctaLabel}
+                                    </span>
+                                    <span className="group-hover:translate-x-1 transition-transform">→</span>
                                 </div>
                             </div>
 
                         </div>
-                  </div>
-              ))}
+                  </Link>
+                  );
+              })}
 
             </div>
         </div>
 
         {/* CTA FINAL: ENFOQUE SOPORTE / CONTACTO */}
-        <div className="border-t border-white/10 bg-linear-to-b from-surface/80 to-bg backdrop-blur-sm py-20 relative overflow-hidden mt-12">
-            {/* Luz ambiental sutil */}
-            <div className="absolute inset-0 bg-linear-to-t from-accent/5 to-transparent pointer-events-none"></div>
+        <div className="border-t border-white/10 bg-linear-to-b from-surface/80 to-bg mt-12">
+            <div className="max-w-5xl mx-auto px-4 md:px-6 py-16">
+              <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
 
-            <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
-                <h2 className="text-3xl md:text-4xl font-black text-white mb-6 uppercase tracking-tight">
-                  ¿No encuentras lo que buscas?
-                </h2>
+                <div className="max-w-xl">
+                  <h2 className="text-2xl md:text-3xl font-black text-white mb-3 uppercase tracking-tight">
+                    ¿No encuentras lo que buscas?
+                  </h2>
+                  <p className="text-gray-400">
+                    Cobertura de envíos, precios por volumen o cualquier duda — escríbenos directo.
+                  </p>
+                  <div className="flex flex-wrap gap-x-6 gap-y-2 mt-4 text-xs text-gray-500 font-bold uppercase tracking-wide">
+                    <span>CDMX y Edo. Méx</span>
+                    <span>·</span>
+                    <span>Respuesta en 24 hrs</span>
+                    <span>·</span>
+                    <span>Precios por volumen</span>
+                  </div>
+                </div>
 
-                <p className="text-gray-400 mb-10 text-lg max-w-2xl mx-auto">
-                    Ya sea para confirmar cobertura de envíos, preguntar sobre precios especiales o resolver cualquier inquietud. Nuestro equipo está listo para escucharte.
-                </p>
-
-                <Link 
+                <Link
                     href="/interest"
-                    className="inline-flex items-center justify-center px-10 py-4 text-lg font-bold rounded-full text-white bg-accent hover:bg-accent-hover shadow-[0_0_20px_rgba(253,106,2,0.4)] hover:shadow-[0_0_30px_rgba(253,106,2,0.6)] transition-all transform hover:-translate-y-1 gap-2 uppercase tracking-wide"
+                    className="btn-press shrink-0 inline-flex items-center justify-center px-8 py-3.5 text-sm font-bold rounded-lg text-white bg-accent hover:bg-accent-hover transition-colors gap-2 uppercase tracking-wide"
                 >
                     Contactar Ahora
-                    <MessageSquareText className="w-6 h-6" />
+                    <MessageSquareText className="w-4 h-4" />
                 </Link>
+
+              </div>
             </div>
         </div>
 

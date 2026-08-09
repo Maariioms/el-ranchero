@@ -794,10 +794,10 @@ export default function LandingPage() {
             <div className="text-center mt-12">
               <Link // Usamos Link si es navegación interna, o button si abre modal
                 href="/interest"
-                className="bg-accent text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-accent-hover transition-all shadow-[0_0_20px_rgba(253,106,2,0.4)] hover:shadow-[0_0_30px_rgba(253,106,2,0.6)] hover:-translate-y-1 inline-flex items-center gap-2 group uppercase tracking-wide"
+                className="bg-accent text-white px-6 py-3 md:px-10 md:py-4 rounded-full font-bold text-base md:text-lg hover:bg-accent-hover transition-all shadow-[0_0_20px_rgba(253,106,2,0.4)] hover:shadow-[0_0_30px_rgba(253,106,2,0.6)] hover:-translate-y-1 inline-flex items-center justify-center gap-2 group uppercase tracking-wide text-center"
               >
                 Solicitar cotización
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-5 h-5 shrink-0 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
           </div>
@@ -836,10 +836,10 @@ export default function LandingPage() {
           <div className="text-center mt-16">
             <Link
               href="/interest"
-              className="group bg-accent hover:bg-accent-hover px-10 py-5 font-bold text-xl text-white transition-all duration-300 rounded-full shadow-[0_0_15px_rgba(253,106,2,0.4)] hover:shadow-[0_0_25px_rgba(253,106,2,0.6)] transform hover:scale-105 inline-flex items-center gap-3 uppercase tracking-wider"
+              className="group bg-accent hover:bg-accent-hover px-6 py-3.5 md:px-10 md:py-5 font-bold text-base md:text-xl text-white transition-all duration-300 rounded-full shadow-[0_0_15px_rgba(253,106,2,0.4)] hover:shadow-[0_0_25px_rgba(253,106,2,0.6)] transform hover:scale-105 inline-flex items-center justify-center gap-3 uppercase tracking-wider text-center"
             >
               Cotizar Mayoreo
-              <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-5 h-5 md:w-6 md:h-6 shrink-0 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
         </section>      
@@ -872,11 +872,11 @@ export default function LandingPage() {
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Link href={"/interest"}
-              className="cursor-pointer group bg-accent hover:bg-accent-hover px-12 py-6 font-black text-2xl text-white transition-all duration-300 rounded-full shadow-[0_0_30px_rgba(253,106,2,0.5)] hover:shadow-[0_0_50px_rgba(253,106,2,0.7)] transform hover:-translate-y-1 inline-flex items-center justify-center gap-3 uppercase tracking-wider">
+              className="cursor-pointer group bg-accent hover:bg-accent-hover px-8 py-4 md:px-12 md:py-6 font-black text-lg md:text-2xl text-white transition-all duration-300 rounded-full shadow-[0_0_30px_rgba(253,106,2,0.5)] hover:shadow-[0_0_50px_rgba(253,106,2,0.7)] transform hover:-translate-y-1 inline-flex items-center justify-center gap-3 uppercase tracking-wider text-center">
                 Solicitar Alta
-                <ArrowRight className="w-7 h-7 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-5 h-5 md:w-7 md:h-7 shrink-0 group-hover:translate-x-1 transition-transform" />
               </Link>
-              <Link href={"/productos"} className="cursor-pointer group bg-transparent border-2 border-white/30 hover:border-gold text-white hover:text-gold px-12 py-6 font-bold text-2xl transition-all duration-300 rounded-full inline-flex items-center justific-center gap-3 backdrop-blur-sm ">
+              <Link href={"/productos"} className="cursor-pointer group bg-transparent border-2 border-white/30 hover:border-gold text-white hover:text-gold px-8 py-4 md:px-12 md:py-6 font-bold text-lg md:text-2xl transition-all duration-300 rounded-full inline-flex items-center justify-center gap-3 backdrop-blur-sm text-center">
                 Ver Catálogo
               </Link>
             </div>
@@ -900,7 +900,7 @@ export default function LandingPage() {
             <h3 className="text-2xl font-black text-warning uppercase">Seguridad y Precaución</h3>
             <button
               onClick={() => setShowDisclaimerModal(false)}
-              className="text-gray-400 cursor-pointer hover:text-white text-2xl leading-none transition-colors"
+              className="text-gray-400 cursor-pointer hover:text-white text-2xl leading-none transition-colors p-2 -m-2"
             >
               ×
             </button>
@@ -972,7 +972,7 @@ export default function LandingPage() {
             <h3 className="text-2xl font-black text-accent uppercase">Hablemos de Carbón</h3>
             <button
               onClick={() => setShowContactModal(false)}
-              className="text-gray-400 cursor-pointer hover:text-white text-2xl leading-none"
+              className="text-gray-400 cursor-pointer hover:text-white text-2xl leading-none p-2 -m-2"
             >
               ×
             </button>

@@ -11,7 +11,7 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="relative bg-[#050505] border-t border-accent/20 pt-16 pb-8 text-sm overflow-hidden">
+      <footer className="relative bg-bg border-t border-accent/20 pt-16 pb-8 text-sm overflow-hidden">
         {/* Textura ambiental para que no se sienta como un corte plano tras el CTA */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(253,106,2,0.06),transparent_55%)] pointer-events-none" />
 
@@ -150,7 +150,7 @@ export default function Footer() {
               </p>
             </div>
 
-            <div className="flex gap-6 text-xs font-medium items-center">
+            <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-medium items-center">
               <button
                 onClick={() => setShowPrivacyModal(true)}
                 className="text-gray-500 hover:text-white transition-colors cursor-pointer"
@@ -180,7 +180,7 @@ export default function Footer() {
           <h3 className="text-2xl font-black text-white uppercase">Aviso de Privacidad</h3>
           <button
             onClick={() => setShowPrivacyModal(false)}
-            className="text-gray-400 hover:text-white cursor-pointer text-2xl leading-none transition-colors"
+            className="text-gray-400 hover:text-white cursor-pointer text-2xl leading-none transition-colors p-2 -m-2"
           >
             ×
           </button>
@@ -206,7 +206,7 @@ export default function Footer() {
           <h3 className="text-2xl font-black text-white uppercase">Términos y Condiciones</h3>
           <button
             onClick={() => setShowConditionModal(false)}
-            className="text-gray-400 cursor-pointer hover:text-white text-2xl leading-none"
+            className="text-gray-400 cursor-pointer hover:text-white text-2xl leading-none p-2 -m-2"
           >
             ×
           </button>

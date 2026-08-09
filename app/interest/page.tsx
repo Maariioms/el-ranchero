@@ -3,7 +3,7 @@
 import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { User, Building2, Phone, Mail, ArrowRight, Loader2, CheckCircle, MessageSquare, MapPin, Search, ShoppingBag, Package, X } from 'lucide-react';
+import { User, Building2, Phone, Mail, ArrowRight, Loader2, CheckCircle, MessageSquare, MapPin, Search, ShoppingBag, Package, X, Plus } from 'lucide-react';
 import dynamic from 'next/dynamic';
 
 const MapPicker = dynamic(() => import('../components/MapPicker'), {
@@ -40,8 +40,17 @@ function ProductoQueryParamSync({ onProductoFound }: { onProductoFound: (id: str
   return null;
 }
 
+type ProductoLine = { key: string; producto: string; cantidad: string };
+
+let lineKeySeq = 0;
+const newProductoLine = (producto = ''): ProductoLine => ({
+  key: `line-${++lineKeySeq}`,
+  producto,
+  cantidad: '',
+});
+
 export default function ContactoDistribuidor() {
-  
+
   // 1. ESTADOS
   const [formData, setFormData] = useState({
     nombre: '',
@@ -51,21 +60,38 @@ export default function ContactoDistribuidor() {
     direccion: '',
     lat: 0,
     lng: 0,
-    producto: '', // <--- NUEVO
-    cantidad: '', // <--- NUEVO
-    frecuencia: '', // <--- NUEVO CAMPO
+    frecuencia: '',
     mensaje: ''
   });
-  
+
+  // Productos de interés — mínimo 1 línea, se pueden agregar/quitar más
+  const [productos, setProductos] = useState<ProductoLine[]>([newProductoLine()]);
+
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [isSearchingMap, setIsSearchingMap] = useState(false);
   const [mapCoords, setMapCoords] = useState<{lat: number, lng: number} | null>(null); // Coordenadas para mover el mapa
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // Para abrir/cerrar la lista
+  const [openDropdownKey, setOpenDropdownKey] = useState<string | null>(null);
   const [cameFromCatalog, setCameFromCatalog] = useState(false);
 
   const handleProductoFound = (id: string) => {
-    setFormData((prev) => ({ ...prev, producto: id }));
+    setProductos((prev) => {
+      const copy = [...prev];
+      copy[0] = { ...copy[0], producto: id };
+      return copy;
+    });
     setCameFromCatalog(true);
+  };
+
+  const updateProductoLine = (key: string, field: 'producto' | 'cantidad', value: string) => {
+    setProductos((prev) => prev.map((line) => (line.key === key ? { ...line, [field]: value } : line)));
+  };
+
+  const addProductoLine = () => {
+    setProductos((prev) => [...prev, newProductoLine()]);
+  };
+
+  const removeProductoLine = (key: string) => {
+    setProductos((prev) => (prev.length <= 1 ? prev : prev.filter((line) => line.key !== key)));
   };
 
   // 1. LÓGICA DEL MAPA Y BÚSQUEDA DE DIRECCIÓN
@@ -187,11 +213,11 @@ export default function ContactoDistribuidor() {
             <div className="mt-5 inline-flex items-center gap-3 bg-surface border border-accent/30 rounded-full pl-4 pr-2 py-1.5">
               <span className="text-xs text-gray-300 flex items-center gap-1.5">
                 <Package className="w-3.5 h-3.5 text-accent" />
-                Cotizando: <span className="text-accent font-bold">{PRODUCTOS.find((p) => p.id === formData.producto)?.label}</span>
+                Cotizando: <span className="text-accent font-bold">{PRODUCTOS.find((p) => p.id === productos[0]?.producto)?.label}</span>
               </span>
               <button
                 type="button"
-                onClick={() => { setFormData((prev) => ({ ...prev, producto: '' })); setCameFromCatalog(false); }}
+                onClick={() => { updateProductoLine(productos[0].key, 'producto', ''); setCameFromCatalog(false); }}
                 className="text-[10px] font-bold text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-full p-1.5 transition-colors"
                 aria-label="Quitar producto preseleccionado"
               >
@@ -202,7 +228,7 @@ export default function ContactoDistribuidor() {
         </div>
 
         {/* CAJA DEL FORMULARIO */}
-        <div className="bg-surface border border-white/10 rounded-2xl p-8 shadow-2xl backdrop-blur-sm">
+        <div className="bg-surface border border-white/10 rounded-2xl p-5 sm:p-8 shadow-2xl backdrop-blur-sm">
 
           <form className="space-y-6" onSubmit={handleSubmit}>
 
@@ -344,90 +370,110 @@ export default function ContactoDistribuidor() {
               </div>
             </div>
 
-            {/* SELECCIÓN DE PRODUCTO Y CANTIDAD */}
+            {/* SELECCIÓN DE PRODUCTOS Y CANTIDAD */}
             <div className="space-y-5">
 
-              {/* 1. PRODUCTO (Fila completa) */}
-              <div className="relative space-y-2">
+              {/* PRODUCTOS DE INTERÉS — una o más líneas, mínimo 1 */}
+              <div className="space-y-3">
                 <label className="block text-xs font-bold text-gray-500 uppercase ml-1">
-                  Producto de Interés
+                  Producto{productos.length > 1 ? 's' : ''} de Interés
                 </label>
 
-                {/* Custom Select */}
-                <div 
-                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                    className={`relative w-full pl-10 pr-10 py-3 border rounded-lg bg-bg text-white text-sm cursor-pointer transition-colors flex items-center select-none ${
-                        isDropdownOpen ? 'border-accent ring-1 ring-accent' : 'border-white/10 hover:border-accent'
-                    }`}
-                >
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <ShoppingBag className={`h-5 w-5 transition-colors ${isDropdownOpen ? 'text-accent' : 'text-gray-500'}`} />
+                {productos.map((line, index) => (
+                  <div key={line.key} className="flex gap-2 items-start">
+
+                    {/* Custom Select de producto */}
+                    <div className="relative flex-1">
+                      <div
+                        onClick={() => setOpenDropdownKey(openDropdownKey === line.key ? null : line.key)}
+                        className={`relative w-full pl-10 pr-10 py-3 border rounded-lg bg-bg text-white text-sm cursor-pointer transition-colors flex items-center select-none ${
+                            openDropdownKey === line.key ? 'border-accent ring-1 ring-accent' : 'border-white/10 hover:border-accent'
+                        }`}
+                      >
+                          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                              <ShoppingBag className={`h-5 w-5 transition-colors ${openDropdownKey === line.key ? 'text-accent' : 'text-gray-500'}`} />
+                          </div>
+
+                          <span className={`truncate ${line.producto ? 'text-white' : 'text-gray-500'}`}>
+                              {line.producto
+                                  ? PRODUCTOS.find(p => p.id === line.producto)?.label
+                                  : "Selecciona una opción..."
+                              }
+                          </span>
+
+                          <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                              <svg className={`h-4 w-4 fill-current text-gray-500 transition-transform duration-300 ${openDropdownKey === line.key ? 'rotate-180 text-accent' : ''}`} viewBox="0 0 20 20">
+                                  <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" fillRule="evenodd" />
+                              </svg>
+                          </div>
+                      </div>
+
+                      {/* Dropdown Menu */}
+                      {openDropdownKey === line.key && (
+                          <>
+                              <div className="fixed inset-0 z-10" onClick={() => setOpenDropdownKey(null)}></div>
+                              <div className="absolute z-20 mt-2 w-full bg-surface border border-accent/30 rounded-xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-100 max-h-60 overflow-y-auto">
+                                  {PRODUCTOS.map((p) => (
+                                      <div
+                                          key={p.id}
+                                          onClick={() => {
+                                              updateProductoLine(line.key, 'producto', p.id);
+                                              setOpenDropdownKey(null);
+                                          }}
+                                          className={`px-4 py-3 text-sm cursor-pointer transition-colors border-b border-white/5 last:border-0 flex items-center justify-between group ${
+                                              line.producto === p.id
+                                              ? 'bg-accent/20 text-accent font-bold'
+                                              : 'text-gray-300 hover:bg-accent hover:text-white'
+                                          }`}
+                                      >
+                                          {p.label}
+                                          {line.producto === p.id && <CheckCircle className="w-4 h-4 text-accent" />}
+                                      </div>
+                                  ))}
+                              </div>
+                          </>
+                      )}
                     </div>
 
-                    <span className={formData.producto ? 'text-white' : 'text-gray-500'}>
-                        {formData.producto 
-                            ? PRODUCTOS.find(p => p.id === formData.producto)?.label 
-                            : "Selecciona una opción..."
-                        }
-                    </span>
-
-                    <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                        <svg className={`h-4 w-4 fill-current text-gray-500 transition-transform duration-300 ${isDropdownOpen ? 'rotate-180 text-accent' : ''}`} viewBox="0 0 20 20">
-                            <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" fillRule="evenodd" />
-                        </svg>
-                    </div>
-                </div>
-
-                {/* Dropdown Menu */}
-                {isDropdownOpen && (
-                    <>
-                        <div className="fixed inset-0 z-10" onClick={() => setIsDropdownOpen(false)}></div>
-                        <div className="absolute z-20 mt-2 w-full bg-surface border border-accent/30 rounded-xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-100 max-h-60 overflow-y-auto">
-                            {PRODUCTOS.map((p) => (
-                                <div
-                                    key={p.id}
-                                    onClick={() => {
-                                        handleChange({ target: { name: 'producto', value: p.id } } as any);
-                                        setIsDropdownOpen(false);
-                                    }}
-                                    className={`px-4 py-3 text-sm cursor-pointer transition-colors border-b border-white/5 last:border-0 flex items-center justify-between group ${
-                                        formData.producto === p.id
-                                        ? 'bg-accent/20 text-accent font-bold'
-                                        : 'text-gray-300 hover:bg-accent hover:text-white'
-                                    }`}
-                                >
-                                    {p.label}
-                                    {formData.producto === p.id && <CheckCircle className="w-4 h-4 text-accent" />}
-                                </div>
-                            ))}
-                        </div>
-                    </>
-                )}
-              </div>
-
-              {/* 2. CANTIDAD Y FRECUENCIA (Fila compartida 50/50) */}
-              <div className="grid grid-cols-2 gap-5">
-
-                  {/* Input Cantidad */}
-                  <div className="space-y-2">
-                    <label className="block text-xs font-bold text-gray-500 uppercase ml-1">
-                      Cantidad
-                    </label>
-                    <div className="relative">
+                    {/* Cantidad de esta línea */}
+                    <div className="relative w-24 shrink-0">
                       <input
                         type="number"
-                        name="cantidad"
                         min="1"
                         required
-                        className="block w-full pl-4 pr-12 py-3 border border-white/10 rounded-lg bg-bg text-white placeholder-gray-600 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent text-sm transition-colors [&::-webkit-inner-spin-button]:appearance-none"
-                        placeholder="Ej. 20"
-                        onChange={handleChange}
+                        value={line.cantidad}
+                        onChange={(e) => updateProductoLine(line.key, 'cantidad', e.target.value)}
+                        className="block w-full pl-3 pr-2 py-3 border border-white/10 rounded-lg bg-bg text-white placeholder-gray-600 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent text-sm transition-colors [&::-webkit-inner-spin-button]:appearance-none"
+                        placeholder="Cant."
                       />
-                      <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
-                        <span className="text-gray-500 text-xs font-bold bg-bg pl-2">Pzas</span>
-                      </div>
                     </div>
+
+                    {/* Quitar línea — deshabilitado si es la única */}
+                    <button
+                      type="button"
+                      onClick={() => removeProductoLine(line.key)}
+                      disabled={productos.length <= 1}
+                      aria-label="Quitar este producto"
+                      className="shrink-0 h-[46px] w-[46px] flex items-center justify-center rounded-lg border border-white/10 text-gray-500 hover:text-danger hover:border-danger/40 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:text-gray-500 disabled:hover:border-white/10 transition-colors"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
                   </div>
+                ))}
+
+                {/* Agregar otro producto */}
+                <button
+                  type="button"
+                  onClick={addProductoLine}
+                  className="btn-press inline-flex items-center gap-1.5 text-xs font-bold text-accent hover:text-accent-hover transition-colors"
+                >
+                  <Plus className="w-4 h-4" />
+                  Agregar otro producto
+                </button>
+              </div>
+
+              {/* FRECUENCIA — aplica al pedido completo */}
+              <div className="grid grid-cols-1">
 
                   {/* Select Frecuencia */}
                   <div className="space-y-2">
