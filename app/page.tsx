@@ -935,9 +935,10 @@ export default function LandingPage() {
             {/* Columna 1: La Marca */}
             <div className="col-span-1 md:col-span-1">
                <img
-                 src="/logo-original-circulo-rojo.png"
+                 src="/logo-solo-letras-negras.png"
                  alt="El Ranchero"
                  className="w-16 h-16 object-contain mb-4"
+                 style={{ filter: 'invert(1)' }}
                />
                <p className="text-gray-500 mb-6">
                  Tradición encendida desde 1923. Llevando el auténtico sabor a las parrillas de todo México.

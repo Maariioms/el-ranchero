@@ -64,9 +64,10 @@ export default function Navbar() {
           {/* 1. LOGO EL RANCHERO */}
           <Link href="/" className="flex items-center gap-2.5 group">
             <img
-              src="/logo-original-circulo-rojo.png"
+              src="/logo-solo-letras-negras.png"
               alt="Logo El Ranchero"
               className="w-10 h-10 object-contain transition-transform duration-180 group-hover:scale-105"
+              style={{ filter: 'invert(1)' }}
             />
             <div className="flex flex-col">
               <span className="text-xl md:text-2xl font-black text-white uppercase tracking-wide leading-none group-hover:text-accent transition-colors">
