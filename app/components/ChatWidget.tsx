@@ -81,6 +81,11 @@ export default function ChatWidget() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const launcherRef = useRef<HTMLButtonElement>(null);
+  // Guardia síncrona contra doble-envío: el estado de React (isStreaming) no
+  // se actualiza al instante, así que un doble Enter/doble-click muy rápido
+  // puede colar dos sendMessage() antes de que el primero marque isStreaming.
+  // Un ref sí es síncrono, cierra esa ventana de carrera por completo.
+  const isSendingRef = useRef(false);
 
   // Cargar historial de esta pestaña (no persiste entre sesiones distintas)
   useEffect(() => {
@@ -135,10 +140,16 @@ export default function ChatWidget() {
   const sendMessage = useCallback(
     async (text: string) => {
       const trimmed = text.trim();
-      if (!trimmed || isStreaming) return;
+      if (!trimmed || isStreaming || isSendingRef.current) return;
+      isSendingRef.current = true;
 
       setError(null);
-      const history: Message[] = [...messages, { role: 'user', content: trimmed }];
+      // Filtro defensivo: pase lo que pase en el estado (una respuesta vacía
+      // del modelo, una carrera, lo que sea), nunca mandamos al backend un
+      // mensaje con content vacío — eso es justo lo que rompía la
+      // conversación con "Mensaje inválido." sin forma de recuperarse.
+      const cleanPriorMessages = messages.filter((m) => m.content.trim().length > 0);
+      const history: Message[] = [...cleanPriorMessages, { role: 'user', content: trimmed }];
       setMessages([...history, { role: 'assistant', content: '' }]);
       setInput('');
       setIsStreaming(true);
@@ -209,6 +220,7 @@ export default function ChatWidget() {
       } finally {
         setIsStreaming(false);
         abortRef.current = null;
+        isSendingRef.current = false;
       }
     },
     [messages, isStreaming]
@@ -316,9 +328,9 @@ export default function ChatWidget() {
 
             {error && (
               <div className="bg-danger/10 border border-danger/30 rounded-xl px-4 py-3 text-xs text-gray-300">
-                <p className="mb-2">{error}</p>
+                <p className="mb-2">{error} Puedes intentar de nuevo aquí mismo.</p>
                 <Link href="/interest" className="text-accent font-bold hover:text-accent-hover">
-                  Contactar por el formulario →
+                  O contactar por el formulario →
                 </Link>
               </div>
             )}
