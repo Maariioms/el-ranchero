@@ -251,8 +251,7 @@ export default function HistoriaPage() {
       <section className="py-32 px-4 relative overflow-hidden scroll-reveal">
         {/* LA TARJETA CONTENEDORA */}
         <div className="relative z-10 max-w-5xl mx-auto bg-surface border border-white/10 rounded-[2.5rem] overflow-hidden isolate shadow-2xl">
-          {/* 1. Textura y Luces Internas */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(253,106,2,0.15),transparent_60%)] pointer-events-none" />
+          {/* 1. Textura */}
           <div
             className="absolute inset-0 opacity-20 pointer-events-none"
             style={{ backgroundImage: "url(https://www.transparenttextures.com/patterns/carbon-fibre.png)" }}
@@ -263,7 +262,7 @@ export default function HistoriaPage() {
             src="/logo-solo-letras-negras.png"
             alt=""
             aria-hidden="true"
-            className="absolute bottom-6 right-6 w-56 h-56 md:w-72 md:h-72 object-contain object-bottom opacity-40 pointer-events-none select-none"
+            className="absolute bottom-8 right-8 w-48 h-48 md:w-64 md:h-64 object-contain object-bottom opacity-40 rotate-6 pointer-events-none select-none"
             style={{ filter: "invert(1)", mixBlendMode: "overlay" }}
           />
 
