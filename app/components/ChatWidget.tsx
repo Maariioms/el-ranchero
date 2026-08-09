@@ -23,7 +23,7 @@ const BOUNCE_DURATION_MS = 1000;
 
 // Los campos que puede mandar el marcador [[FORM:{...}]] del modelo, mapeados
 // 1:1 a los query params que /interest ya sabe leer para precargar el form.
-const FORM_FIELD_KEYS = ['nombre', 'negocio', 'telefono', 'email', 'producto', 'cantidad', 'frecuencia'] as const;
+const FORM_FIELD_KEYS = ['nombre', 'negocio', 'telefono', 'email', 'direccion', 'producto', 'cantidad', 'frecuencia', 'mensaje'] as const;
 
 // Detecta los marcadores [[NAV:...]] / [[FORM:{...}]] que el modelo pone al
 // final de su respuesta, los separa del texto visible, y — mientras el

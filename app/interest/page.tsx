@@ -35,9 +35,11 @@ type PrefillData = {
   negocio?: string;
   telefono?: string;
   email?: string;
+  direccion?: string;
   producto?: string;
   cantidad?: string;
   frecuencia?: string;
+  mensaje?: string;
 };
 
 function PrefillQueryParamSync({ onPrefillFound }: { onPrefillFound: (data: PrefillData) => void }) {
@@ -58,6 +60,9 @@ function PrefillQueryParamSync({ onPrefillFound }: { onPrefillFound: (data: Pref
     const email = searchParams.get('email');
     if (email) data.email = email;
 
+    const direccion = searchParams.get('direccion');
+    if (direccion) data.direccion = direccion;
+
     const producto = searchParams.get('producto');
     if (producto && PRODUCTOS.some((p) => p.id === producto)) data.producto = producto;
 
@@ -68,6 +73,9 @@ function PrefillQueryParamSync({ onPrefillFound }: { onPrefillFound: (data: Pref
     if (frecuencia && ['unica', 'semanal', 'quincenal', 'mensual'].includes(frecuencia)) {
       data.frecuencia = frecuencia;
     }
+
+    const mensaje = searchParams.get('mensaje');
+    if (mensaje) data.mensaje = mensaje;
 
     if (Object.keys(data).length > 0) onPrefillFound(data);
   }, [searchParams, onPrefillFound]);
@@ -118,7 +126,9 @@ export default function ContactoDistribuidor() {
       ...(data.negocio && { negocio: data.negocio }),
       ...(data.telefono && { telefono: data.telefono }),
       ...(data.email && { email: data.email }),
+      ...(data.direccion && { direccion: data.direccion }),
       ...(data.frecuencia && { frecuencia: data.frecuencia }),
+      ...(data.mensaje && { mensaje: data.mensaje }),
     }));
 
     if (data.producto || data.cantidad) {
@@ -393,6 +403,7 @@ export default function ContactoDistribuidor() {
                     required
                     className="block w-full pl-10 pr-3 py-3 border border-white/15 rounded-lg bg-bg text-white placeholder-gray-600 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent text-sm transition-colors"
                     placeholder="Calle, Colonia, Ciudad..."
+                    value={formData.direccion}
                     onChange={handleChange}
                     onKeyDown={(e) => {
                         // Si da Enter en el input, buscamos en lugar de enviar el form
@@ -579,6 +590,7 @@ export default function ContactoDistribuidor() {
                   style={{ minHeight: '80px' }}
                   className="block w-full pl-10 pr-3 py-3 border border-white/15 rounded-lg bg-bg text-white placeholder-gray-600 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent text-sm transition-colors resize-y h-32"
                   placeholder="Dudas sobre envío, horarios de recepción, etc."
+                  value={formData.mensaje}
                   onChange={handleChange}
                 />
               </div>
