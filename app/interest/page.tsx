@@ -8,7 +8,7 @@ import dynamic from 'next/dynamic';
 
 const MapPicker = dynamic(() => import('../components/MapPicker'), {
   ssr: false,
-  loading: () => <div className="h-[300px] bg-surface animate-pulse rounded-lg flex items-center justify-center text-xs text-gray-500">Cargando Mapa...</div>
+  loading: () => <div className="h-[300px] bg-surface animate-pulse rounded-lg flex items-center justify-center text-xs text-gray-400">Cargando Mapa...</div>
 });
 
 // Mismo catálogo que /productos — los id coinciden para poder llegar aquí
@@ -27,15 +27,50 @@ const PRODUCTOS = [
   { id: 'otro', label: 'Otro / Mix de Productos' },
 ];
 
-function ProductoQueryParamSync({ onProductoFound }: { onProductoFound: (id: string) => void }) {
+// Datos que puede traer la URL para precargar el formulario — ya sea desde
+// el catálogo (?producto=) o desde el chatbot, que arma la URL completa con
+// lo que el usuario le fue contando (?nombre=&negocio=&telefono=&...).
+type PrefillData = {
+  nombre?: string;
+  negocio?: string;
+  telefono?: string;
+  email?: string;
+  producto?: string;
+  cantidad?: string;
+  frecuencia?: string;
+};
+
+function PrefillQueryParamSync({ onPrefillFound }: { onPrefillFound: (data: PrefillData) => void }) {
   const searchParams = useSearchParams();
 
   useEffect(() => {
+    const data: PrefillData = {};
+
+    const nombre = searchParams.get('nombre');
+    if (nombre) data.nombre = nombre;
+
+    const negocio = searchParams.get('negocio');
+    if (negocio) data.negocio = negocio;
+
+    const telefono = searchParams.get('telefono');
+    if (telefono) data.telefono = telefono;
+
+    const email = searchParams.get('email');
+    if (email) data.email = email;
+
     const producto = searchParams.get('producto');
-    if (producto && PRODUCTOS.some((p) => p.id === producto)) {
-      onProductoFound(producto);
+    if (producto && PRODUCTOS.some((p) => p.id === producto)) data.producto = producto;
+
+    const cantidad = searchParams.get('cantidad');
+    if (cantidad) data.cantidad = cantidad;
+
+    const frecuencia = searchParams.get('frecuencia');
+    if (frecuencia && ['unica', 'semanal', 'quincenal', 'mensual'].includes(frecuencia)) {
+      data.frecuencia = frecuencia;
     }
-  }, [searchParams, onProductoFound]);
+
+    if (Object.keys(data).length > 0) onPrefillFound(data);
+  }, [searchParams, onPrefillFound]);
 
   return null;
 }
@@ -73,13 +108,32 @@ export default function ContactoDistribuidor() {
   const [openDropdownKey, setOpenDropdownKey] = useState<string | null>(null);
   const [cameFromCatalog, setCameFromCatalog] = useState(false);
 
-  const handleProductoFound = (id: string) => {
-    setProductos((prev) => {
-      const copy = [...prev];
-      copy[0] = { ...copy[0], producto: id };
-      return copy;
-    });
-    setCameFromCatalog(true);
+  // Llena el formulario con lo que traiga la URL — ya sea solo el producto
+  // (link desde /productos) o el paquete completo que arma el chatbot
+  // después de preguntarle los datos al usuario en la conversación.
+  const handlePrefillFound = (data: PrefillData) => {
+    setFormData((prev) => ({
+      ...prev,
+      ...(data.nombre && { nombre: data.nombre }),
+      ...(data.negocio && { negocio: data.negocio }),
+      ...(data.telefono && { telefono: data.telefono }),
+      ...(data.email && { email: data.email }),
+      ...(data.frecuencia && { frecuencia: data.frecuencia }),
+    }));
+
+    if (data.producto || data.cantidad) {
+      setProductos((prev) => {
+        const copy = [...prev];
+        copy[0] = {
+          ...copy[0],
+          ...(data.producto && { producto: data.producto }),
+          ...(data.cantidad && { cantidad: data.cantidad }),
+        };
+        return copy;
+      });
+    }
+
+    if (data.producto) setCameFromCatalog(true);
   };
 
   const updateProductoLine = (key: string, field: 'producto' | 'cantidad', value: string) => {
@@ -183,7 +237,7 @@ export default function ContactoDistribuidor() {
     <div className="min-h-screen bg-bg flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden font-sans selection:bg-accent selection:text-white">
 
       <Suspense fallback={null}>
-        <ProductoQueryParamSync onProductoFound={handleProductoFound} />
+        <PrefillQueryParamSync onPrefillFound={handlePrefillFound} />
       </Suspense>
 
       {/* Fondo */}
@@ -195,7 +249,7 @@ export default function ContactoDistribuidor() {
         {/* BOTÓN DE REGRESO — si vienes del catálogo, regresa ahí, no al home */}
         <Link
           href={cameFromCatalog ? '/productos' : '/'}
-          className="btn-press inline-flex items-center gap-2 mb-6 text-xs font-bold text-gray-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 hover:border-accent/40 rounded-full px-4 py-2 transition-colors"
+          className="btn-press inline-flex items-center gap-2 mb-6 text-xs font-bold text-gray-300 hover:text-white bg-white/8 hover:bg-white/10 border border-white/15 hover:border-accent/40 rounded-full px-4 py-2 transition-colors"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           {cameFromCatalog ? 'Volver al catálogo' : 'Volver al inicio'}
@@ -229,7 +283,7 @@ export default function ContactoDistribuidor() {
         </div>
 
         {/* CAJA DEL FORMULARIO */}
-        <div className="bg-surface border border-white/10 rounded-2xl p-5 sm:p-8 shadow-2xl backdrop-blur-sm">
+        <div className="bg-surface border border-white/15 rounded-2xl p-5 sm:p-8 shadow-2xl backdrop-blur-sm">
 
           <form className="space-y-6" onSubmit={handleSubmit}>
 
@@ -237,21 +291,22 @@ export default function ContactoDistribuidor() {
 
               {/* CAMPO: NOMBRE CONTACTO */}
               <div className="col-span-1">
-                <label className="block text-xs font-bold text-gray-500 uppercase mb-2 ml-1">
+                <label className="block text-xs font-bold text-gray-400 uppercase mb-2 ml-1">
                   Tu Nombre
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     {/* Icono h-5 w-5 como en el Login */}
-                    <User className="h-5 w-5 text-gray-500" />
+                    <User className="h-5 w-5 text-gray-400" />
                   </div>
                   <input
                     type="text"
                     name="nombre"
                     required
                     /* pl-10 para igualar al Login */
-                    className="block w-full pl-10 pr-3 py-3 border border-white/10 rounded-lg bg-bg text-white placeholder-gray-600 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent text-sm transition-colors"
+                    className="block w-full pl-10 pr-3 py-3 border border-white/15 rounded-lg bg-bg text-white placeholder-gray-600 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent text-sm transition-colors"
                     placeholder="Ej. Juan Pérez"
+                    value={formData.nombre}
                     onChange={handleChange}
                   />
                 </div>
@@ -259,19 +314,20 @@ export default function ContactoDistribuidor() {
 
               {/* CAMPO: NOMBRE NEGOCIO */}
               <div className="col-span-1">
-                <label className="block text-xs font-bold text-gray-500 uppercase mb-2 ml-1">
+                <label className="block text-xs font-bold text-gray-400 uppercase mb-2 ml-1">
                   Nombre del Negocio
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Building2 className="h-5 w-5 text-gray-500" />
+                    <Building2 className="h-5 w-5 text-gray-400" />
                   </div>
                   <input
                     type="text"
                     name="negocio"
                     required
-                    className="block w-full pl-10 pr-3 py-3 border border-white/10 rounded-lg bg-bg text-white placeholder-gray-600 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent text-sm transition-colors"
+                    className="block w-full pl-10 pr-3 py-3 border border-white/15 rounded-lg bg-bg text-white placeholder-gray-600 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent text-sm transition-colors"
                     placeholder="Ej. Tacos El Primo"
+                    value={formData.negocio}
                     onChange={handleChange}
                   />
                 </div>
@@ -280,19 +336,20 @@ export default function ContactoDistribuidor() {
 
             {/* CAMPO: TELÉFONO */}
             <div>
-              <label className="block text-xs font-bold text-gray-500 uppercase mb-2 ml-1">
+              <label className="block text-xs font-bold text-gray-400 uppercase mb-2 ml-1">
                 Teléfono / WhatsApp
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Phone className="h-5 w-5 text-gray-500" />
+                  <Phone className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
                   type="tel"
                   name="telefono"
                   required
-                  className="block w-full pl-10 pr-3 py-3 border border-white/10 rounded-lg bg-bg text-white placeholder-gray-600 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent text-sm transition-colors"
+                  className="block w-full pl-10 pr-3 py-3 border border-white/15 rounded-lg bg-bg text-white placeholder-gray-600 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent text-sm transition-colors"
                   placeholder="(55) 1234 5678"
+                  value={formData.telefono}
                   onChange={handleChange}
                 />
               </div>
@@ -300,19 +357,20 @@ export default function ContactoDistribuidor() {
 
             {/* CAMPO: CORREO */}
             <div>
-              <label className="block text-xs font-bold text-gray-500 uppercase mb-2 ml-1">
+              <label className="block text-xs font-bold text-gray-400 uppercase mb-2 ml-1">
                 Correo Electrónico
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Mail className="h-5 w-5 text-gray-500" />
+                  <Mail className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
                   type="email"
                   name="email"
                   required
-                  className="block w-full pl-10 pr-3 py-3 border border-white/10 rounded-lg bg-bg text-white placeholder-gray-600 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent text-sm transition-colors"
+                  className="block w-full pl-10 pr-3 py-3 border border-white/15 rounded-lg bg-bg text-white placeholder-gray-600 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent text-sm transition-colors"
                   placeholder="contacto@negocio.com"
+                  value={formData.email}
                   onChange={handleChange}
                 />
               </div>
@@ -320,20 +378,20 @@ export default function ContactoDistribuidor() {
 
             {/* CAMPO: Direccion */}
             <div className="space-y-3">
-              <label className="block text-xs font-bold text-gray-500 uppercase ml-1">
+              <label className="block text-xs font-bold text-gray-400 uppercase ml-1">
                 Ubicación de entrega
               </label>
 
               <div className="relative flex gap-2">
                 <div className="relative w-full">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <MapPin className="h-5 w-5 text-gray-500" />
+                    <MapPin className="h-5 w-5 text-gray-400" />
                     </div>
                     <input
                     type="text"
                     name="direccion"
                     required
-                    className="block w-full pl-10 pr-3 py-3 border border-white/10 rounded-lg bg-bg text-white placeholder-gray-600 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent text-sm transition-colors"
+                    className="block w-full pl-10 pr-3 py-3 border border-white/15 rounded-lg bg-bg text-white placeholder-gray-600 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent text-sm transition-colors"
                     placeholder="Calle, Colonia, Ciudad..."
                     onChange={handleChange}
                     onKeyDown={(e) => {
@@ -363,7 +421,7 @@ export default function ContactoDistribuidor() {
               </div>
 
               {/* MAPA */}
-              <div className="rounded-lg border border-white/10 overflow-hidden">
+              <div className="rounded-lg border border-white/15 overflow-hidden">
                 <MapPicker 
                     onLocationSelect={handleLocationSelect} 
                     externalCoords={mapCoords} 
@@ -376,7 +434,7 @@ export default function ContactoDistribuidor() {
 
               {/* PRODUCTOS DE INTERÉS — una o más líneas, mínimo 1 */}
               <div className="space-y-3">
-                <label className="block text-xs font-bold text-gray-500 uppercase ml-1">
+                <label className="block text-xs font-bold text-gray-400 uppercase ml-1">
                   Producto{productos.length > 1 ? 's' : ''} de Interés
                 </label>
 
@@ -388,14 +446,14 @@ export default function ContactoDistribuidor() {
                       <div
                         onClick={() => setOpenDropdownKey(openDropdownKey === line.key ? null : line.key)}
                         className={`relative w-full pl-10 pr-10 py-3 border rounded-lg bg-bg text-white text-sm cursor-pointer transition-colors flex items-center select-none ${
-                            openDropdownKey === line.key ? 'border-accent ring-1 ring-accent' : 'border-white/10 hover:border-accent'
+                            openDropdownKey === line.key ? 'border-accent ring-1 ring-accent' : 'border-white/15 hover:border-accent'
                         }`}
                       >
                           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                              <ShoppingBag className={`h-5 w-5 transition-colors ${openDropdownKey === line.key ? 'text-accent' : 'text-gray-500'}`} />
+                              <ShoppingBag className={`h-5 w-5 transition-colors ${openDropdownKey === line.key ? 'text-accent' : 'text-gray-400'}`} />
                           </div>
 
-                          <span className={`truncate ${line.producto ? 'text-white' : 'text-gray-500'}`}>
+                          <span className={`truncate ${line.producto ? 'text-white' : 'text-gray-400'}`}>
                               {line.producto
                                   ? PRODUCTOS.find(p => p.id === line.producto)?.label
                                   : "Selecciona una opción..."
@@ -403,7 +461,7 @@ export default function ContactoDistribuidor() {
                           </span>
 
                           <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                              <svg className={`h-4 w-4 fill-current text-gray-500 transition-transform duration-300 ${openDropdownKey === line.key ? 'rotate-180 text-accent' : ''}`} viewBox="0 0 20 20">
+                              <svg className={`h-4 w-4 fill-current text-gray-400 transition-transform duration-300 ${openDropdownKey === line.key ? 'rotate-180 text-accent' : ''}`} viewBox="0 0 20 20">
                                   <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" fillRule="evenodd" />
                               </svg>
                           </div>
@@ -421,7 +479,7 @@ export default function ContactoDistribuidor() {
                                               updateProductoLine(line.key, 'producto', p.id);
                                               setOpenDropdownKey(null);
                                           }}
-                                          className={`px-4 py-3 text-sm cursor-pointer transition-colors border-b border-white/5 last:border-0 flex items-center justify-between group ${
+                                          className={`px-4 py-3 text-sm cursor-pointer transition-colors border-b border-white/10 last:border-0 flex items-center justify-between group ${
                                               line.producto === p.id
                                               ? 'bg-accent/20 text-accent font-bold'
                                               : 'text-gray-300 hover:bg-accent hover:text-white'
@@ -444,7 +502,7 @@ export default function ContactoDistribuidor() {
                         required
                         value={line.cantidad}
                         onChange={(e) => updateProductoLine(line.key, 'cantidad', e.target.value)}
-                        className="block w-full pl-3 pr-2 py-3 border border-white/10 rounded-lg bg-bg text-white placeholder-gray-600 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent text-sm transition-colors [&::-webkit-inner-spin-button]:appearance-none"
+                        className="block w-full pl-3 pr-2 py-3 border border-white/15 rounded-lg bg-bg text-white placeholder-gray-600 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent text-sm transition-colors [&::-webkit-inner-spin-button]:appearance-none"
                         placeholder="Cant."
                       />
                     </div>
@@ -455,7 +513,7 @@ export default function ContactoDistribuidor() {
                       onClick={() => removeProductoLine(line.key)}
                       disabled={productos.length <= 1}
                       aria-label="Quitar este producto"
-                      className="shrink-0 h-[46px] w-[46px] flex items-center justify-center rounded-lg border border-white/10 text-gray-500 hover:text-danger hover:border-danger/40 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:text-gray-500 disabled:hover:border-white/10 transition-colors"
+                      className="shrink-0 h-[46px] w-[46px] flex items-center justify-center rounded-lg border border-white/15 text-gray-400 hover:text-danger hover:border-danger/40 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:text-gray-400 disabled:hover:border-white/15 transition-colors"
                     >
                       <X className="w-4 h-4" />
                     </button>
@@ -478,16 +536,16 @@ export default function ContactoDistribuidor() {
 
                   {/* Select Frecuencia */}
                   <div className="space-y-2">
-                    <label className="block text-xs font-bold text-gray-500 uppercase ml-1">
+                    <label className="block text-xs font-bold text-gray-400 uppercase ml-1">
                       Frecuencia
                     </label>
                     <div className="relative">
                       <select
                         name="frecuencia"
                         required
-                        className="block w-full pl-4 pr-8 py-3 border border-white/10 rounded-lg bg-bg text-white focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent text-sm transition-colors appearance-none cursor-pointer hover:border-accent"
+                        className="block w-full pl-4 pr-8 py-3 border border-white/15 rounded-lg bg-bg text-white focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent text-sm transition-colors appearance-none cursor-pointer hover:border-accent"
+                        value={formData.frecuencia}
                         onChange={handleChange}
-                        defaultValue=""
                       >
                         <option value="" disabled>Selecciona...</option>
                         <option value="unica">Una vez</option>
@@ -495,7 +553,7 @@ export default function ContactoDistribuidor() {
                         <option value="quincenal">Quincenal</option>
                         <option value="mensual">Mensual</option>
                       </select>
-                      <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-gray-500">
+                      <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-gray-400">
                         <svg className="h-4 w-4 fill-current" viewBox="0 0 20 20">
                           <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" fillRule="evenodd" />
                         </svg>
@@ -508,18 +566,18 @@ export default function ContactoDistribuidor() {
 
             {/* CAMPO: MENSAJE / VOLUMEN */}
             <div>
-              <label className="block text-xs font-bold text-gray-500 uppercase mb-2 ml-1">
+              <label className="block text-xs font-bold text-gray-400 uppercase mb-2 ml-1">
                 Comentarios Adicionales (Opcional)
               </label>
               <div className="relative">
                 {/* Ajuste para textarea: top-3 y left-3 para alinearlo arriba a la izquierda */}
                 <div className="absolute top-3 left-3 pointer-events-none">
-                  <MessageSquare className="h-5 w-5 text-gray-500" />
+                  <MessageSquare className="h-5 w-5 text-gray-400" />
                 </div>
                 <textarea
                   name="mensaje"
                   style={{ minHeight: '80px' }}
-                  className="block w-full pl-10 pr-3 py-3 border border-white/10 rounded-lg bg-bg text-white placeholder-gray-600 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent text-sm transition-colors resize-y h-32"
+                  className="block w-full pl-10 pr-3 py-3 border border-white/15 rounded-lg bg-bg text-white placeholder-gray-600 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent text-sm transition-colors resize-y h-32"
                   placeholder="Dudas sobre envío, horarios de recepción, etc."
                   onChange={handleChange}
                 />
@@ -552,7 +610,7 @@ export default function ContactoDistribuidor() {
 
         {/* NOTA DE PRIVACIDAD */}
         <div className="mt-6 text-center px-4">
-           <p className="text-xs text-gray-500">
+           <p className="text-xs text-gray-400">
              Al enviar este formulario aceptas nuestro <a href="#" className="underline hover:text-accent">Aviso de Privacidad</a>.
              Tus datos son exclusivos para uso comercial de El Ranchero.
            </p>
@@ -560,7 +618,7 @@ export default function ContactoDistribuidor() {
 
         {/* VOLVER AL INICIO */}
         <div className="mt-8 text-center">
-           <Link href="/" className="inline-flex items-center text-gray-500 hover:text-accent transition-colors text-sm font-medium">
+           <Link href="/" className="inline-flex items-center text-gray-400 hover:text-accent transition-colors text-sm font-medium">
               <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
               </svg>

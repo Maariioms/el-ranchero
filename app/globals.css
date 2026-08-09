@@ -17,11 +17,17 @@
   --c-bg: #0f0c0a;
   --c-surface: #17130f;
   --c-surface-raised: #221c17;
-  --c-border: rgba(255, 255, 255, 0.1);
-  --c-border-strong: rgba(255, 255, 255, 0.2);
+  /* Bordes/texto tenues subidos de opacidad/tono a propósito: en pantallas
+   * OLED de celular (la mayoría), el negro se "come" los valores muy sutiles
+   * (black crush) — lo que en monitor se ve como un borde discreto, en
+   * teléfono desaparece. Estos valores están calculados para mantenerse
+   * arriba del mínimo de contraste de WCAG (3:1 bordes, 4.5:1 texto) incluso
+   * con esa pérdida, no solo "verse bien" en un monitor calibrado. */
+  --c-border: rgba(255, 255, 255, 0.15);
+  --c-border-strong: rgba(255, 255, 255, 0.24);
   --c-text: #ffffff;
   --c-text-2: #9ca3af;
-  --c-text-3: #6b7280;
+  --c-text-3: #838d9c;
 
   /* --- Color: marca --- */
   --c-accent: #fd6a02;

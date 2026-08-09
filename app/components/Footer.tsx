@@ -50,7 +50,7 @@ export default function Footer() {
           </div>
 
           {/* --- LINKS Y NAVEGACIÓN --- */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12 border-b border-white/10 pb-12">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12 border-b border-white/15 pb-12">
 
             {/* Columna 1: La Marca */}
             <div className="col-span-1 md:col-span-1">
@@ -60,17 +60,17 @@ export default function Footer() {
                 className="w-16 h-16 object-contain mb-4"
                 style={{ filter: 'invert(1)' }}
               />
-              <p className="text-gray-500 mb-6">
+              <p className="text-gray-400 mb-6">
                 Tradición encendida desde 1923. Llevando el auténtico sabor a las parrillas de todo México.
               </p>
               <div className="flex gap-4">
-                <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-accent hover:text-white transition-all">
+                <a href="#" className="w-10 h-10 rounded-full bg-white/8 flex items-center justify-center text-gray-400 hover:bg-accent hover:text-white transition-all">
                   <Instagram className="w-5 h-5" />
                 </a>
-                <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-accent hover:text-white transition-all">
+                <a href="#" className="w-10 h-10 rounded-full bg-white/8 flex items-center justify-center text-gray-400 hover:bg-accent hover:text-white transition-all">
                   <Facebook className="w-5 h-5" />
                 </a>
-                <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-accent hover:text-white transition-all">
+                <a href="#" className="w-10 h-10 rounded-full bg-white/8 flex items-center justify-center text-gray-400 hover:bg-accent hover:text-white transition-all">
                   <Twitter className="w-5 h-5" />
                 </a>
               </div>
@@ -140,11 +140,11 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-8">
 
             <div className="text-center md:text-left space-y-1">
-              <p className="text-gray-500 text-xs">
+              <p className="text-gray-400 text-xs">
                 © 2025 Fernando. Todos los derechos reservados.
               </p>
               <p className="text-[10px] text-gray-700">
-                Hecho por: <span className="font-bold text-gray-600">Mario Morales</span>
+                Hecho por: <span className="font-bold text-gray-500">Mario Morales</span>
                 <span className="mx-1">•</span>
                 Contacto: <a href="mailto:mora.sant.mario@gmail.com" className="hover:text-accent transition-colors">mora.sant.mario@gmail.com</a>
               </p>
@@ -153,14 +153,14 @@ export default function Footer() {
             <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-medium items-center">
               <button
                 onClick={() => setShowPrivacyModal(true)}
-                className="text-gray-500 hover:text-white transition-colors cursor-pointer"
+                className="text-gray-400 hover:text-white transition-colors cursor-pointer"
               >
                 Aviso de Privacidad
               </button>
 
               <button
                 onClick={() => setShowConditionModal(true)}
-                className="text-gray-500 hover:text-white transition-colors cursor-pointer"
+                className="text-gray-400 hover:text-white transition-colors cursor-pointer"
               >
                 Términos y Condiciones
               </button>
@@ -176,7 +176,7 @@ export default function Footer() {
 
       {/* Modal de Privacidad */}
       <Modal isOpen={showPrivacyModal} onClose={() => setShowPrivacyModal(false)}>
-        <div className="flex justify-between items-center mb-4 border-b border-white/10 pb-4">
+        <div className="flex justify-between items-center mb-4 border-b border-white/15 pb-4">
           <h3 className="text-2xl font-black text-white uppercase">Aviso de Privacidad</h3>
           <button
             onClick={() => setShowPrivacyModal(false)}
@@ -186,8 +186,8 @@ export default function Footer() {
           </button>
         </div>
         <div className="space-y-4 text-sm text-gray-300">
-          <div className="bg-white/5 p-6 rounded-xl text-center border border-dashed border-gray-600">
-            <p className="text-xs text-gray-500">Sus datos personales (Dirección de envío, Teléfono) son utilizados únicamente para la logística de entrega de los costales.</p>
+          <div className="bg-white/8 p-6 rounded-xl text-center border border-dashed border-gray-600">
+            <p className="text-xs text-gray-400">Sus datos personales (Dirección de envío, Teléfono) son utilizados únicamente para la logística de entrega de los costales.</p>
           </div>
         </div>
         <div className="mt-6 text-center">
@@ -202,7 +202,7 @@ export default function Footer() {
 
       {/* Modal de Términos y Condiciones */}
       <Modal isOpen={showConditionModal} onClose={() => setShowConditionModal(false)} maxWidth="max-w-4xl">
-        <div className="flex justify-between items-center mb-4 border-b border-white/10 pb-4">
+        <div className="flex justify-between items-center mb-4 border-b border-white/15 pb-4">
           <h3 className="text-2xl font-black text-white uppercase">Términos y Condiciones</h3>
           <button
             onClick={() => setShowConditionModal(false)}
@@ -213,7 +213,7 @@ export default function Footer() {
         </div>
 
         <div className="space-y-4 text-sm text-gray-300 pr-2 max-h-[60vh] overflow-y-auto custom-scrollbar">
-          <div className="bg-bg p-4 rounded-lg border border-white/5">
+          <div className="bg-bg p-4 rounded-lg border border-white/10">
 
             <h4 className="font-bold text-base text-gold mb-1">1. Uso del Producto</h4>
             <p className='text-xs space-y-1 mb-4 text-gray-400'>El carbón vegetal "El Ranchero" está diseñado exclusivamente para uso recreativo y culinario en exteriores (parrillas, asadores). Cualquier otro uso (industrial, calefacción interna) está estrictamente prohibido bajo estos términos.</p>

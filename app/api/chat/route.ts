@@ -110,7 +110,7 @@ export async function POST(req: Request) {
       messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...messages],
       stream: true,
       temperature: 0.3,
-      max_tokens: 500,
+      max_tokens: 600, // deja margen para el marcador [[FORM:{...}]] al final
     });
 
     const encoder = new TextEncoder();

@@ -49,10 +49,10 @@ interface FeatureCardProps {
 
 function FeatureCard({ icon: Icon, title, colorClass, description }: FeatureCardProps) {
   return (
-    <div className="group bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-xl hover:bg-white/10 hover:border-white/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-black/50">
+    <div className="group bg-white/8 backdrop-blur-sm border border-white/15 p-6 rounded-xl hover:bg-white/10 hover:border-white/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-black/50">
       <div className="text-center">
         <div className="flex justify-center mb-4">
-          <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+          <div className="w-16 h-16 rounded-full bg-white/8 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
             <Icon className={`w-8 h-8 ${colorClass}`} />
           </div>
         </div>
@@ -335,7 +335,7 @@ export default function LandingPage() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mt-12">
 
                 {/* Dato 1: Origen Tamaulipas */}
-                <div className="group bg-white/5 backdrop-blur-md p-6 rounded-2xl border border-white/10 hover:border-accent/50 transition-colors duration-300">
+                <div className="group bg-white/8 backdrop-blur-md p-6 rounded-2xl border border-white/15 hover:border-accent/50 transition-colors duration-300">
                   {/* Icono Mapa */}
                   <MapPin className="w-10 h-10 text-accent mx-auto mb-4 group-hover:scale-110 transition-transform" />
                   <div className="text-2xl font-extrabold text-white mb-2">De Tamaulipas</div>
@@ -345,7 +345,7 @@ export default function LandingPage() {
                 </div>
 
                 {/* Dato 2: Ébano y Mezquite */}
-                <div className="group bg-white/5 backdrop-blur-md p-6 rounded-2xl border border-white/10 hover:border-gold/50 transition-colors duration-300">
+                <div className="group bg-white/8 backdrop-blur-md p-6 rounded-2xl border border-white/15 hover:border-gold/50 transition-colors duration-300">
                   {/* Icono Fuego/Madera */}
                   <Flame className="w-10 h-10 text-gold mx-auto mb-4 group-hover:scale-110 transition-transform" />
                   <div className="text-2xl font-extrabold text-white mb-2">Ébano y Mezquite</div>
@@ -355,7 +355,7 @@ export default function LandingPage() {
                 </div>
 
                 {/* Dato 3: Hecho a Mano */}
-                <div className="group bg-white/5 backdrop-blur-md p-6 rounded-2xl border border-white/10 hover:border-danger/50 transition-colors duration-300">
+                <div className="group bg-white/8 backdrop-blur-md p-6 rounded-2xl border border-white/15 hover:border-danger/50 transition-colors duration-300">
                   {/* Icono Martillo/Trabajo Manual */}
                   <Hammer className="w-10 h-10 text-danger mx-auto mb-4 group-hover:scale-110 transition-transform" />
                   <div className="text-2xl font-extrabold text-white mb-2">Principalmente Artesanal</div>
@@ -398,7 +398,7 @@ export default function LandingPage() {
               ].map((item, i) => {
                 const Icon = item.icon;
                 return (
-                  <div key={i} className="cursor-pointer group relative h-[400px] rounded-3xl overflow-hidden border border-white/10 hover:border-accent transition-all">
+                  <div key={i} className="cursor-pointer group relative h-[400px] rounded-3xl overflow-hidden border border-white/15 hover:border-accent transition-all">
                     {/* Imagen de fondo */}
                     <div 
                       className="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-700"
@@ -440,7 +440,7 @@ export default function LandingPage() {
               ].map((feature, i) => {
                 const Icon = feature.icon;
                 return (
-                  <div key={i} className="group bg-white/5 border border-white/10 hover:border-white/30 p-8 rounded-2xl transition-all hover:-translate-y-1">
+                  <div key={i} className="group bg-white/8 border border-white/15 hover:border-white/30 p-8 rounded-2xl transition-all hover:-translate-y-1">
                     <Icon className="w-12 h-12 mb-4 group-hover:scale-110 transition-transform" style={{ color: feature.color }} />
                     <h3 className="text-2xl font-bold mb-3" style={{ color: feature.color }}>{feature.title}</h3>
                     <p className="text-gray-400 leading-relaxed">{feature.desc}</p>
@@ -467,7 +467,7 @@ export default function LandingPage() {
             </div>
 
             {/* Card grande estilo featured */}
-            <div className="group relative block w-full h-auto min-h-[450px] md:h-[500px] rounded-3xl overflow-hidden border border-white/10 shadow-2xl hover:shadow-[0_0_50px_rgba(253,106,2,0.3)] transition-all duration-500 cursor-pointer">
+            <div className="group relative block w-full h-auto min-h-[450px] md:h-[500px] rounded-3xl overflow-hidden border border-white/15 shadow-2xl hover:shadow-[0_0_50px_rgba(253,106,2,0.3)] transition-all duration-500 cursor-pointer">
               {/* Imagen de fondo */}
               <div className="absolute inset-0 bg-surface-raised group-hover:scale-105 transition-transform duration-700">
                 <div 
@@ -486,7 +486,7 @@ export default function LandingPage() {
                 <div className="relative z-10 text-center max-w-4xl mx-auto px-4">
 
                     {/* Badge Premium */}
-                    <span className="inline-block px-4 py-1.5 rounded-full bg-accent text-white text-xs md:text-sm font-black uppercase tracking-widest mb-6 shadow-lg shadow-accent/30 border border-white/10">
+                    <span className="inline-block px-4 py-1.5 rounded-full bg-accent text-white text-xs md:text-sm font-black uppercase tracking-widest mb-6 shadow-lg shadow-accent/30 border border-white/15">
                         Calidad de Exportación
                     </span>
 
@@ -533,7 +533,7 @@ export default function LandingPage() {
                 { name: 'Bolsa 4kg', image: '/bolsas-ranchero.jpg', tag: 'Uso Rudo' },
                 { name: 'Briquetas', image: '/briqueta-alm.jpg', tag: 'Profesional' },
               ].map((product, i) => (
-                <div key={i} className="group relative h-[300px] rounded-2xl overflow-hidden border border-white/10 hover:border-accent/50 transition-all cursor-pointer">
+                <div key={i} className="group relative h-[300px] rounded-2xl overflow-hidden border border-white/15 hover:border-accent/50 transition-all cursor-pointer">
                   <div 
                     className="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-700"
                     style={{ backgroundImage: `url('${product.image}')` }}
@@ -585,7 +585,7 @@ export default function LandingPage() {
                   </div>
                   <div>
                     <h3 className="text-white font-bold text-xl">Brasa de Aguante</h3>
-                    <p className="text-gray-500 text-sm mt-1">
+                    <p className="text-gray-400 text-sm mt-1">
                       Olvídate de recargar el asador cada 20 minutos. Nuestro Ébano mantiene temperatura alta por horas, no por minutos.
                     </p>
                   </div>
@@ -600,7 +600,7 @@ export default function LandingPage() {
                   </div>
                   <div>
                     <h3 className="text-white font-bold text-xl">Kilos de a Kilo</h3>
-                    <p className="text-gray-500 text-sm mt-1">
+                    <p className="text-gray-400 text-sm mt-1">
                       Aquí no vendemos aire ni polvo. Si el costal dice 20kg, recibes 20kg de producto útil. Pesado y garantizado.
                     </p>
                   </div>
@@ -615,7 +615,7 @@ export default function LandingPage() {
                   </div>
                   <div>
                     <h3 className="text-white font-bold text-xl">Entrega Rápida</h3>
-                    <p className="text-gray-500 text-sm mt-1">
+                    <p className="text-gray-400 text-sm mt-1">
                       Pides hoy, cocinas pronto. Coordinamos la entrega directo a tu negocio sin que se te apague la parrilla esperando.
                     </p>
                   </div>
@@ -629,7 +629,7 @@ export default function LandingPage() {
               {/* Fondo decorativo */}
               <div className="absolute inset-0 bg-linear-to-tr from-accent/20 via-transparent to-transparent rounded-3xl blur-2xl -z-10"></div>
 
-              <div className="bg-surface border border-white/10 rounded-3xl p-8 md:p-10 relative overflow-hidden">
+              <div className="bg-surface border border-white/15 rounded-3xl p-8 md:p-10 relative overflow-hidden">
                 <div className="absolute top-0 right-0 p-4 opacity-10">
                   <FileCheck className="w-24 h-24 text-white" />
                 </div>
@@ -643,38 +643,38 @@ export default function LandingPage() {
 
                 <ul className="space-y-4">
                   {/* Item 1 */}
-                  <li className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5 transition-all duration-300 hover:bg-white/10 hover:border-accent/30 hover:shadow-[0_0_15px_rgba(253,106,2,0.1)] hover:-translate-y-1 cursor-default">
+                  <li className="flex items-center justify-between p-4 bg-white/8 rounded-xl border border-white/10 transition-all duration-300 hover:bg-white/10 hover:border-accent/30 hover:shadow-[0_0_15px_rgba(253,106,2,0.1)] hover:-translate-y-1 cursor-default">
                     <span className="text-gray-300 font-medium group-hover:text-white transition-colors">Facturación</span>
                     <span className="text-accent font-bold text-sm bg-accent/10 px-3 py-1 rounded-full border border-accent/20">Automática</span>
                   </li>
 
                   {/* Item 2 */}
-                  <li className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5 transition-all duration-300 hover:bg-white/10 hover:border-gold/30 hover:shadow-[0_0_15px_rgba(255,215,0,0.1)] hover:-translate-y-1 cursor-default">
+                  <li className="flex items-center justify-between p-4 bg-white/8 rounded-xl border border-white/10 transition-all duration-300 hover:bg-white/10 hover:border-gold/30 hover:shadow-[0_0_15px_rgba(255,215,0,0.1)] hover:-translate-y-1 cursor-default">
                     <span className="text-gray-300 font-medium group-hover:text-white transition-colors">Permisos SEMARNAT</span>
                     <span className="text-gold font-bold text-sm bg-gold/10 px-3 py-1 rounded-full border border-gold/20">Vigentes</span>
                   </li>
 
                   {/* Item 3 */}
-                  <li className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5 transition-all duration-300 hover:bg-white/10 hover:border-white/30 hover:shadow-[0_0_15px_rgba(255,255,255,0.05)] hover:-translate-y-1 cursor-default">
+                  <li className="flex items-center justify-between p-4 bg-white/8 rounded-xl border border-white/10 transition-all duration-300 hover:bg-white/10 hover:border-white/30 hover:shadow-[0_0_15px_rgba(255,255,255,0.05)] hover:-translate-y-1 cursor-default">
                     <span className="text-gray-300 font-medium group-hover:text-white transition-colors">Empaque</span>
                     <span className="text-white font-bold text-sm bg-white/10 px-3 py-1 rounded-full border border-white/20">Uso Rudo (3 Capas)</span>
                   </li>
 
                   {/* Item 4 */}
-                  <li className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5 transition-all duration-300 hover:bg-white/10 hover:border-accent/30 hover:shadow-[0_0_15px_rgba(253,106,2,0.1)] hover:-translate-y-1 cursor-default">
+                  <li className="flex items-center justify-between p-4 bg-white/8 rounded-xl border border-white/10 transition-all duration-300 hover:bg-white/10 hover:border-accent/30 hover:shadow-[0_0_15px_rgba(253,106,2,0.1)] hover:-translate-y-1 cursor-default">
                     <span className="text-gray-300 font-medium group-hover:text-white transition-colors">Envíos</span>
                     <span className="text-white font-bold text-sm bg-white/10 px-3 py-1 rounded-full border border-white/20">CDMX y Edo. Mex</span>
                   </li>
 
                   {/* Item 5 */}
-                  <li className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5 transition-all duration-300 hover:bg-white/10 hover:border-gold/30 hover:shadow-[0_0_15px_rgba(255,215,0,0.1)] hover:-translate-y-1 cursor-default">
+                  <li className="flex items-center justify-between p-4 bg-white/8 rounded-xl border border-white/10 transition-all duration-300 hover:bg-white/10 hover:border-gold/30 hover:shadow-[0_0_15px_rgba(255,215,0,0.1)] hover:-translate-y-1 cursor-default">
                     <span className="text-gray-300 font-medium group-hover:text-white transition-colors">Norma Forestal</span>
                     <span className="text-gold font-bold text-sm bg-gold/10 px-3 py-1 rounded-full border border-gold/20">NOM-152-SEMARNAT</span>
                   </li>
                 </ul>
 
-                <div className="mt-8 pt-6 border-t border-white/10 text-center">
-                   <p className="text-xs text-gray-500 italic">
+                <div className="mt-8 pt-6 border-t border-white/15 text-center">
+                   <p className="text-xs text-gray-400 italic">
                      "El único carbón que rinde más que el turno del parrillero."
                    </p>
                 </div>
@@ -685,7 +685,7 @@ export default function LandingPage() {
         </section>
 
         {/* SECCIÓN 2: Business Solutions */}
-        <section className="relative py-12 px-4 md:px-6 bg-linear-to-b from-bg via-surface to-bg border-y border-white/5 overflow-hidden scroll-reveal">
+        <section className="relative py-12 px-4 md:px-6 bg-linear-to-b from-bg via-surface to-bg border-y border-white/10 overflow-hidden scroll-reveal">
 
         {/* Fondo */}
         <div 
@@ -738,10 +738,10 @@ export default function LandingPage() {
                     </li>
                   </ul>
 
-                  <div className="pt-8 border-t border-white/10 flex justify-between items-end">
+                  <div className="pt-8 border-t border-white/15 flex justify-between items-end">
                     <div>
-                        <p className="text-sm text-gray-500 mb-1 uppercase tracking-wider font-bold">Entrega</p>
-                        <p className="text-3xl font-black text-white group-hover:text-accent transition-colors">Rápida<span className="text-lg text-gray-500 font-medium"> y directa</span></p>
+                        <p className="text-sm text-gray-400 mb-1 uppercase tracking-wider font-bold">Entrega</p>
+                        <p className="text-3xl font-black text-white group-hover:text-accent transition-colors">Rápida<span className="text-lg text-gray-400 font-medium"> y directa</span></p>
                     </div>
                     <ArrowRight className="w-8 h-8 text-accent opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500" />
                   </div>
@@ -778,10 +778,10 @@ export default function LandingPage() {
                     </li>
                   </ul>
 
-                  <div className="pt-8 border-t border-white/10 flex justify-between items-end">
+                  <div className="pt-8 border-t border-white/15 flex justify-between items-end">
                     <div>
-                        <p className="text-sm text-gray-500 mb-1 uppercase tracking-wider font-bold">Entrega</p>
-                        <p className="text-3xl font-black text-white group-hover:text-gold transition-colors">Rápida<span className="text-lg text-gray-500 font-medium"> y directa</span></p>
+                        <p className="text-sm text-gray-400 mb-1 uppercase tracking-wider font-bold">Entrega</p>
+                        <p className="text-3xl font-black text-white group-hover:text-gold transition-colors">Rápida<span className="text-lg text-gray-400 font-medium"> y directa</span></p>
                     </div>
                     <ArrowRight className="w-8 h-8 text-gold opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500" />
                   </div>
@@ -881,7 +881,7 @@ export default function LandingPage() {
               </Link>
             </div>
 
-            <p className="text-gray-500 mt-10 text-sm uppercase tracking-widest">
+            <p className="text-gray-400 mt-10 text-sm uppercase tracking-widest">
               Envíos a CDMX, Edo. Méx y Área Metropolitana • Calidad Garantizada
             </p>
           </div>
@@ -896,7 +896,7 @@ export default function LandingPage() {
 
       {/* 1. Modal de Seguridad (Antes Disclaimer) */}
       <Modal isOpen={showDisclaimerModal} onClose={() => setShowDisclaimerModal(false)} maxWidth="max-w-4xl">
-          <div className="flex justify-between items-center mb-4 border-b border-white/10 pb-4">
+          <div className="flex justify-between items-center mb-4 border-b border-white/15 pb-4">
             <h3 className="text-2xl font-black text-warning uppercase">Seguridad y Precaución</h3>
             <button
               onClick={() => setShowDisclaimerModal(false)}
@@ -945,13 +945,13 @@ export default function LandingPage() {
               </div>
             </div>
 
-            <div className="bg-white/5 p-4 rounded-lg text-xs leading-relaxed border-l-4 border-warning">
+            <div className="bg-white/8 p-4 rounded-lg text-xs leading-relaxed border-l-4 border-warning">
               <strong className="text-warning block mb-1">RESPONSABILIDAD DEL USUARIO:</strong>
               El uso de fuego conlleva riesgos inherentes. "El Ranchero" no se hace responsable por daños materiales o de salud derivados del uso incorrecto, negligente o en espacios sin ventilación adecuada de nuestros productos.
             </div>
 
-            <div className="pt-3 border-t border-white/10 text-center">
-              <p className="text-xs text-gray-500">
+            <div className="pt-3 border-t border-white/15 text-center">
+              <p className="text-xs text-gray-400">
                 En caso de emergencia o intoxicación, llame al 911 inmediatamente y ventile el área.
               </p>
             </div>
@@ -968,7 +968,7 @@ export default function LandingPage() {
 
       {/* 3. Modal de Contacto */}
       <Modal isOpen={showContactModal} onClose={() => setShowContactModal(false)} maxWidth="max-w-lg">
-          <div className="flex justify-between items-center mb-4 border-b border-white/10 pb-4">
+          <div className="flex justify-between items-center mb-4 border-b border-white/15 pb-4">
             <h3 className="text-2xl font-black text-accent uppercase">Hablemos de Carbón</h3>
             <button
               onClick={() => setShowContactModal(false)}
@@ -981,21 +981,21 @@ export default function LandingPage() {
             <p className="text-center text-gray-400">¿Tienes dudas sobre tu pedido o quieres ser distribuidor?</p>
 
             <div className="grid grid-cols-1 gap-4">
-                <div className="flex items-center gap-4 bg-white/5 p-4 rounded-xl">
+                <div className="flex items-center gap-4 bg-white/8 p-4 rounded-xl">
                     <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center text-accent">
                         <Phone className="font-bold" />
                     </div>
                     <div>
-                        <p className="text-xs text-gray-500 uppercase">Teléfonos</p>
+                        <p className="text-xs text-gray-400 uppercase">Teléfonos</p>
                         <p className="text-white font-bold text-lg">(55) 5576 0890</p>
                     </div>
                 </div>
-                <div className="flex items-center gap-4 bg-white/5 p-4 rounded-xl">
+                <div className="flex items-center gap-4 bg-white/8 p-4 rounded-xl">
                     <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center text-accent">
                         <MapPin className="font-bold"/>
                     </div>
                     <div>
-                        <p className="text-xs text-gray-500 uppercase">Ubicación</p>
+                        <p className="text-xs text-gray-400 uppercase">Ubicación</p>
                         <p className="text-white font-medium">Naucalpan, Edo. de México</p>
                     </div>
                 </div>

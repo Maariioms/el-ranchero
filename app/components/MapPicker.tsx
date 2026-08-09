@@ -69,7 +69,7 @@ export default function MapPicker({ onLocationSelect, externalCoords }: MapPicke
   }, [externalCoords]);
 
   return (
-    <div className="h-[300px] w-full rounded-lg overflow-hidden border border-white/10 relative z-0">
+    <div className="h-[300px] w-full rounded-lg overflow-hidden border border-white/15 relative z-0">
       <MapContainer 
         center={[19.4326, -99.1332]} 
         zoom={13} 

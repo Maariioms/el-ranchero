@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import Link from 'next/link';
 import { Suspense, useEffect, useState } from 'react';
@@ -204,7 +204,7 @@ export default function Products() {
                         className={`px-5 py-2 rounded-full text-sm font-bold transition-all border cursor-pointer ${
                             activeFilter === filter.id 
                             ? 'bg-accent border-accent text-white shadow-lg shadow-accent/20' 
-                            : 'bg-white/5 border-white/10 text-gray-400 hover:border-accent hover:text-white'
+                            : 'bg-white/8 border-white/15 text-gray-400 hover:border-accent hover:text-white'
                         }`}
                     >
                         {filter.label}
@@ -224,7 +224,7 @@ export default function Products() {
                         </span>
                         <Link
                             href="/productos"
-                            className="text-xs font-bold text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-full px-3 py-1.5 transition-colors inline-flex items-center gap-1"
+                            className="text-xs font-bold text-gray-400 hover:text-white bg-white/8 hover:bg-white/10 rounded-full px-3 py-1.5 transition-colors inline-flex items-center gap-1"
                         >
                             <X className="w-3 h-3" />
                             Quitar filtro
@@ -245,7 +245,7 @@ export default function Products() {
                     href={`/interest?producto=${product.id}`}
                     className="group w-full max-w-[340px] mx-auto block"
                   >
-                        <div className="bg-surface/90 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden hover:border-accent/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,0,0,0.6)] flex flex-col h-full">
+                        <div className="bg-surface/90 backdrop-blur-xl border border-white/15 rounded-2xl overflow-hidden hover:border-accent/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,0,0,0.6)] flex flex-col h-full">
 
                             {/* IMAGEN */}
                             <div className="relative h-56 bg-surface/50 flex items-center justify-center p-6 shrink-0">
@@ -267,7 +267,7 @@ export default function Products() {
                             {/* CONTENIDO — siempre visible, sin depender de hover */}
                             <div className="p-6 flex flex-col grow bg-surface/40">
 
-                                <div className="text-[10px] font-bold text-gray-500 mb-1 uppercase tracking-wide group-hover:text-accent transition-colors">
+                                <div className="text-[10px] font-bold text-gray-400 mb-1 uppercase tracking-wide group-hover:text-accent transition-colors">
                                     {product.category}
                                 </div>
 
@@ -278,7 +278,7 @@ export default function Products() {
                                 {product.weights && (
                                     <div className="flex flex-wrap items-center gap-2 mb-3">
                                         {product.weights.map((weight, i) => (
-                                            <div key={i} className="flex items-center gap-1 bg-white/5 border border-white/10 px-1.5 py-0.5 rounded text-gray-400 text-[10px] font-bold">
+                                            <div key={i} className="flex items-center gap-1 bg-white/8 border border-white/15 px-1.5 py-0.5 rounded text-gray-400 text-[10px] font-bold">
                                                 <ShoppingBag className="w-3 h-3 text-accent" />
                                                 {weight}
                                             </div>
@@ -286,12 +286,12 @@ export default function Products() {
                                     </div>
                                 )}
 
-                                <p className="text-gray-400 text-xs leading-relaxed pt-2 mb-4 border-t border-white/5">
+                                <p className="text-gray-400 text-xs leading-relaxed pt-2 mb-4 border-t border-white/10">
                                     {product.description}
                                 </p>
 
                                 {/* Indicador de acción — discreto, la tarjeta entera es el CTA */}
-                                <div className="mt-auto pt-3 border-t border-white/5 flex items-center justify-between text-accent text-xs font-bold uppercase tracking-wide">
+                                <div className="mt-auto pt-3 border-t border-white/10 flex items-center justify-between text-accent text-xs font-bold uppercase tracking-wide">
                                     <span className="inline-flex items-center gap-1.5">
                                         <CtaIcon className="w-3.5 h-3.5" />
                                         {ctaLabel}
@@ -309,7 +309,7 @@ export default function Products() {
         </div>
 
         {/* CTA FINAL: ENFOQUE SOPORTE / CONTACTO */}
-        <div className="border-t border-white/10 bg-linear-to-b from-surface/80 to-bg mt-12">
+        <div className="border-t border-white/15 bg-linear-to-b from-surface/80 to-bg mt-12">
             <div className="max-w-5xl mx-auto px-4 md:px-6 py-16">
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
 
@@ -320,7 +320,7 @@ export default function Products() {
                   <p className="text-gray-400">
                     Cobertura de envíos, precios por volumen o cualquier duda — escríbenos directo.
                   </p>
-                  <div className="flex flex-wrap gap-x-6 gap-y-2 mt-4 text-xs text-gray-500 font-bold uppercase tracking-wide">
+                  <div className="flex flex-wrap gap-x-6 gap-y-2 mt-4 text-xs text-gray-400 font-bold uppercase tracking-wide">
                     <span>CDMX y Edo. Méx</span>
                     <span>·</span>
                     <span>Respuesta en 24 hrs</span>

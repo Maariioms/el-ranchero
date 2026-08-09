@@ -114,7 +114,7 @@ export default function HistoriaPage() {
       </section>
 
       {/* STATS */}
-      <section className="border-y border-white/10 bg-surface/30 grid grid-cols-3 scroll-reveal-fast">
+      <section className="border-y border-white/15 bg-surface/30 grid grid-cols-3 scroll-reveal-fast">
         {[
           { num: "3", label: "Generaciones", icon: <Clock className="w-5 h-5" /> },
           { num: "4", label: "Estados", icon: <MapPin className="w-5 h-5" /> },
@@ -122,13 +122,13 @@ export default function HistoriaPage() {
         ].map((s, i) => (
           <div
             key={i}
-            className="py-12 md:py-16 text-center border-l border-white/5 first:border-l-0 hover:bg-white/3 transition-colors duration-300"
+            className="py-12 md:py-16 text-center border-l border-white/10 first:border-l-0 hover:bg-white/3 transition-colors duration-300"
           >
             <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent/10 text-accent mb-4">
               {s.icon}
             </div>
             <div className="text-4xl md:text-5xl font-black">{s.num}</div>
-            <div className="text-xs uppercase tracking-widest text-gray-500 mt-1.5">{s.label}</div>
+            <div className="text-xs uppercase tracking-widest text-gray-400 mt-1.5">{s.label}</div>
           </div>
         ))}
       </section>
@@ -136,7 +136,7 @@ export default function HistoriaPage() {
       {/* ORIGEN — bloque intermedio con contenido real, llena el hueco entre stats y timeline */}
       <section className="py-28 relative scroll-reveal">
         <div className="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
-          <div className="relative h-80 lg:h-[460px] rounded-2xl overflow-hidden border border-white/10 order-2 lg:order-1">
+          <div className="relative h-80 lg:h-[460px] rounded-2xl overflow-hidden border border-white/15 order-2 lg:order-1">
             <img
               src="/carne-asada.jpg"
               alt="Carne asada sobre brasas de El Ranchero"
@@ -158,7 +158,7 @@ export default function HistoriaPage() {
               que da la región de Tamaulipas. El ébano arde con brasa intensa y duradera; el
               mezquite entrega el humo que distingue a la carne asada del norte.
             </p>
-            <p className="text-gray-500 leading-relaxed">
+            <p className="text-gray-400 leading-relaxed">
               Un siglo después seguimos usando las mismas dos maderas, cortadas y horneadas con el
               mismo criterio: tronco por tronco, sin atajos.
             </p>
@@ -171,7 +171,7 @@ export default function HistoriaPage() {
         {/* Línea central */}
         <div className="absolute left-1/2 top-40 bottom-20 w-px bg-linear-to-b from-transparent via-accent/40 to-transparent hidden md:block" />
 
-        <h2 className="text-center text-xs tracking-[0.5em] uppercase text-gray-500 mb-24">
+        <h2 className="text-center text-xs tracking-[0.5em] uppercase text-gray-400 mb-24">
           Nuestra Trayectoria
         </h2>
 
@@ -190,7 +190,7 @@ export default function HistoriaPage() {
 
                 {/* Imagen real del producto/oficio */}
                 <div
-                  className={`group relative h-72 md:h-[380px] rounded-2xl overflow-hidden border border-white/10 ${
+                  className={`group relative h-72 md:h-[380px] rounded-2xl overflow-hidden border border-white/15 ${
                     i % 2 !== 0 ? "md:order-2" : ""
                   }`}
                 >
@@ -203,7 +203,7 @@ export default function HistoriaPage() {
                   <span
                     className={`absolute top-5 ${
                       i % 2 !== 0 ? "left-5" : "right-5"
-                    } inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 text-[10px] font-bold uppercase tracking-widest text-gold`}
+                    } inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/60 backdrop-blur-sm border border-white/15 text-[10px] font-bold uppercase tracking-widest text-gold`}
                   >
                     <Icon className="w-3 h-3" />
                     {m.tag}
@@ -282,7 +282,7 @@ export default function HistoriaPage() {
             <ArrowRight className="w-5 h-5 md:w-7 md:h-7 shrink-0 group-hover:translate-x-1 transition-transform" />
           </Link>
 
-          <p className="mt-8 text-xs text-gray-600 font-bold uppercase tracking-wider">
+          <p className="mt-8 text-xs text-gray-500 font-bold uppercase tracking-wider">
             Respuesta garantizada en menos de 24 hrs
           </p>
         </div>

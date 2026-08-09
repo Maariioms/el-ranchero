@@ -55,7 +55,7 @@ export default function Navbar() {
       className={`fixed top-0 w-full z-50 transition-all duration-300 border-b border-transparent ${
         scrolled 
           ? 'bg-bg/95 backdrop-blur-md border-accent/20 shadow-lg shadow-black/50'
-          : 'bg-transparent backdrop-blur-sm border-white/5'
+          : 'bg-transparent backdrop-blur-sm border-white/10'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 md:px-6">
@@ -104,13 +104,13 @@ export default function Navbar() {
 
               {isProductsOpen && (
                 <div className="modal-in absolute left-1/2 -translate-x-1/2 top-full pt-3 w-64">
-                  <div className="grid grid-cols-2 gap-1 p-2 rounded-xl bg-surface border border-white/10 shadow-2xl shadow-black/50">
+                  <div className="grid grid-cols-2 gap-1 p-2 rounded-xl bg-surface border border-white/15 shadow-2xl shadow-black/50">
                     {PRODUCT_CATEGORIES.map(({ tipo, label, icon: Icon }) => (
                       <Link
                         key={label}
                         href={tipo ? `/productos?tipo=${tipo}` : '/productos'}
                         onClick={() => setIsProductsOpen(false)}
-                        className="flex flex-col items-center gap-1.5 rounded-lg px-3 py-3 text-center text-xs font-bold uppercase tracking-wide text-gray-300 hover:bg-white/5 hover:text-accent transition-colors"
+                        className="flex flex-col items-center gap-1.5 rounded-lg px-3 py-3 text-center text-xs font-bold uppercase tracking-wide text-gray-300 hover:bg-white/8 hover:text-accent transition-colors"
                       >
                         <Icon className="w-5 h-5" />
                         {label}
@@ -157,15 +157,15 @@ export default function Navbar() {
 
       {/* MENÚ MÓVIL */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-bg border-t border-white/10 animate-fade-in-down absolute w-full left-0 shadow-2xl h-screen">
+        <div className="md:hidden bg-bg border-t border-white/15 animate-fade-in-down absolute w-full left-0 shadow-2xl h-screen">
           <div className="px-4 py-6 space-y-2">
             
-            <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 px-2">Explora</p>
+            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2 px-2">Explora</p>
             
             <Link
               href="/productos"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block px-3 py-3 rounded-lg text-lg font-bold text-white hover:bg-white/5 hover:text-accent transition-colors"
+              className="block px-3 py-3 rounded-lg text-lg font-bold text-white hover:bg-white/8 hover:text-accent transition-colors"
             >
               Nuestros Productos
             </Link>
@@ -175,7 +175,7 @@ export default function Navbar() {
                   key={label}
                   href={`/productos?tipo=${tipo}`}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex flex-col items-center gap-1 rounded-lg bg-white/5 py-3 text-[11px] font-bold uppercase tracking-wide text-gray-300 hover:bg-white/10 hover:text-accent transition-colors"
+                  className="flex flex-col items-center gap-1 rounded-lg bg-white/8 py-3 text-[11px] font-bold uppercase tracking-wide text-gray-300 hover:bg-white/10 hover:text-accent transition-colors"
                 >
                   <Icon className="w-4 h-4" />
                   {label}
@@ -185,7 +185,7 @@ export default function Navbar() {
             <Link
               href="/tradicion"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block px-3 py-3 rounded-lg text-lg font-bold text-white hover:bg-white/5 hover:text-accent transition-colors"
+              className="block px-3 py-3 rounded-lg text-lg font-bold text-white hover:bg-white/8 hover:text-accent transition-colors"
             >
               Nuestra Historia
             </Link>
