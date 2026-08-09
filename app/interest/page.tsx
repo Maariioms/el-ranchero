@@ -141,10 +141,10 @@ export default function ContactoDistribuidor() {
         <div className="text-center mb-8">
           <Link href="/" className="inline-block group">
              <div className="mx-auto h-16 w-16 rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(253,106,2,0.4)] mb-4 group-hover:scale-105 transition-transform">
-                <img 
-                  src="/logo.png" 
-                  alt="Logo El Ranchero" 
-                  className="w-full h-full object-contain" 
+                <img
+                  src="/logo-original-circulo-rojo.png"
+                  alt="Logo El Ranchero"
+                  className="w-full h-full object-contain"
                 />
              </div>
              <h2 className="text-3xl font-black text-white uppercase tracking-tight">

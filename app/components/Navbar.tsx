@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ShoppingBag, Flame, User, Briefcase, Menu, X, ChevronDown, Package, Zap, Sparkles, LayoutGrid } from 'lucide-react';
+import { ShoppingBag, Flame, Briefcase, Menu, X, ChevronDown, Package, Zap, Sparkles, LayoutGrid } from 'lucide-react';
 
 const PRODUCT_CATEGORIES = [
   { tipo: '', label: 'Ver Todo', icon: LayoutGrid },
@@ -64,11 +64,10 @@ export default function Navbar() {
           {/* 1. LOGO EL RANCHERO */}
           <Link href="/" className="flex items-center gap-2 group">
             <div className="p-2 rounded-lg group-hover:shadow-[0_0_15px_rgba(253,106,2,0.6)] transition-all bg-linear-to-br from-accent/20 to-transparent">
-               {/* Asegúrate de que logo.png esté en la carpeta public */}
-               <img 
-                 src="/logo.png" 
-                 alt="Logo El Ranchero" 
-                 className="w-8 h-8 object-contain" 
+               <img
+                 src="/logo-original-circulo-rojo.png"
+                 alt="Logo El Ranchero"
+                 className="w-8 h-8 object-contain"
                />
             </div>
             <div className="flex flex-col">
@@ -136,23 +135,6 @@ export default function Navbar() {
 
           {/* 3. ACCIONES DERECHA (Desktop) */}
           <div className="hidden md:flex items-center gap-6">
-            
-            {/* Separador */}
-            <div className="h-8 w-px bg-white/10"></div>
-
-            {/* Login */}
-            <Link
-              href="/login"
-              className="group flex items-center gap-2 text-sm font-bold text-white hover:text-gold transition-colors"
-            >
-              <div className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-gold group-hover:bg-gold/10 transition-all">
-                <User className="w-4 h-4" />
-              </div>
-              <div className="flex flex-col items-start leading-none">
-                <span className="text-[10px] text-gray-500 uppercase font-normal mb-0.5">Ya soy socio</span>
-                <span>Acceso Clientes</span>
-              </div>
-            </Link>
 
             {/* CTA Distribuidor */}
             <Link
@@ -211,23 +193,7 @@ export default function Navbar() {
 
             <div className="h-px bg-white/10 my-6 mx-2"></div>
 
-            <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 px-2">Socios</p>
-
-            <Link 
-              href="/login" 
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="flex items-center gap-3 px-3 py-3 rounded-lg text-gray-300 hover:bg-white/5 hover:text-white transition-colors"
-            >
-              <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center text-accent">
-                <User className="w-4 h-4" />
-              </div>
-              <div>
-                <span className="block font-bold">Ingresar al Sistema</span>
-                <span className="text-xs text-gray-500">Pedidos y facturas</span>
-              </div>
-            </Link>
-
-            <Link 
+            <Link
               href="/interest" 
               onClick={() => setIsMobileMenuOpen(false)}
               className="flex items-center justify-center gap-2 w-full bg-accent text-white py-4 rounded-lg font-bold mt-6 shadow-lg shadow-accent/20 active:scale-95 transition-transform uppercase tracking-wide"
