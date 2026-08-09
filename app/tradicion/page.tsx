@@ -247,55 +247,44 @@ export default function HistoriaPage() {
         </div>
       </section>
 
-      {/* CTA FINAL RECARGADO */}
-      <section className="py-32 px-4 relative overflow-hidden scroll-reveal">
-        {/* LA TARJETA CONTENEDORA */}
-        <div className="relative z-10 max-w-5xl mx-auto bg-surface border border-white/10 rounded-[2.5rem] overflow-hidden isolate shadow-2xl">
-          {/* 1. Textura */}
-          <div
-            className="absolute inset-0 opacity-20 pointer-events-none"
-            style={{ backgroundImage: "url(https://www.transparenttextures.com/patterns/carbon-fibre.png)" }}
-          ></div>
+      {/* CTA FINAL — directo sobre el fondo, mismo patrón que el resto de la página */}
+      <section className="relative py-32 px-6 overflow-hidden scroll-reveal">
+        {/* Marca de agua, igual criterio que el resto del sitio: contenida, mezclada con el fondo */}
+        <img
+          src="/logo-solo-letras-negras.png"
+          alt=""
+          aria-hidden="true"
+          className="absolute bottom-4 right-4 md:bottom-8 md:right-8 w-48 h-48 md:w-64 md:h-64 object-contain object-bottom opacity-[0.08] rotate-6 pointer-events-none select-none"
+          style={{ filter: "invert(1)" }}
+        />
 
-          {/* 2. Marca de Agua (Logo) — contenida dentro de la tarjeta, mezclada con el fondo */}
-          <img
-            src="/logo-solo-letras-negras.png"
-            alt=""
-            aria-hidden="true"
-            className="absolute bottom-8 right-8 w-48 h-48 md:w-64 md:h-64 object-contain object-bottom opacity-40 rotate-6 pointer-events-none select-none"
-            style={{ filter: "invert(1)", mixBlendMode: "overlay" }}
-          />
+        <div className="relative z-10 max-w-3xl mx-auto text-center">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-accent/30 bg-accent/10 text-accent text-[10px] font-bold uppercase tracking-widest mb-8">
+            <Star className="w-3 h-3 fill-current" />
+            Legado & Negocio
+          </span>
 
-          <div className="relative z-10 text-center py-24 px-6 md:px-12">
-            {/* Badge Superior */}
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-accent/30 bg-accent/10 text-accent text-[10px] font-bold uppercase tracking-widest mb-8 backdrop-blur-md">
-              <Star className="w-3 h-3 fill-current" />
-              Legado & Negocio
-            </span>
+          <h2 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight leading-none">
+            Escribe el <br className="hidden md:block" />
+            Siguiente Capítulo
+          </h2>
 
-            <h2 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight leading-none">
-              Escribe el <br className="hidden md:block" />
-              <span className="text-white">Siguiente Capítulo</span>
-            </h2>
+          <p className="text-gray-400 mb-12 text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed">
+            Lleva esta tradición a tus clientes y forma parte de un legado que sigue{" "}
+            <span className="text-white font-medium">encendiendo mesas</span> en todo el país.
+          </p>
 
-            <p className="text-gray-400 mb-12 text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed">
-              Lleva esta tradición a tus clientes y forma parte de un legado que sigue{" "}
-              <span className="text-white font-medium">encendiendo mesas</span> en todo el país.
-            </p>
+          <Link
+            href="/interest"
+            className="btn-press cursor-pointer group bg-accent hover:bg-accent-hover px-8 py-4 md:px-12 md:py-6 font-black text-base md:text-2xl text-white transition-colors rounded-full inline-flex items-center justify-center text-center gap-3 uppercase tracking-wider"
+          >
+            Ser Distribuidor Oficial
+            <ArrowRight className="w-5 h-5 md:w-7 md:h-7 shrink-0 group-hover:translate-x-1 transition-transform" />
+          </Link>
 
-            <Link
-              href="/interest"
-              className="btn-press cursor-pointer group bg-accent hover:bg-accent-hover px-8 py-4 md:px-12 md:py-6 font-black text-base md:text-2xl text-white transition-colors rounded-full inline-flex items-center justify-center text-center gap-3 uppercase tracking-wider"
-            >
-              Ser Distribuidor Oficial
-              <ArrowRight className="w-5 h-5 md:w-7 md:h-7 shrink-0 group-hover:translate-x-1 transition-transform" />
-            </Link>
-
-            {/* Micro-texto de confianza */}
-            <p className="mt-8 text-xs text-gray-600 font-bold uppercase tracking-wider">
-              Respuesta garantizada en menos de 24 hrs
-            </p>
-          </div>
+          <p className="mt-8 text-xs text-gray-600 font-bold uppercase tracking-wider">
+            Respuesta garantizada en menos de 24 hrs
+          </p>
         </div>
       </section>
 
