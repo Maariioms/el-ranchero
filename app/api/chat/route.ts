@@ -5,7 +5,17 @@ export const runtime = 'nodejs';
 
 const MODEL = process.env.OPENAI_MODEL ?? 'gpt-4o-mini';
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+// El cliente se crea perezosamente, solo cuando llega un request real. Si se
+// instancia a nivel de módulo, el SDK valida la apiKey de inmediato y truena
+// el build en el paso de "Collecting page data" cuando la env var no está
+// disponible en ese momento (p. ej. build local sin .env.local cargado).
+let openai: OpenAI | null = null;
+function getOpenAI(): OpenAI {
+  if (!openai) {
+    openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  }
+  return openai;
+}
 
 // --- Rate limiting en memoria (best-effort, ver plan §3.3) ---
 // No sobrevive cold starts ni se comparte entre instancias, pero para el
@@ -95,7 +105,7 @@ export async function POST(req: Request) {
   }
 
   try {
-    const completion = await openai.chat.completions.create({
+    const completion = await getOpenAI().chat.completions.create({
       model: MODEL,
       messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...messages],
       stream: true,
