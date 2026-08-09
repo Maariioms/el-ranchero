@@ -192,13 +192,13 @@ export default function ContactoDistribuidor() {
 
       <div className="max-w-lg w-full mx-auto relative z-10">
 
-        {/* BOTÓN DE REGRESO */}
+        {/* BOTÓN DE REGRESO — si vienes del catálogo, regresa ahí, no al home */}
         <Link
-          href="/"
+          href={cameFromCatalog ? '/productos' : '/'}
           className="btn-press inline-flex items-center gap-2 mb-6 text-xs font-bold text-gray-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 hover:border-accent/40 rounded-full px-4 py-2 transition-colors"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
-          Volver al inicio
+          {cameFromCatalog ? 'Volver al catálogo' : 'Volver al inicio'}
         </Link>
 
         {/* LOGO SUPERIOR */}

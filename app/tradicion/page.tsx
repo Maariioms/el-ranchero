@@ -114,10 +114,9 @@ export default function HistoriaPage() {
       </section>
 
       {/* STATS */}
-      <section className="border-y border-white/10 bg-surface/30 grid grid-cols-2 md:grid-cols-4 scroll-reveal-fast">
+      <section className="border-y border-white/10 bg-surface/30 grid grid-cols-3 scroll-reveal-fast">
         {[
           { num: "3", label: "Generaciones", icon: <Clock className="w-5 h-5" /> },
-          { num: "+50k", label: "Toneladas/Año", icon: <Flame className="w-5 h-5" /> },
           { num: "4", label: "Estados", icon: <MapPin className="w-5 h-5" /> },
           { num: "100%", label: "Mexicana", icon: <Star className="w-5 h-5" /> },
         ].map((s, i) => (
@@ -259,13 +258,13 @@ export default function HistoriaPage() {
             style={{ backgroundImage: "url(https://www.transparenttextures.com/patterns/carbon-fibre.png)" }}
           ></div>
 
-          {/* 2. Marca de Agua (Logo) */}
+          {/* 2. Marca de Agua (Logo) — contenida dentro de la tarjeta, mezclada con el fondo */}
           <img
             src="/logo-solo-letras-negras.png"
             alt=""
             aria-hidden="true"
-            className="absolute -bottom-16 -right-16 w-96 h-96 object-contain opacity-[0.06] rotate-6 pointer-events-none select-none"
-            style={{ filter: "invert(1)" }}
+            className="absolute bottom-6 right-6 w-56 h-56 md:w-72 md:h-72 object-contain object-bottom opacity-40 pointer-events-none select-none"
+            style={{ filter: "invert(1)", mixBlendMode: "overlay" }}
           />
 
           <div className="relative z-10 text-center py-24 px-6 md:px-12">
