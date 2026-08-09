@@ -62,14 +62,12 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-20">
 
           {/* 1. LOGO EL RANCHERO */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="p-2 rounded-lg group-hover:shadow-[0_0_15px_rgba(253,106,2,0.6)] transition-all bg-linear-to-br from-accent/20 to-transparent">
-               <img
-                 src="/logo-original-circulo-rojo.png"
-                 alt="Logo El Ranchero"
-                 className="w-8 h-8 object-contain"
-               />
-            </div>
+          <Link href="/" className="flex items-center gap-2.5 group">
+            <img
+              src="/logo-original-circulo-rojo.png"
+              alt="Logo El Ranchero"
+              className="w-10 h-10 object-contain transition-transform duration-180 group-hover:scale-105"
+            />
             <div className="flex flex-col">
               <span className="text-xl md:text-2xl font-black text-white uppercase tracking-wide leading-none group-hover:text-accent transition-colors">
                 El Ranchero
