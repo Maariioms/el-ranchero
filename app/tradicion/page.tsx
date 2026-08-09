@@ -12,7 +12,7 @@ export default function HistoriaPage() {
       year: "1923",
       title: "La Primera Chispa",
       description:
-        "En los montes de Tamaulipas, Don Salvador inicia el oficio con maderas de corriente tropical como el ébano y el mezquite: tronco por tronco, fuego lento y respeto por la madera.",
+        "En los montes de Tamaulipas empieza el oficio con maderas de corriente tropical como el ébano y el mezquite: tronco por tronco, fuego lento y respeto por la madera.",
       image: "/carbon-tirado.jpg",
       tag: "Origen",
       icon: Flame,
@@ -91,12 +91,7 @@ export default function HistoriaPage() {
           <div className="absolute inset-0 bg-linear-to-b from-bg via-bg/85 to-bg" />
         </div>
 
-        <div className="relative z-10 max-w-6xl mx-auto px-6 grid lg:grid-cols-[auto_1fr] gap-12 items-center">
-          <img
-            src="/logo-original-circulo-rojo.png"
-            alt="Sello El Ranchero"
-            className="w-28 h-28 md:w-36 md:h-36 object-contain mx-auto lg:mx-0 shrink-0"
-          />
+        <div className="relative z-10 max-w-6xl mx-auto px-6">
           <div className="text-center lg:text-left">
             <span className="inline-block mb-6 text-xs tracking-[0.3em] text-accent uppercase font-bold">
               Desde 1923 — Tamaulipas
@@ -104,9 +99,7 @@ export default function HistoriaPage() {
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black uppercase leading-[0.9]">
               Un Siglo
               <br />
-              <span className="text-transparent bg-clip-text bg-linear-to-r from-accent via-gold to-danger">
-                Encendiendo
-              </span>
+              <span className="text-accent">Encendiendo</span>
               <br />
               Momentos
             </h1>
@@ -121,20 +114,22 @@ export default function HistoriaPage() {
       </section>
 
       {/* STATS */}
-      <section className="border-y border-white/10 grid grid-cols-2 md:grid-cols-4 scroll-reveal-fast">
+      <section className="border-y border-white/10 bg-surface/30 grid grid-cols-2 md:grid-cols-4 scroll-reveal-fast">
         {[
-          { num: "3", label: "Generaciones", icon: <Clock /> },
-          { num: "+50k", label: "Toneladas/Año", icon: <Flame /> },
-          { num: "4", label: "Estados", icon: <MapPin /> },
-          { num: "100%", label: "Mexicana", icon: <Star /> },
+          { num: "3", label: "Generaciones", icon: <Clock className="w-5 h-5" /> },
+          { num: "+50k", label: "Toneladas/Año", icon: <Flame className="w-5 h-5" /> },
+          { num: "4", label: "Estados", icon: <MapPin className="w-5 h-5" /> },
+          { num: "100%", label: "Mexicana", icon: <Star className="w-5 h-5" /> },
         ].map((s, i) => (
           <div
             key={i}
-            className="py-14 text-center border-l border-white/5 first:border-l-0 hover:bg-white/3 transition-colors duration-300"
+            className="py-12 md:py-16 text-center border-l border-white/5 first:border-l-0 hover:bg-white/3 transition-colors duration-300"
           >
-            <div className="flex justify-center text-accent opacity-70 mb-3">{s.icon}</div>
-            <div className="text-4xl font-black">{s.num}</div>
-            <div className="text-xs uppercase tracking-widest text-gray-500 mt-1">{s.label}</div>
+            <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent/10 text-accent mb-4">
+              {s.icon}
+            </div>
+            <div className="text-4xl md:text-5xl font-black">{s.num}</div>
+            <div className="text-xs uppercase tracking-widest text-gray-500 mt-1.5">{s.label}</div>
           </div>
         ))}
       </section>
@@ -160,7 +155,7 @@ export default function HistoriaPage() {
               <span className="text-gold">de la misma tierra</span>
             </h2>
             <p className="text-gray-400 text-lg leading-relaxed mb-4">
-              Don Salvador no eligió estas maderas por moda: son las especies de corriente tropical
+              No elegimos estas maderas por moda: son las especies de corriente tropical
               que da la región de Tamaulipas. El ébano arde con brasa intensa y duradera; el
               mezquite entrega el humo que distingue a la carne asada del norte.
             </p>
@@ -255,9 +250,6 @@ export default function HistoriaPage() {
 
       {/* CTA FINAL RECARGADO */}
       <section className="py-32 px-4 relative overflow-hidden scroll-reveal">
-        {/* Glow ambiental externo (detrás de la tarjeta) */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/20 rounded-full blur-[120px] pointer-events-none" />
-
         {/* LA TARJETA CONTENEDORA */}
         <div className="relative z-10 max-w-5xl mx-auto bg-surface border border-white/10 rounded-[2.5rem] overflow-hidden isolate shadow-2xl">
           {/* 1. Textura y Luces Internas */}
@@ -285,9 +277,7 @@ export default function HistoriaPage() {
 
             <h2 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight leading-none">
               Escribe el <br className="hidden md:block" />
-              <span className="text-transparent bg-clip-text bg-linear-to-r from-white via-gray-200 to-gray-500">
-                Siguiente Capítulo
-              </span>
+              <span className="text-white">Siguiente Capítulo</span>
             </h2>
 
             <p className="text-gray-400 mb-12 text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed">

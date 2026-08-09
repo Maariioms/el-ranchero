@@ -3,7 +3,7 @@
 import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { User, Building2, Phone, Mail, ArrowRight, Loader2, CheckCircle, MessageSquare, MapPin, Search, ShoppingBag, Package, X, Plus } from 'lucide-react';
+import { User, Building2, Phone, Mail, ArrowRight, ArrowLeft, Loader2, CheckCircle, MessageSquare, MapPin, Search, ShoppingBag, Package, X, Plus } from 'lucide-react';
 import dynamic from 'next/dynamic';
 
 const MapPicker = dynamic(() => import('../components/MapPicker'), {
@@ -150,8 +150,8 @@ export default function ContactoDistribuidor() {
   if (status === 'success') {
     return (
       <div className="min-h-screen bg-bg flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden font-sans selection:bg-accent selection:text-white">
-        {/* Fondo idéntico al Login */}
-        <div className="absolute inset-0 bg-linear-to-br from-danger/10 via-bg to-bg"></div>
+        {/* Fondo */}
+        <div className="absolute inset-0 bg-linear-to-b from-surface/50 to-bg"></div>
 
         <div className="max-w-md w-full mx-auto relative z-10 text-center">
           <div className="bg-surface border border-accent/30 rounded-2xl p-8 shadow-2xl backdrop-blur-sm animate-fade-in-up">
@@ -186,12 +186,21 @@ export default function ContactoDistribuidor() {
         <ProductoQueryParamSync onProductoFound={handleProductoFound} />
       </Suspense>
 
-      {/* Fondo con brasas sutiles */}
-      <div className="absolute inset-0 bg-linear-to-br from-danger/10 via-bg to-bg"></div>
+      {/* Fondo */}
+      <div className="absolute inset-0 bg-linear-to-b from-surface/50 to-bg"></div>
       <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-accent/5 rounded-full blur-[100px] pointer-events-none"></div>
 
       <div className="max-w-lg w-full mx-auto relative z-10">
-        
+
+        {/* BOTÓN DE REGRESO */}
+        <Link
+          href="/"
+          className="btn-press inline-flex items-center gap-2 mb-6 text-xs font-bold text-gray-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 hover:border-accent/40 rounded-full px-4 py-2 transition-colors"
+        >
+          <ArrowLeft className="w-3.5 h-3.5" />
+          Volver al inicio
+        </Link>
+
         {/* LOGO SUPERIOR */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-block group">
@@ -210,19 +219,11 @@ export default function ContactoDistribuidor() {
           </Link>
 
           {cameFromCatalog && (
-            <div className="mt-5 inline-flex items-center gap-3 bg-surface border border-accent/30 rounded-full pl-4 pr-2 py-1.5">
+            <div className="mt-5 inline-flex items-center gap-1.5 bg-surface border border-accent/30 rounded-full px-4 py-1.5">
               <span className="text-xs text-gray-300 flex items-center gap-1.5">
                 <Package className="w-3.5 h-3.5 text-accent" />
                 Cotizando: <span className="text-accent font-bold">{PRODUCTOS.find((p) => p.id === productos[0]?.producto)?.label}</span>
               </span>
-              <button
-                type="button"
-                onClick={() => { updateProductoLine(productos[0].key, 'producto', ''); setCameFromCatalog(false); }}
-                className="text-[10px] font-bold text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-full p-1.5 transition-colors"
-                aria-label="Quitar producto preseleccionado"
-              >
-                <X className="w-3 h-3" />
-              </button>
             </div>
           )}
         </div>
@@ -530,7 +531,7 @@ export default function ContactoDistribuidor() {
               <button
                 type="submit"
                 disabled={status === 'loading'}
-                className="group cursor-pointer relative w-full flex justify-center py-4 px-4 border border-transparent text-sm font-bold rounded-lg text-white bg-linear-to-r from-accent to-danger hover:from-accent-hover hover:to-danger-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent focus:ring-offset-bg disabled:opacity-70 disabled:cursor-not-allowed transition-all transform hover:scale-[1.02] uppercase tracking-wide shadow-lg shadow-accent/20"
+                className="btn-press group cursor-pointer relative w-full flex justify-center py-4 px-4 border border-transparent text-sm font-bold rounded-lg text-white bg-accent hover:bg-accent-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent focus:ring-offset-bg disabled:opacity-70 disabled:cursor-not-allowed transition-colors uppercase tracking-wide"
               >
                 {status === 'loading' ? (
                   <span className="flex items-center gap-2">
