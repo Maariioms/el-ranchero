@@ -4,7 +4,8 @@ import Link from 'next/link';
 import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Navbar from '../components/Navbar';
-import { Flame, Package, ShoppingBag, MessageSquareText, Truck, MapPin, Star, User, Briefcase, Menu, X, Boxes, BookOpen, Store } from 'lucide-react'; // Agregué Store
+import Footer from '../components/Footer';
+import { Flame, Package, ShoppingBag, MessageSquareText, Truck, MapPin, Star, Briefcase, X, Boxes } from 'lucide-react';
 
 type TipoProducto = 'carbon' | 'briqueta' | 'iniciador';
 
@@ -232,43 +233,34 @@ export default function Products() {
                 </div>
             )}
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"> {/* Ajuste de gap */}
-            
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+
               {filteredProducts.map((product) => (
-                    // 1. EL "FANTASMA": Este div guarda el espacio en el grid y no se mueve.
-                    // Ajusta h-[420px] según la altura "cerrada" de tus tarjetas para que no queden huecos.
-                  <div key={product.id} className="relative w-full max-w-[340px] mx-auto h-[350px] group z-0 hover:z-50">
+                  <div key={product.id} className="group w-full max-w-[340px] mx-auto">
 
-                        {/* 2. LA TARJETA REAL: Se posiciona absoluta para poder crecer libremente */}
-                        <div className="absolute top-0 left-0 w-full min-h-full bg-surface/90 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden hover:border-accent/50 transition-all duration-300 hover:shadow-[0_0_50px_rgba(0,0,0,0.8)] hover:shadow-accent/20 flex flex-col">
-
-                            {/* ETIQUETA "MÁS VENDIDO" */}
-                            {(product.popular || product.tag) && (
-                                <div className="absolute top-6 left-0 z-20">
-                                    <span className="inline-block bg-accent text-white text-[10px] font-black px-4 py-1.5 rounded-r-lg shadow-lg shadow-accent/20 uppercase tracking-widest">
-                                        {product.tag || "Más Vendido"}
-                                    </span>
-                                </div>
-                            )}
+                        <div className="bg-surface/90 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden hover:border-accent/50 transition-all duration-300 hover:shadow-[0_0_50px_rgba(0,0,0,0.8)] hover:shadow-accent/20 flex flex-col h-full">
 
                             {/* IMAGEN */}
-                            <div className="h-56 bg-[#0F0F0F]/50 relative flex items-center justify-center p-6 shrink-0">
+                            <div className="relative h-56 bg-surface/50 flex items-center justify-center p-6 shrink-0">
                                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(253,106,2,0.08),transparent_70%)] opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-                                {product.img ? (
-                                    <img 
-                                        src={product.img} 
+                                {(product.popular || product.tag) && (
+                                    <span className="absolute top-4 left-0 z-20 inline-block bg-accent text-white text-[10px] font-black px-4 py-1.5 rounded-r-lg shadow-lg shadow-accent/20 uppercase tracking-widest">
+                                        {product.tag || "Más Vendido"}
+                                    </span>
+                                )}
+
+                                {product.img && (
+                                    <img
+                                        src={product.img}
                                         alt={product.name}
                                         className="w-auto h-auto max-h-40 max-w-[200px] object-contain drop-shadow-2xl group-hover:scale-105 transition-transform duration-500 relative z-10"
                                     />
-                                ) : (
-                                    <div className="text-gray-600 group-hover:text-accent transition-colors duration-300 transform group-hover:scale-110 relative z-10 scale-125">
-                                    </div>
                                 )}
                             </div>
 
-                            {/* CONTENIDO (Aquí ocurre la magia de expansión) */}
-                            <div className="p-6 flex flex-col bg-surface/40 h-full">
+                            {/* CONTENIDO — siempre visible, sin depender de hover */}
+                            <div className="p-6 flex flex-col grow bg-surface/40">
 
                                 <div className="text-[10px] font-bold text-gray-500 mb-1 uppercase tracking-wide group-hover:text-accent transition-colors">
                                     {product.category}
@@ -278,7 +270,6 @@ export default function Products() {
                                     {product.name}
                                 </h3>
 
-                                {/* Fila de Pesos (Siempre visible) */}
                                 {product.weights && (
                                     <div className="flex flex-wrap items-center gap-2 mb-3">
                                         {product.weights.map((weight, i) => (
@@ -290,46 +281,39 @@ export default function Products() {
                                     </div>
                                 )}
 
-                                {/* DESCRIPCIÓN OCULTA (Se despliega empujando lo de abajo, pero como es absoluta, flota sobre el resto) */}
-                                <div className="overflow-hidden max-h-0 opacity-0 transition-all duration-500 ease-in-out group-hover:max-h-45 group-hover:opacity-100 group-hover:mb-4">
-                                    <p className="text-gray-400 text-xs leading-relaxed pt-2 border-t border-white/5">
-                                        {product.description}
-                                    </p>
+                                <p className="text-gray-400 text-xs leading-relaxed pt-2 mb-4 border-t border-white/5">
+                                    {product.description}
+                                </p>
 
-                                    {/* BOTONES */}
-                                    <div className="mt-4 space-y-3 pt-2">
-                                        {product.filterTag === 'mayoreo' ? (
-                                            <Link 
-                                                href="/interest" 
-                                                className="hover:-translate-y-1 w-full inline-flex justify-center items-center py-2.5 px-4 rounded-lg bg-accent text-xs font-bold text-white hover:bg-accent-hover transition-all shadow-lg hover:shadow-accent/40 uppercase tracking-wide"
+                                {/* BOTONES — al fondo de la tarjeta gracias a grow arriba */}
+                                <div className="mt-auto space-y-3">
+                                    {product.filterTag === 'mayoreo' ? (
+                                        <Link
+                                            href={`/interest?producto=${product.id}`}
+                                            className="w-full inline-flex justify-center items-center py-2.5 px-4 rounded-lg bg-accent text-xs font-bold text-white hover:bg-accent-hover hover:-translate-y-0.5 transition-all shadow-lg hover:shadow-accent/40 uppercase tracking-wide"
+                                        >
+                                            Cotizar Volumen
+                                            <Boxes className="ml-2 h-4 w-4" />
+                                        </Link>
+                                    ) : (
+                                        <div className="space-y-3">
+                                            <Link
+                                                href={`/interest?producto=${product.id}`}
+                                                className="w-full inline-flex justify-center items-center py-2.5 px-4 rounded-lg bg-accent text-xs font-bold text-white hover:bg-accent-hover hover:-translate-y-0.5 transition-all shadow-lg hover:shadow-accent/40 uppercase tracking-wide"
                                             >
-                                                Cotizar Volumen
-                                                <Boxes className="ml-2 h-4 w-4" />
+                                                Quiero Distribuir
+                                                <Briefcase className="ml-2 h-4 w-4" />
                                             </Link>
 
-                                            
-                                        ) : (
-                                            <div className="space-y-3">
-                                                <Link 
-                                                    href="/interest" 
-                                                    className="hover:-translate-y-1 w-full inline-flex justify-center items-center py-2.5 px-4 rounded-lg bg-accent text-xs font-bold text-white hover:bg-accent-hover transition-all shadow-lg hover:shadow-accent/40 uppercase tracking-wide"
-                                                >
-                                                    Quiero Distribuir
-                                                    <Briefcase className="ml-2 h-4 w-4" />
-                                                </Link>
-
-                                                <button 
-                                                    onClick={() => alert("Próximamente: Lista de tiendas")}
-                                                    className="hover:-translate-y-0.5 mt-4 w-full inline-flex justify-center items-center gap-1.5 text-[10px] text-gray-400 hover:text-white transition-colors cursor-pointer"
-                                                >
-                                                    <MapPin className="h-3 w-3 text-accent mr-1" />
-                                                    Ver puntos de venta
-                                                </button>
-
-                                            </div>
-                                        )}
-                                    </div>
-                                
+                                            <button
+                                                onClick={() => alert("Próximamente: Lista de tiendas")}
+                                                className="w-full inline-flex justify-center items-center gap-1.5 text-[10px] text-gray-400 hover:text-white hover:-translate-y-0.5 transition-all cursor-pointer"
+                                            >
+                                                <MapPin className="h-3 w-3 text-accent mr-1" />
+                                                Ver puntos de venta
+                                            </button>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
 
@@ -341,7 +325,7 @@ export default function Products() {
         </div>
 
         {/* CTA FINAL: ENFOQUE SOPORTE / CONTACTO */}
-        <div className="border-t border-white/10 bg-[#0F0F0F]/80 backdrop-blur-sm py-20 relative overflow-hidden mt-12">
+        <div className="border-t border-white/10 bg-linear-to-b from-surface/80 to-bg backdrop-blur-sm py-20 relative overflow-hidden mt-12">
             {/* Luz ambiental sutil */}
             <div className="absolute inset-0 bg-linear-to-t from-accent/5 to-transparent pointer-events-none"></div>
 
@@ -364,18 +348,7 @@ export default function Products() {
             </div>
         </div>
 
-        {/* FOOTER (Simple para esta página) */}
-        <footer className="bg-[#050505] border-t border-white/10 py-12">
-            <div className="max-w-7xl mx-auto px-4 text-center">
-                <p className="text-gray-600 text-xs mb-4">
-                  © 2025 Fernando González Tolentino. Todos los derechos reservados.
-                </p>
-                <div className="flex justify-center gap-6">
-                    <Link href="/" className="text-gray-500 hover:text-accent text-sm">Inicio</Link>
-                    <Link href="/interest" className="text-gray-500 hover:text-accent text-sm">Contacto</Link>
-                </div>
-            </div>
-        </footer>
+        <Footer />
 
       </div>
     </div>

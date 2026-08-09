@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import { Flame, MapPin, Anchor, Target, ArrowRight, Star, Clock } from "lucide-react";
 
 export default function HistoriaPage() {
@@ -202,18 +203,8 @@ export default function HistoriaPage() {
         </div>
       </section>
 
-      <footer className="bg-[#050505] border-t border-white/10 py-12">
-          <div className="max-w-7xl mx-auto px-4 text-center">
-              <p className="text-gray-600 text-xs mb-4">
-                © 2025 Fernando González Tolentino. Todos los derechos reservados.
-              </p>
-              <div className="flex justify-center gap-6">
-                  <Link href="/" className="text-gray-500 hover:text-accent text-sm">Inicio</Link>
-                  <Link href="/interest" className="text-gray-500 hover:text-accent text-sm">Contacto</Link>
-              </div>
-          </div>
-      </footer>
-      
+      <Footer />
+
     </div>
   );
 }

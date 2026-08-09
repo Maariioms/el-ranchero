@@ -1,25 +1,44 @@
 'use client'
 
-import { useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { User, Building2, Phone, Mail, ArrowRight, Loader2, CheckCircle, MessageSquare, MapPin, Search, ShoppingBag } from 'lucide-react';
+import { User, Building2, Phone, Mail, ArrowRight, Loader2, CheckCircle, MessageSquare, MapPin, Search, ShoppingBag, Package, X } from 'lucide-react';
 import dynamic from 'next/dynamic';
 
-const MapPicker = dynamic(() => import('../components/MapPicker'), { 
+const MapPicker = dynamic(() => import('../components/MapPicker'), {
   ssr: false,
   loading: () => <div className="h-[300px] bg-surface animate-pulse rounded-lg flex items-center justify-center text-xs text-gray-500">Cargando Mapa...</div>
 });
 
+// Mismo catálogo que /productos — los id coinciden para poder llegar aquí
+// con el producto ya preseleccionado vía ?producto=<id>
 const PRODUCTOS = [
-  { id: 'costal-20', label: 'Costal Grande (20kg) - Restaurante' },
-  { id: 'costal-30', label: 'Costal Jumbo (30kg) - Parrilla Industrial' },
-  { id: 'costal-revuelto', label: 'Costal Revuelto (Económico)' },
-  { id: 'briqueta-10', label: 'Caja Briquetas (10kg)' },
-  { id: 'bolsa-4', label: 'Bolsa Retail (4kg) - Paquete de 50' },
-  { id: 'bolsa-3', label: 'Bolsa Retail (3kg) - Paquete de 60' },
-  { id: 'iniciadores', label: 'Caja Iniciadores (24 pzas)' },
-  { id: 'otro', label: 'Otro / Mix de Productos' }
+  { id: '1', label: 'Carbón El Ranchero (3 kg)' },
+  { id: '2', label: 'Carbón El Ranchero (4 kg)' },
+  { id: '3', label: 'Costal Carbón Mediano (10-35 kg)' },
+  { id: '4', label: 'Costal Carbón Grande (20 kg)' },
+  { id: '5', label: 'Costal Carbón Extra-Grande (30 kg)' },
+  { id: '6', label: 'Costal Briquetas (10-20 kg)' },
+  { id: '7', label: "Briquetas Ta' Con Madre (3 kg)" },
+  { id: '8', label: 'Briquetas Sierra Madre (3 kg)' },
+  { id: '9', label: 'Iniciadores de Fuego' },
+  { id: '10', label: 'Ocote' },
+  { id: 'otro', label: 'Otro / Mix de Productos' },
 ];
+
+function ProductoQueryParamSync({ onProductoFound }: { onProductoFound: (id: string) => void }) {
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const producto = searchParams.get('producto');
+    if (producto && PRODUCTOS.some((p) => p.id === producto)) {
+      onProductoFound(producto);
+    }
+  }, [searchParams, onProductoFound]);
+
+  return null;
+}
 
 export default function ContactoDistribuidor() {
   
@@ -42,6 +61,12 @@ export default function ContactoDistribuidor() {
   const [isSearchingMap, setIsSearchingMap] = useState(false);
   const [mapCoords, setMapCoords] = useState<{lat: number, lng: number} | null>(null); // Coordenadas para mover el mapa
   const [isDropdownOpen, setIsDropdownOpen] = useState(false); // Para abrir/cerrar la lista
+  const [cameFromCatalog, setCameFromCatalog] = useState(false);
+
+  const handleProductoFound = (id: string) => {
+    setFormData((prev) => ({ ...prev, producto: id }));
+    setCameFromCatalog(true);
+  };
 
   // 1. LÓGICA DEL MAPA Y BÚSQUEDA DE DIRECCIÓN
   const handleAddressSearch = async () => {
@@ -131,6 +156,10 @@ export default function ContactoDistribuidor() {
   return (
     <div className="min-h-screen bg-bg flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden font-sans selection:bg-accent selection:text-white">
 
+      <Suspense fallback={null}>
+        <ProductoQueryParamSync onProductoFound={handleProductoFound} />
+      </Suspense>
+
       {/* Fondo con brasas sutiles */}
       <div className="absolute inset-0 bg-linear-to-br from-danger/10 via-bg to-bg"></div>
       <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-accent/5 rounded-full blur-[100px] pointer-events-none"></div>
@@ -153,6 +182,23 @@ export default function ContactoDistribuidor() {
                Déjanos tus datos y recibe precios preferenciales de mayoreo para tu negocio.
              </p>
           </Link>
+
+          {cameFromCatalog && (
+            <div className="mt-5 inline-flex items-center gap-3 bg-surface border border-accent/30 rounded-full pl-4 pr-2 py-1.5">
+              <span className="text-xs text-gray-300 flex items-center gap-1.5">
+                <Package className="w-3.5 h-3.5 text-accent" />
+                Cotizando: <span className="text-accent font-bold">{PRODUCTOS.find((p) => p.id === formData.producto)?.label}</span>
+              </span>
+              <button
+                type="button"
+                onClick={() => { setFormData((prev) => ({ ...prev, producto: '' })); setCameFromCatalog(false); }}
+                className="text-[10px] font-bold text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-full p-1.5 transition-colors"
+                aria-label="Quitar producto preseleccionado"
+              >
+                <X className="w-3 h-3" />
+              </button>
+            </div>
+          )}
         </div>
 
         {/* CAJA DEL FORMULARIO */}
