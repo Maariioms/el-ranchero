@@ -7,16 +7,6 @@ module.exports = {
   ],
   theme: {
     extend: {
-      colors: {
-        ranchero: {
-          papel: '#AF8C66', 
-          carbon: '#291F1C', 
-          ladrillo: '#9E4535', 
-          mostaza: '#DDB22E', 
-          hueso: '#E6DECA', 
-          sombra: '#8A6A4B',
-        },
-      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':

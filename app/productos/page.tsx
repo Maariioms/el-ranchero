@@ -1,15 +1,40 @@
-'use client'
+﻿'use client'
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Navbar from '../components/Navbar';
 import { Flame, Package, ShoppingBag, MessageSquareText, Truck, MapPin, Star, User, Briefcase, Menu, X, Boxes, BookOpen, Store } from 'lucide-react'; // Agregué Store
 
+type TipoProducto = 'carbon' | 'briqueta' | 'iniciador';
+
+const TIPO_LABELS: Record<TipoProducto, string> = {
+  carbon: 'Carbón',
+  briqueta: 'Briquetas',
+  iniciador: 'Iniciadores',
+};
+
+function TipoQueryParamSync({ onTipoChange }: { onTipoChange: (tipo: TipoProducto | null) => void }) {
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const tipo = searchParams.get('tipo');
+    if (tipo === 'carbon' || tipo === 'briqueta' || tipo === 'iniciador') {
+      onTipoChange(tipo);
+    } else {
+      onTipoChange(null);
+    }
+  }, [searchParams, onTipoChange]);
+
+  return null;
+}
+
 export default function Products() {
-  
+
   // 1. ESTADOS
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState('todos');
+  const [tipoFilter, setTipoFilter] = useState<TipoProducto | null>(null);
 
   // 2. DATOS DE PRODUCTOS (Con copy más "Ranchero")
   const products = [
@@ -20,9 +45,10 @@ export default function Products() {
       description: "La bolsa clásica. Perfecta para la carnita asada del domingo con la familia.", // Más coloquial
       category: "Retail / Hogar",
       filterTag: "retail",
+      tipo: "carbon" as TipoProducto,
       img: "/ranchero-3.jpg",
       tag: "El Favorito", // Más personal
-      weights: ["3 KG"], 
+      weights: ["3 KG"],
       popular: true
     },
     {
@@ -31,8 +57,9 @@ export default function Products() {
       description: "Un poquito más de power. Ideal si vas a echar cortes más gruesos o son más invitados.",
       category: "Retail / Hogar",
       filterTag: "retail",
+      tipo: "carbon" as TipoProducto,
       img: "/ranchero-4.jpg",
-      weights: ["4 KG"], 
+      weights: ["4 KG"],
       popular: false
     },
     // MAYOREO
@@ -42,8 +69,9 @@ export default function Products() {
       description: "El caballito de batalla. Rendidor y económico para taquerías que no paran.",
       category: "Mayoreo / Restaurante",
       filterTag: "mayoreo",
+      tipo: "carbon" as TipoProducto,
       img: "/costales.jpg",
-      weights: ["10 KG", "20 KG", "35 KG"], 
+      weights: ["10 KG", "20 KG", "35 KG"],
       popular: false
     },
     {
@@ -52,6 +80,7 @@ export default function Products() {
       description: "Puro trozo grande seleccionado. Calor intenso y duradero para parrillas exigentes.",
       category: "Mayoreo / Restaurante",
       filterTag: "mayoreo",
+      tipo: "carbon" as TipoProducto,
       img: "/costales.jpg",
       tag: "Calidad Premium",
       weights: ["20 KG"],
@@ -63,6 +92,7 @@ export default function Products() {
       description: "Para los pesos pesados. Alta densidad para jornadas maratónicas de cocina.",
       category: "Mayoreo / Restaurante",
       filterTag: "mayoreo",
+      tipo: "carbon" as TipoProducto,
       img: "/costales.jpg",
       weights: ["30 KG"],
       popular: false
@@ -72,7 +102,8 @@ export default function Products() {
       name: "Costal Briquetas",
       description: "Alta densidad para máximo rendimiento. Calor uniforme ideal para rosticeros y ahumados largos.",
       category: "Mayoreo / Restaurante",
-      filterTag: "mayoreo", 
+      filterTag: "mayoreo",
+      tipo: "briqueta" as TipoProducto,
       img: "/costales.jpg",
       weights: ["10 KG", "20 KG"],
       popular: false
@@ -84,8 +115,9 @@ export default function Products() {
       description: "Pum para arriba. Alto rendimiento calórico para sellar como profesional.",
       category: "Especialidad",
       filterTag: "especialidad",
+      tipo: "briqueta" as TipoProducto,
       img: "/briqueta1.jpg",
-      weights: ["3 KG"], 
+      weights: ["3 KG"],
       tag: "Nuevo",
       popular: false
     },
@@ -95,8 +127,9 @@ export default function Products() {
       description: "Calor de relojito. Uniforme y controlado, ideal para ahumados low & slow.",
       category: "Especialidad",
       filterTag: "especialidad",
+      tipo: "briqueta" as TipoProducto,
       img: "/briqueta.jpeg",
-      weights: ["3 KG"], 
+      weights: ["3 KG"],
       popular: false
     },
     {
@@ -105,6 +138,7 @@ export default function Products() {
       description: "Cero batallar. Prende tu carbón en minutos sin hacer corajes ni usar aceite.",
       category: "Accesorios",
       filterTag: "retail",
+      tipo: "iniciador" as TipoProducto,
       img: "/iniciador.jpg",
       popular: false
     },
@@ -114,35 +148,40 @@ export default function Products() {
       description: "Cero batallar. Prende tu carbón en minutos sin hacer corajes ni usar aceite.",
       category: "Accesorios",
       filterTag: "retail",
+      tipo: "iniciador" as TipoProducto,
       img: "/ocote.jpg",
       popular: false
     },
   ];
 
-  const filteredProducts = activeFilter === 'todos' 
-    ? products 
-    : products.filter(p => p.filterTag === activeFilter);
+  const filteredProducts = products
+    .filter(p => activeFilter === 'todos' || p.filterTag === activeFilter)
+    .filter(p => tipoFilter === null || p.tipo === tipoFilter);
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] font-sans selection:bg-[#FD6A02] selection:text-white">
-      
+    <div className="min-h-screen bg-bg font-sans selection:bg-accent selection:text-white">
+
+      <Suspense fallback={null}>
+        <TipoQueryParamSync onTipoChange={setTipoFilter} />
+      </Suspense>
+
       {/* --- HEADER --- (Mantenemos tu header, se ve bien) */}
       <Navbar />
       
       {/* LUCES GLOBALES */}
-      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-[#FD6A02]/5 rounded-full blur-[120px] pointer-events-none z-0"></div>
-      <div className="fixed bottom-0 right-0 w-[800px] h-[800px] bg-[#D32F2F]/5 rounded-full blur-[120px] pointer-events-none z-0"></div>
+      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-accent/5 rounded-full blur-[120px] pointer-events-none z-0"></div>
+      <div className="fixed bottom-0 right-0 w-[800px] h-[800px] bg-danger/5 rounded-full blur-[120px] pointer-events-none z-0"></div>
 
       <div className="pt-5 relative z-10">
 
         
         {/* HERO SECTION PRODUCTOS */}
         <div className="relative pt-20 pb-6 px-4 sm:px-6 lg:px-8 overflow-hidden text-center">
-            <span className="text-[#FD6A02] font-bold tracking-widest text-sm uppercase mb-4 block animate-fade-in">
+            <span className="text-accent font-bold tracking-widest text-sm uppercase mb-4 block animate-fade-in">
                 Catálogo 2025
             </span>
             <h1 className="text-4xl md:text-6xl font-black text-white mb-6 uppercase leading-tight tracking-tight">
-                Calidad que <span className="text-transparent bg-clip-text bg-linear-to-r from-[#FD6A02] to-[#D32F2F]">Enciende</span>
+                Calidad que <span className="text-transparent bg-clip-text bg-linear-to-r from-accent to-danger">Enciende</span>
             </h1>
             
             <p className="text-gray-400 text-lg max-w-2xl mx-auto mb-10">
@@ -163,8 +202,8 @@ export default function Products() {
                         onClick={() => setActiveFilter(filter.id)}
                         className={`px-5 py-2 rounded-full text-sm font-bold transition-all border cursor-pointer ${
                             activeFilter === filter.id 
-                            ? 'bg-[#FD6A02] border-[#FD6A02] text-white shadow-lg shadow-[#FD6A02]/20' 
-                            : 'bg-white/5 border-white/10 text-gray-400 hover:border-[#FD6A02] hover:text-white'
+                            ? 'bg-accent border-accent text-white shadow-lg shadow-accent/20' 
+                            : 'bg-white/5 border-white/10 text-gray-400 hover:border-accent hover:text-white'
                         }`}
                     >
                         {filter.label}
@@ -175,6 +214,24 @@ export default function Products() {
 
         {/* GRID DE PRODUCTOS */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 cursor-pointer">
+
+            {tipoFilter && (
+                <div className="flex justify-center mb-8">
+                    <div className="flex items-center gap-3 bg-surface border border-accent/30 rounded-full pl-5 pr-2 py-2 animate-fade-in">
+                        <span className="text-sm text-gray-300">
+                            Mostrando: <span className="text-accent font-bold">{TIPO_LABELS[tipoFilter]}</span>
+                        </span>
+                        <Link
+                            href="/productos"
+                            className="text-xs font-bold text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-full px-3 py-1.5 transition-colors inline-flex items-center gap-1"
+                        >
+                            <X className="w-3 h-3" />
+                            Quitar filtro
+                        </Link>
+                    </div>
+                </div>
+            )}
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"> {/* Ajuste de gap */}
             
               {filteredProducts.map((product) => (
@@ -183,12 +240,12 @@ export default function Products() {
                   <div key={product.id} className="relative w-full max-w-[340px] mx-auto h-[350px] group z-0 hover:z-50">
 
                         {/* 2. LA TARJETA REAL: Se posiciona absoluta para poder crecer libremente */}
-                        <div className="absolute top-0 left-0 w-full min-h-full bg-[#111]/90 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden hover:border-[#FD6A02]/50 transition-all duration-300 hover:shadow-[0_0_50px_rgba(0,0,0,0.8)] hover:shadow-[#FD6A02]/20 flex flex-col">
+                        <div className="absolute top-0 left-0 w-full min-h-full bg-surface/90 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden hover:border-accent/50 transition-all duration-300 hover:shadow-[0_0_50px_rgba(0,0,0,0.8)] hover:shadow-accent/20 flex flex-col">
 
                             {/* ETIQUETA "MÁS VENDIDO" */}
                             {(product.popular || product.tag) && (
                                 <div className="absolute top-6 left-0 z-20">
-                                    <span className="inline-block bg-[#FD6A02] text-white text-[10px] font-black px-4 py-1.5 rounded-r-lg shadow-lg shadow-[#FD6A02]/20 uppercase tracking-widest">
+                                    <span className="inline-block bg-accent text-white text-[10px] font-black px-4 py-1.5 rounded-r-lg shadow-lg shadow-accent/20 uppercase tracking-widest">
                                         {product.tag || "Más Vendido"}
                                     </span>
                                 </div>
@@ -205,15 +262,15 @@ export default function Products() {
                                         className="w-auto h-auto max-h-40 max-w-[200px] object-contain drop-shadow-2xl group-hover:scale-105 transition-transform duration-500 relative z-10"
                                     />
                                 ) : (
-                                    <div className="text-gray-600 group-hover:text-[#FD6A02] transition-colors duration-300 transform group-hover:scale-110 relative z-10 scale-125">
+                                    <div className="text-gray-600 group-hover:text-accent transition-colors duration-300 transform group-hover:scale-110 relative z-10 scale-125">
                                     </div>
                                 )}
                             </div>
 
                             {/* CONTENIDO (Aquí ocurre la magia de expansión) */}
-                            <div className="p-6 flex flex-col bg-[#111]/40 h-full">
+                            <div className="p-6 flex flex-col bg-surface/40 h-full">
 
-                                <div className="text-[10px] font-bold text-gray-500 mb-1 uppercase tracking-wide group-hover:text-[#FD6A02] transition-colors">
+                                <div className="text-[10px] font-bold text-gray-500 mb-1 uppercase tracking-wide group-hover:text-accent transition-colors">
                                     {product.category}
                                 </div>
 
@@ -226,7 +283,7 @@ export default function Products() {
                                     <div className="flex flex-wrap items-center gap-2 mb-3">
                                         {product.weights.map((weight, i) => (
                                             <div key={i} className="flex items-center gap-1 bg-white/5 border border-white/10 px-1.5 py-0.5 rounded text-gray-400 text-[10px] font-bold">
-                                                <ShoppingBag className="w-3 h-3 text-[#FD6A02]" />
+                                                <ShoppingBag className="w-3 h-3 text-accent" />
                                                 {weight}
                                             </div>
                                         ))}
@@ -244,7 +301,7 @@ export default function Products() {
                                         {product.filterTag === 'mayoreo' ? (
                                             <Link 
                                                 href="/interest" 
-                                                className="hover:-translate-y-1 w-full inline-flex justify-center items-center py-2.5 px-4 rounded-lg bg-[#FD6A02] text-xs font-bold text-white hover:bg-[#e55a00] transition-all shadow-lg hover:shadow-[#FD6A02]/40 uppercase tracking-wide"
+                                                className="hover:-translate-y-1 w-full inline-flex justify-center items-center py-2.5 px-4 rounded-lg bg-accent text-xs font-bold text-white hover:bg-accent-hover transition-all shadow-lg hover:shadow-accent/40 uppercase tracking-wide"
                                             >
                                                 Cotizar Volumen
                                                 <Boxes className="ml-2 h-4 w-4" />
@@ -255,7 +312,7 @@ export default function Products() {
                                             <div className="space-y-3">
                                                 <Link 
                                                     href="/interest" 
-                                                    className="hover:-translate-y-1 w-full inline-flex justify-center items-center py-2.5 px-4 rounded-lg bg-[#FD6A02] text-xs font-bold text-white hover:bg-[#e55a00] transition-all shadow-lg hover:shadow-[#FD6A02]/40 uppercase tracking-wide"
+                                                    className="hover:-translate-y-1 w-full inline-flex justify-center items-center py-2.5 px-4 rounded-lg bg-accent text-xs font-bold text-white hover:bg-accent-hover transition-all shadow-lg hover:shadow-accent/40 uppercase tracking-wide"
                                                 >
                                                     Quiero Distribuir
                                                     <Briefcase className="ml-2 h-4 w-4" />
@@ -265,7 +322,7 @@ export default function Products() {
                                                     onClick={() => alert("Próximamente: Lista de tiendas")}
                                                     className="hover:-translate-y-0.5 mt-4 w-full inline-flex justify-center items-center gap-1.5 text-[10px] text-gray-400 hover:text-white transition-colors cursor-pointer"
                                                 >
-                                                    <MapPin className="h-3 w-3 text-[#FD6A02] mr-1" />
+                                                    <MapPin className="h-3 w-3 text-accent mr-1" />
                                                     Ver puntos de venta
                                                 </button>
 
@@ -286,7 +343,7 @@ export default function Products() {
         {/* CTA FINAL: ENFOQUE SOPORTE / CONTACTO */}
         <div className="border-t border-white/10 bg-[#0F0F0F]/80 backdrop-blur-sm py-20 relative overflow-hidden mt-12">
             {/* Luz ambiental sutil */}
-            <div className="absolute inset-0 bg-linear-to-t from-[#FD6A02]/5 to-transparent pointer-events-none"></div>
+            <div className="absolute inset-0 bg-linear-to-t from-accent/5 to-transparent pointer-events-none"></div>
 
             <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
                 <h2 className="text-3xl md:text-4xl font-black text-white mb-6 uppercase tracking-tight">
@@ -299,7 +356,7 @@ export default function Products() {
 
                 <Link 
                     href="/interest"
-                    className="inline-flex items-center justify-center px-10 py-4 text-lg font-bold rounded-full text-white bg-[#FD6A02] hover:bg-[#e55a00] shadow-[0_0_20px_rgba(253,106,2,0.4)] hover:shadow-[0_0_30px_rgba(253,106,2,0.6)] transition-all transform hover:-translate-y-1 gap-2 uppercase tracking-wide"
+                    className="inline-flex items-center justify-center px-10 py-4 text-lg font-bold rounded-full text-white bg-accent hover:bg-accent-hover shadow-[0_0_20px_rgba(253,106,2,0.4)] hover:shadow-[0_0_30px_rgba(253,106,2,0.6)] transition-all transform hover:-translate-y-1 gap-2 uppercase tracking-wide"
                 >
                     Contactar Ahora
                     <MessageSquareText className="w-6 h-6" />
@@ -314,8 +371,8 @@ export default function Products() {
                   © 2025 Fernando González Tolentino. Todos los derechos reservados.
                 </p>
                 <div className="flex justify-center gap-6">
-                    <Link href="/" className="text-gray-500 hover:text-[#FD6A02] text-sm">Inicio</Link>
-                    <Link href="/interest" className="text-gray-500 hover:text-[#FD6A02] text-sm">Contacto</Link>
+                    <Link href="/" className="text-gray-500 hover:text-accent text-sm">Inicio</Link>
+                    <Link href="/interest" className="text-gray-500 hover:text-accent text-sm">Contacto</Link>
                 </div>
             </div>
         </footer>

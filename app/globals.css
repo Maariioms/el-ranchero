@@ -1,8 +1,44 @@
 @import "tailwindcss";
 
+/*
+ * El Ranchero es un sitio dark-only por decisión de marca (brasas/carbón),
+ * no por accidente del boilerplate. color-scheme: dark hace que controles
+ * nativos del navegador (select, date picker, scrollbar) hereden ese mismo
+ * tema en vez de salir con el estilo claro del sistema operativo.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
+
+  /* --- Color: superficie y texto --- */
+  --c-bg: #0a0a0a;
+  --c-surface: #111111;
+  --c-surface-raised: #1a1a1a;
+  --c-border: rgba(255, 255, 255, 0.1);
+  --c-border-strong: rgba(255, 255, 255, 0.2);
+  --c-text: #ffffff;
+  --c-text-2: #9ca3af;
+  --c-text-3: #6b7280;
+
+  /* --- Color: marca --- */
+  --c-accent: #fd6a02;
+  --c-accent-hover: #e55a00;
+  --c-gold: #ffd700;
+
+  /* --- Color: semántico (separado del accent, ver SKILL.md §1) --- */
+  --c-danger: #d32f2f;
+  --c-danger-hover: #c62828;
+  --c-warning: #facc15;
+
+  --background: var(--c-bg);
+  --foreground: var(--c-text);
+
+  /* --- Motion: seis tokens, reusados en todo el sitio (ver SKILL.md §4) --- */
+  --ease-io: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-morph: cubic-bezier(0.77, 0, 0.175, 1);
+  --dur-press: 120ms;
+  --dur-rapido: 180ms;
+  --dur-modal: 240ms;
+  --stagger: 50ms;
 }
 
 @theme inline {
@@ -10,19 +46,85 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-bg: var(--c-bg);
+  --color-surface: var(--c-surface);
+  --color-surface-raised: var(--c-surface-raised);
+  --color-border: var(--c-border);
+  --color-border-strong: var(--c-border-strong);
+  --color-text-2: var(--c-text-2);
+  --color-text-3: var(--c-text-3);
+
+  --color-accent: var(--c-accent);
+  --color-accent-hover: var(--c-accent-hover);
+  --color-gold: var(--c-gold);
+  --color-danger: var(--c-danger);
+  --color-danger-hover: var(--c-danger-hover);
+  --color-warning: var(--c-warning);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Anillo de foco consistente en todo el sitio — solo aparece con teclado */
+:focus-visible {
+  outline: 2px solid var(--c-accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Feedback de press para CTAs primarios (SKILL.md §4 / frontend-library §3) */
+.btn-press {
+  transition: transform var(--dur-press) var(--ease-io);
+}
+.btn-press:active {
+  transform: scale(0.97);
+}
+
+/* Skeleton shimmer para estados de carga con forma predecible */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--c-surface) 25%,
+    var(--c-border-strong) 37%,
+    var(--c-surface) 63%
+  );
+  background-size: 400% 100%;
+  animation: skeleton-shimmer 1.4s ease infinite;
+}
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Entrada de modal/panel sin librería (frontend-library.md §4) */
+.modal-in {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: opacity var(--dur-modal) var(--ease-io),
+    transform var(--dur-modal) var(--ease-io);
+}
+@starting-style {
+  .modal-in {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
 }
 
 @keyframes fadeInDown {

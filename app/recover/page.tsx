@@ -63,21 +63,21 @@ export default function RecoverPass() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden font-sans selection:bg-[#FD6A02] selection:text-white">
-      
+    <div className="min-h-screen bg-bg flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden font-sans selection:bg-accent selection:text-white">
+
       {/* Luces de fondo */}
-      <div className="absolute inset-0 bg-linear-to-br from-[#D32F2F]/10 via-[#0A0A0A] to-[#0A0A0A]"></div>
-      <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#FD6A02]/5 rounded-full blur-[100px] pointer-events-none"></div>
+      <div className="absolute inset-0 bg-linear-to-br from-danger/10 via-bg to-bg"></div>
+      <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-accent/5 rounded-full blur-[100px] pointer-events-none"></div>
 
       <div className="max-w-md w-full mx-auto relative z-10">
         
         {/* LOGO SUPERIOR */}
         <div className="text-center mb-8">
            <div className="mx-auto h-16 w-16 rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(253,106,2,0.4)] mb-4">
-                <KeyRound className="h-8 w-8 text-[#FD6A02]" />
+                <KeyRound className="h-8 w-8 text-accent" />
            </div>
            <h2 className="text-3xl font-black text-white uppercase tracking-tight">
-             Recuperar <span className="text-[#FD6A02]">Acceso</span>
+             Recuperar <span className="text-accent">Acceso</span>
            </h2>
            <p className="mt-2 text-sm text-gray-400">
              {step === 1 ? 'Ingresa tu correo para recibir un código' : 'Define tu nueva contraseña'}
@@ -85,8 +85,8 @@ export default function RecoverPass() {
         </div>
 
         {/* CAJA DEL FORMULARIO */}
-        <div className="bg-[#111] border border-white/10 rounded-2xl p-8 shadow-2xl backdrop-blur-sm">
-          
+        <div className="bg-surface border border-white/10 rounded-2xl p-8 shadow-2xl backdrop-blur-sm">
+
           {/* --- PASO 1: SOLICITAR CÓDIGO --- */}
           {step === 1 && (
             <form className="space-y-6" onSubmit={handleSendCode}>
@@ -104,7 +104,7 @@ export default function RecoverPass() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="ejemplo@empresa.com"
-                    className="block w-full pl-10 pr-3 py-3 border border-white/10 rounded-lg bg-[#0A0A0A] text-white placeholder-gray-600 focus:outline-none focus:border-[#FD6A02] focus:ring-1 focus:ring-[#FD6A02] text-sm transition-colors"
+                    className="block w-full pl-10 pr-3 py-3 border border-white/10 rounded-lg bg-bg text-white placeholder-gray-600 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent text-sm transition-colors"
                   />
                 </div>
               </div>
@@ -112,7 +112,7 @@ export default function RecoverPass() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-bold rounded-lg text-white bg-linear-to-r from-[#FD6A02] to-[#D32F2F] hover:from-[#e55a00] hover:to-[#c62828] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FD6A02] focus:ring-offset-[#0A0A0A] disabled:opacity-70 disabled:cursor-not-allowed transition-all transform hover:scale-[1.02] uppercase tracking-wide shadow-lg shadow-[#FD6A02]/20"
+                className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-bold rounded-lg text-white bg-linear-to-r from-accent to-danger hover:from-accent-hover hover:to-danger-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent focus:ring-offset-bg disabled:opacity-70 disabled:cursor-not-allowed transition-all transform hover:scale-[1.02] uppercase tracking-wide shadow-lg shadow-accent/20"
               >
                  {isLoading ? (
                   <span className="flex items-center gap-2">
@@ -135,7 +135,7 @@ export default function RecoverPass() {
                     rel="noopener noreferrer"
                     className="w-full flex items-center justify-center py-2 px-4 border border-white/10 rounded-lg text-xs font-medium text-gray-300 hover:bg-white/5 hover:text-white transition-colors cursor-pointer"
                 >
-                    <HelpCircle className="w-4 h-4 mr-2 text-[#FD6A02]" />
+                    <HelpCircle className="w-4 h-4 mr-2 text-accent" />
                     Contactar Soporte Manual
                 </a>
               </div>
@@ -160,7 +160,7 @@ export default function RecoverPass() {
                       value={code}
                       onChange={(e) => setCode(e.target.value)}
                       placeholder="Ej. 123456"
-                      className="block w-full pl-10 pr-3 py-3 border border-white/10 rounded-lg bg-[#0A0A0A] text-white placeholder-gray-600 focus:outline-none focus:border-[#FD6A02] focus:ring-1 focus:ring-[#FD6A02] text-sm transition-colors tracking-[0.5em] font-mono text-center"
+                      className="block w-full pl-10 pr-3 py-3 border border-white/10 rounded-lg bg-bg text-white placeholder-gray-600 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent text-sm transition-colors tracking-[0.5em] font-mono text-center"
                       maxLength={6}
                     />
                   </div>
@@ -180,7 +180,7 @@ export default function RecoverPass() {
                       value={newPassword}
                       onChange={(e) => setNewPassword(e.target.value)}
                       placeholder="Mínimo 8 caracteres"
-                      className="block w-full pl-10 pr-10 py-3 border border-white/10 rounded-lg bg-[#0A0A0A] text-white placeholder-gray-600 focus:outline-none focus:border-[#FD6A02] focus:ring-1 focus:ring-[#FD6A02] text-sm transition-colors"
+                      className="block w-full pl-10 pr-10 py-3 border border-white/10 rounded-lg bg-bg text-white placeholder-gray-600 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent text-sm transition-colors"
                     />
                      <button
                         type="button"
@@ -195,7 +195,7 @@ export default function RecoverPass() {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-bold rounded-lg text-white bg-linear-to-r from-[#FD6A02] to-[#D32F2F] hover:from-[#e55a00] hover:to-[#c62828] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FD6A02] focus:ring-offset-[#0A0A0A] disabled:opacity-70 disabled:cursor-not-allowed transition-all transform hover:scale-[1.02] uppercase tracking-wide shadow-lg shadow-[#FD6A02]/20"
+                  className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-bold rounded-lg text-white bg-linear-to-r from-accent to-danger hover:from-accent-hover hover:to-danger-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent focus:ring-offset-bg disabled:opacity-70 disabled:cursor-not-allowed transition-all transform hover:scale-[1.02] uppercase tracking-wide shadow-lg shadow-accent/20"
                 >
                    {isLoading ? (
                     <span className="flex items-center gap-2">
@@ -210,7 +210,7 @@ export default function RecoverPass() {
                     <button 
                         type="button"
                         onClick={() => { setStep(1); setError(''); setCode(''); }}
-                        className="text-xs text-gray-500 hover:text-[#FD6A02] transition-colors cursor-pointer"
+                        className="text-xs text-gray-500 hover:text-accent transition-colors cursor-pointer"
                     >
                         ¿Código incorrecto? Reenviar
                     </button>
@@ -238,7 +238,7 @@ export default function RecoverPass() {
 
         {/* VOLVER AL LOGIN */}
         <div className="mt-8 text-center">
-            <Link href="/login" className="inline-flex items-center text-gray-500 hover:text-[#FD6A02] transition-colors text-sm font-medium">
+            <Link href="/login" className="inline-flex items-center text-gray-500 hover:text-accent transition-colors text-sm font-medium">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Volver al inicio de sesión
             </Link>

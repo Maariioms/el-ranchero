@@ -95,7 +95,7 @@ export default function MapPicker({ onLocationSelect, externalCoords }: MapPicke
       </MapContainer>
 
       <div className="absolute bottom-2 left-2 bg-black/80 text-white text-[10px] px-2 py-1 rounded z-1000 pointer-events-none flex items-center gap-1">
-        <MapPin className="w-3 h-3 text-[#FD6A02]" /> 
+        <MapPin className="w-3 h-3 text-accent" />
         <span>Ajusta el pin si es necesario</span>
       </div>
     </div>
