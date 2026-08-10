@@ -9,7 +9,10 @@ type Message = { role: 'user' | 'assistant'; content: string };
 type ParsedAction =
   | { type: 'nav'; target: 'productos' | 'interest' }
   | { type: 'form'; data: Record<string, string> }
+  | { type: 'options'; choices: string[] }
   | null;
+
+const MAX_OPTIONS = 5;
 
 const WELCOME_SUGGESTIONS = [
   '¿Qué presentaciones manejan?',
@@ -48,6 +51,21 @@ function parseMessageContent(content: string): { text: string; action: ParsedAct
         if (typeof value === 'string' && value.trim()) data[key] = value.trim();
       }
       return { text: content.slice(0, formMatch.index).trimEnd(), action: { type: 'form', data } };
+    } catch {
+      // JSON incompleto o mal formado — cae al caso de abajo (se oculta el fragmento).
+    }
+  }
+
+  const optionsMatch = content.match(/\[\[OPTIONS:(\[[\s\S]*?\])\]\]/);
+  if (optionsMatch) {
+    try {
+      const parsed = JSON.parse(optionsMatch[1]) as unknown;
+      if (Array.isArray(parsed)) {
+        const choices = parsed.filter((c): c is string => typeof c === 'string' && c.trim().length > 0).slice(0, MAX_OPTIONS);
+        if (choices.length > 0) {
+          return { text: content.slice(0, optionsMatch.index).trimEnd(), action: { type: 'options', choices } };
+        }
+      }
     } catch {
       // JSON incompleto o mal formado — cae al caso de abajo (se oculta el fragmento).
     }
@@ -321,6 +339,21 @@ export default function ChatWidget() {
                     >
                       Continuar en el formulario →
                     </Link>
+                  )}
+                  {action?.type === 'options' && (!isStreaming || !isLast) && (
+                    <div className="flex flex-wrap gap-2 max-w-[85%]">
+                      {action.choices.map((choice) => (
+                        <button
+                          key={choice}
+                          type="button"
+                          onClick={() => sendMessage(choice)}
+                          disabled={isStreaming}
+                          className="btn-press text-xs font-bold text-accent hover:text-accent-hover border border-accent/30 hover:border-accent rounded-full px-3 py-2 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                        >
+                          {choice}
+                        </button>
+                      ))}
+                    </div>
                   )}
                 </div>
               );
